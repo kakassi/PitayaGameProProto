@@ -140,3 +140,46 @@ message MapEventInfo {
   int64 start_time = 8; // 开始时间戳
   int64 end_time = 9;   // 结束时间戳
 }
+
+// ==================== AOI 推送 与 订阅接口 ====================
+
+// Subscribe/Unsubscribe 请求响应（客户端显式调用以注册/注销视野订阅）
+message SubscribeAOIRequest {
+  int64 map_id = 1;
+  int32 center_x = 2;
+  int32 center_y = 3;
+  int32 view_w = 4;
+  int32 view_h = 5;
+}
+message SubscribeAOIResponse {
+  types.CommonResp resp = 1;
+}
+
+message UnsubscribeAOIRequest {
+  // 空，从 session 获取 user_id
+}
+message UnsubscribeAOIResponse {
+  types.CommonResp resp = 1;
+}
+
+// VisibleEntity 的 Protobuf 表示（包含完整字段）
+message VisibleEntityProto {
+  string id = 1;
+  int32 entity_type = 2;
+  int32 x = 3;
+  int32 y = 4;
+  int32 width = 5;
+  int32 height = 6;
+  int32 status = 7;
+  string extra = 8; // JSON 或扩展字段
+  int64 last_update = 9;
+}
+
+// AOIUpdatePush - 服务器向客户端推送的 AOI 更新（Full / Delta）
+message AOIUpdatePush {
+  string player_id = 1;
+  bool is_delta = 2;
+  repeated VisibleEntityProto entities = 3; // 全量或新增实体列表
+  repeated string removed_ids = 4;          // 增量中的移除ID列表
+  int64 timestamp = 5;
+}

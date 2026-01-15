@@ -1081,6 +1081,393 @@ func (x *MapEventInfo) GetEndTime() int64 {
 	return 0
 }
 
+// Subscribe/Unsubscribe 请求响应（客户端显式调用以注册/注销视野订阅）
+type SubscribeAOIRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MapId         int64                  `protobuf:"varint,1,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"`
+	CenterX       int32                  `protobuf:"varint,2,opt,name=center_x,json=centerX,proto3" json:"center_x,omitempty"`
+	CenterY       int32                  `protobuf:"varint,3,opt,name=center_y,json=centerY,proto3" json:"center_y,omitempty"`
+	ViewW         int32                  `protobuf:"varint,4,opt,name=view_w,json=viewW,proto3" json:"view_w,omitempty"`
+	ViewH         int32                  `protobuf:"varint,5,opt,name=view_h,json=viewH,proto3" json:"view_h,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeAOIRequest) Reset() {
+	*x = SubscribeAOIRequest{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeAOIRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeAOIRequest) ProtoMessage() {}
+
+func (x *SubscribeAOIRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeAOIRequest.ProtoReflect.Descriptor instead.
+func (*SubscribeAOIRequest) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *SubscribeAOIRequest) GetMapId() int64 {
+	if x != nil {
+		return x.MapId
+	}
+	return 0
+}
+
+func (x *SubscribeAOIRequest) GetCenterX() int32 {
+	if x != nil {
+		return x.CenterX
+	}
+	return 0
+}
+
+func (x *SubscribeAOIRequest) GetCenterY() int32 {
+	if x != nil {
+		return x.CenterY
+	}
+	return 0
+}
+
+func (x *SubscribeAOIRequest) GetViewW() int32 {
+	if x != nil {
+		return x.ViewW
+	}
+	return 0
+}
+
+func (x *SubscribeAOIRequest) GetViewH() int32 {
+	if x != nil {
+		return x.ViewH
+	}
+	return 0
+}
+
+type SubscribeAOIResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SubscribeAOIResponse) Reset() {
+	*x = SubscribeAOIResponse{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SubscribeAOIResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SubscribeAOIResponse) ProtoMessage() {}
+
+func (x *SubscribeAOIResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SubscribeAOIResponse.ProtoReflect.Descriptor instead.
+func (*SubscribeAOIResponse) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *SubscribeAOIResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
+	}
+	return nil
+}
+
+type UnsubscribeAOIRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnsubscribeAOIRequest) Reset() {
+	*x = UnsubscribeAOIRequest{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnsubscribeAOIRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeAOIRequest) ProtoMessage() {}
+
+func (x *UnsubscribeAOIRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeAOIRequest.ProtoReflect.Descriptor instead.
+func (*UnsubscribeAOIRequest) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{20}
+}
+
+type UnsubscribeAOIResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UnsubscribeAOIResponse) Reset() {
+	*x = UnsubscribeAOIResponse{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UnsubscribeAOIResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UnsubscribeAOIResponse) ProtoMessage() {}
+
+func (x *UnsubscribeAOIResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UnsubscribeAOIResponse.ProtoReflect.Descriptor instead.
+func (*UnsubscribeAOIResponse) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *UnsubscribeAOIResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
+	}
+	return nil
+}
+
+// VisibleEntity 的 Protobuf 表示（包含完整字段）
+type VisibleEntityProto struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	EntityType    int32                  `protobuf:"varint,2,opt,name=entity_type,json=entityType,proto3" json:"entity_type,omitempty"`
+	X             int32                  `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`
+	Y             int32                  `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`
+	Width         int32                  `protobuf:"varint,5,opt,name=width,proto3" json:"width,omitempty"`
+	Height        int32                  `protobuf:"varint,6,opt,name=height,proto3" json:"height,omitempty"`
+	Status        int32                  `protobuf:"varint,7,opt,name=status,proto3" json:"status,omitempty"`
+	Extra         string                 `protobuf:"bytes,8,opt,name=extra,proto3" json:"extra,omitempty"` // JSON 或扩展字段
+	LastUpdate    int64                  `protobuf:"varint,9,opt,name=last_update,json=lastUpdate,proto3" json:"last_update,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *VisibleEntityProto) Reset() {
+	*x = VisibleEntityProto{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[22]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *VisibleEntityProto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*VisibleEntityProto) ProtoMessage() {}
+
+func (x *VisibleEntityProto) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[22]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use VisibleEntityProto.ProtoReflect.Descriptor instead.
+func (*VisibleEntityProto) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *VisibleEntityProto) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *VisibleEntityProto) GetEntityType() int32 {
+	if x != nil {
+		return x.EntityType
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetX() int32 {
+	if x != nil {
+		return x.X
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetY() int32 {
+	if x != nil {
+		return x.Y
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetWidth() int32 {
+	if x != nil {
+		return x.Width
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetHeight() int32 {
+	if x != nil {
+		return x.Height
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
+func (x *VisibleEntityProto) GetExtra() string {
+	if x != nil {
+		return x.Extra
+	}
+	return ""
+}
+
+func (x *VisibleEntityProto) GetLastUpdate() int64 {
+	if x != nil {
+		return x.LastUpdate
+	}
+	return 0
+}
+
+// AOIUpdatePush - 服务器向客户端推送的 AOI 更新（Full / Delta）
+type AOIUpdatePush struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
+	IsDelta       bool                   `protobuf:"varint,2,opt,name=is_delta,json=isDelta,proto3" json:"is_delta,omitempty"`
+	Entities      []*VisibleEntityProto  `protobuf:"bytes,3,rep,name=entities,proto3" json:"entities,omitempty"`                       // 全量或新增实体列表
+	RemovedIds    []string               `protobuf:"bytes,4,rep,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的移除ID列表
+	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AOIUpdatePush) Reset() {
+	*x = AOIUpdatePush{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[23]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AOIUpdatePush) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AOIUpdatePush) ProtoMessage() {}
+
+func (x *AOIUpdatePush) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[23]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AOIUpdatePush.ProtoReflect.Descriptor instead.
+func (*AOIUpdatePush) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *AOIUpdatePush) GetPlayerId() string {
+	if x != nil {
+		return x.PlayerId
+	}
+	return ""
+}
+
+func (x *AOIUpdatePush) GetIsDelta() bool {
+	if x != nil {
+		return x.IsDelta
+	}
+	return false
+}
+
+func (x *AOIUpdatePush) GetEntities() []*VisibleEntityProto {
+	if x != nil {
+		return x.Entities
+	}
+	return nil
+}
+
+func (x *AOIUpdatePush) GetRemovedIds() []string {
+	if x != nil {
+		return x.RemovedIds
+	}
+	return nil
+}
+
+func (x *AOIUpdatePush) GetTimestamp() int64 {
+	if x != nil {
+		return x.Timestamp
+	}
+	return 0
+}
+
 var File_mapsvr_bigmap_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmap_proto_rawDesc = "" +
@@ -1154,7 +1541,37 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x04data\x18\a \x01(\tR\x04data\x12\x1d\n" +
 	"\n" +
 	"start_time\x18\b \x01(\x03R\tstartTime\x12\x19\n" +
-	"\bend_time\x18\t \x01(\x03R\aendTimeB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\bend_time\x18\t \x01(\x03R\aendTime\"\x90\x01\n" +
+	"\x13SubscribeAOIRequest\x12\x15\n" +
+	"\x06map_id\x18\x01 \x01(\x03R\x05mapId\x12\x19\n" +
+	"\bcenter_x\x18\x02 \x01(\x05R\acenterX\x12\x19\n" +
+	"\bcenter_y\x18\x03 \x01(\x05R\acenterY\x12\x15\n" +
+	"\x06view_w\x18\x04 \x01(\x05R\x05viewW\x12\x15\n" +
+	"\x06view_h\x18\x05 \x01(\x05R\x05viewH\"=\n" +
+	"\x14SubscribeAOIResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\x17\n" +
+	"\x15UnsubscribeAOIRequest\"?\n" +
+	"\x16UnsubscribeAOIResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\xde\x01\n" +
+	"\x12VisibleEntityProto\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1f\n" +
+	"\ventity_type\x18\x02 \x01(\x05R\n" +
+	"entityType\x12\f\n" +
+	"\x01x\x18\x03 \x01(\x05R\x01x\x12\f\n" +
+	"\x01y\x18\x04 \x01(\x05R\x01y\x12\x14\n" +
+	"\x05width\x18\x05 \x01(\x05R\x05width\x12\x16\n" +
+	"\x06height\x18\x06 \x01(\x05R\x06height\x12\x16\n" +
+	"\x06status\x18\a \x01(\x05R\x06status\x12\x14\n" +
+	"\x05extra\x18\b \x01(\tR\x05extra\x12\x1f\n" +
+	"\vlast_update\x18\t \x01(\x03R\n" +
+	"lastUpdate\"\xbe\x01\n" +
+	"\rAOIUpdatePush\x12\x1b\n" +
+	"\tplayer_id\x18\x01 \x01(\tR\bplayerId\x12\x19\n" +
+	"\bis_delta\x18\x02 \x01(\bR\aisDelta\x126\n" +
+	"\bentities\x18\x03 \x03(\v2\x1a.mapsvr.VisibleEntityProtoR\bentities\x12\x1f\n" +
+	"\vremoved_ids\x18\x04 \x03(\tR\n" +
+	"removedIds\x12\x1c\n" +
+	"\ttimestamp\x18\x05 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
@@ -1168,7 +1585,7 @@ func file_mapsvr_bigmap_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmap_proto_rawDescData
 }
 
-var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*GetMapInfoRequest)(nil),         // 0: mapsvr.GetMapInfoRequest
 	(*GetMapInfoResponse)(nil),        // 1: mapsvr.GetMapInfoResponse
@@ -1188,25 +1605,34 @@ var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*ProcessMapEventRequest)(nil),    // 15: mapsvr.ProcessMapEventRequest
 	(*ProcessMapEventResponse)(nil),   // 16: mapsvr.ProcessMapEventResponse
 	(*MapEventInfo)(nil),              // 17: mapsvr.MapEventInfo
-	(*types.CommonResp)(nil),          // 18: types.CommonResp
+	(*SubscribeAOIRequest)(nil),       // 18: mapsvr.SubscribeAOIRequest
+	(*SubscribeAOIResponse)(nil),      // 19: mapsvr.SubscribeAOIResponse
+	(*UnsubscribeAOIRequest)(nil),     // 20: mapsvr.UnsubscribeAOIRequest
+	(*UnsubscribeAOIResponse)(nil),    // 21: mapsvr.UnsubscribeAOIResponse
+	(*VisibleEntityProto)(nil),        // 22: mapsvr.VisibleEntityProto
+	(*AOIUpdatePush)(nil),             // 23: mapsvr.AOIUpdatePush
+	(*types.CommonResp)(nil),          // 24: types.CommonResp
 }
 var file_mapsvr_bigmap_proto_depIdxs = []int32{
-	18, // 0: mapsvr.GetMapInfoResponse.resp:type_name -> types.CommonResp
+	24, // 0: mapsvr.GetMapInfoResponse.resp:type_name -> types.CommonResp
 	2,  // 1: mapsvr.GetMapInfoResponse.map_info:type_name -> mapsvr.MapInfo
-	18, // 2: mapsvr.GetPlayerPositionResponse.resp:type_name -> types.CommonResp
+	24, // 2: mapsvr.GetPlayerPositionResponse.resp:type_name -> types.CommonResp
 	5,  // 3: mapsvr.GetPlayerPositionResponse.position:type_name -> mapsvr.PlayerPosition
-	18, // 4: mapsvr.MovePlayerResponse.resp:type_name -> types.CommonResp
-	18, // 5: mapsvr.GetVisibleAreaResponse.resp:type_name -> types.CommonResp
+	24, // 4: mapsvr.MovePlayerResponse.resp:type_name -> types.CommonResp
+	24, // 5: mapsvr.GetVisibleAreaResponse.resp:type_name -> types.CommonResp
 	10, // 6: mapsvr.GetVisibleAreaResponse.tiles:type_name -> mapsvr.TileInfo
-	18, // 7: mapsvr.ClaimTerritoryResponse.resp:type_name -> types.CommonResp
-	18, // 8: mapsvr.GetActiveEventsResponse.resp:type_name -> types.CommonResp
+	24, // 7: mapsvr.ClaimTerritoryResponse.resp:type_name -> types.CommonResp
+	24, // 8: mapsvr.GetActiveEventsResponse.resp:type_name -> types.CommonResp
 	17, // 9: mapsvr.GetActiveEventsResponse.events:type_name -> mapsvr.MapEventInfo
-	18, // 10: mapsvr.ProcessMapEventResponse.resp:type_name -> types.CommonResp
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	24, // 10: mapsvr.ProcessMapEventResponse.resp:type_name -> types.CommonResp
+	24, // 11: mapsvr.SubscribeAOIResponse.resp:type_name -> types.CommonResp
+	24, // 12: mapsvr.UnsubscribeAOIResponse.resp:type_name -> types.CommonResp
+	22, // 13: mapsvr.AOIUpdatePush.entities:type_name -> mapsvr.VisibleEntityProto
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmap_proto_init() }
@@ -1220,7 +1646,7 @@ func file_mapsvr_bigmap_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmap_proto_rawDesc), len(file_mapsvr_bigmap_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
