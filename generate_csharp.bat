@@ -8,8 +8,8 @@ set PROTO_DIR=%SCRIPT_DIR%proto
 set OUT_DIR=%SCRIPT_DIR%pb\csharp
 
 REM Unity project paths
-set UNITY_PROTOS_ROOT=D:\Company\UnityPitayaGamePro\Assets\Scripts\Protocol\protos
-set UNITY_PROTO_DIR=%UNITY_PROTOS_ROOT%\pb\csharp
+set UNITY_PROTOS_ROOT=%SCRIPT_DIR%%..\PitayaGameProProto
+set UNITY_PROTO_DIR=%SCRIPT_DIR%%..\RemiClientSLG\Unity\Assets\Scripts\Hotfix\Network\Protocol\protos\pb\csharp
 set UNITY_PROTO_SRC_DIR=%UNITY_PROTOS_ROOT%\proto
 
 echo ==========================================
@@ -100,6 +100,9 @@ echo   Copying to Unity Project
 echo ==========================================
 echo Target pb/csharp: %UNITY_PROTO_DIR%
 echo Target proto:     %UNITY_PROTO_SRC_DIR%
+echo PROTO_DIR:        %PROTO_DIR%
+echo UNITY_PROTO_DIR:  %UNITY_PROTO_DIR%
+echo UNITY_PROTOS_ROOT: %UNITY_PROTOS_ROOT%
 echo.
 
 REM Check if Unity project directory exists
@@ -122,17 +125,17 @@ if exist "%UNITY_PROTO_DIR%" (
     )
 )
 
-REM Clean target proto directory
-if exist "%UNITY_PROTO_SRC_DIR%" (
-    echo Cleaning proto directory...
-    rd /s /q "%UNITY_PROTO_SRC_DIR%" 2>nul
-    if errorlevel 1 (
-        echo [WARNING] Failed to clean proto directory, it may be in use
-        echo Attempting to continue...
-    ) else (
-        echo [OK] proto directory cleaned
-    )
-)
+@REM REM Clean target proto directory
+@REM if exist "%UNITY_PROTO_SRC_DIR%" (
+@REM     echo Cleaning proto directory...
+@REM     rd /s /q "%UNITY_PROTO_SRC_DIR%" 2>nul
+@REM     if errorlevel 1 (
+@REM         echo [WARNING] Failed to clean proto directory, it may be in use
+@REM         echo Attempting to continue...
+@REM     ) else (
+@REM         echo [OK] proto directory cleaned
+@REM     )
+@REM )
 
 REM Create target directories
 mkdir "%UNITY_PROTO_DIR%" 2>nul
@@ -149,7 +152,7 @@ echo [OK] pb/csharp files copied successfully
 
 REM Copy proto files (source .proto files)
 echo Copying proto files...
-xcopy "%PROTO_DIR%\*" "%UNITY_PROTO_SRC_DIR%\" /E /I /Y /Q
+xcopy "%PROTO_DIR%\*" "%UNITY_PROTO_DIR%\" /E /I /Y /Q
 if errorlevel 1 (
     echo [ERROR] Failed to copy proto files to Unity project
     goto :end
