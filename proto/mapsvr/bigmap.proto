@@ -3,183 +3,65 @@ syntax = "proto3";
 package mapsvr;
 option go_package = "pitaya-game/protos/protobuf/pb/golang/mapsvr";
 
+import "google/protobuf/any.proto";
 // 导入公共类型
 import "common/types/types.proto";
 import "common/errors/errors.proto";
 
-// ==================== 地图信息 ====================
-
-// 获取地图信息请求
-message GetMapInfoRequest {
-  int64 map_id = 1; // 地图ID
+message Position {
+  int32 x = 1;
+  int32 y = 2;
 }
 
-// 获取地图信息响应
-message GetMapInfoResponse {
-  types.CommonResp resp = 1;
-  MapInfo map_info = 2;
+message Size {
+  int32 w = 1;
+  int32 h = 2;
 }
 
-// 地图信息
-message MapInfo {
-  int64 id = 1;          // 地图ID
-  string name = 2;       // 地图名称
-  int32 width = 3;       // 地图宽度
-  int32 height = 4;      // 地图高度
-  string description = 5; // 地图描述
-  bool is_active = 6;    // 是否激活
+message EnterMapRequest {
+  int32 layer = 1;
+  // 视野中心点格子的左下角坐标
+  Position position = 2;
+  // 1.5屏幕格子数
+  Size size = 3;
 }
-
-// ==================== 玩家位置 ====================
-
-// 获取玩家位置请求
-message GetPlayerPositionRequest {
-  // 无参数，从session获取user_id
-}
-
-// 获取玩家位置响应
-message GetPlayerPositionResponse {
-  types.CommonResp resp = 1;
-  PlayerPosition position = 2;
-}
-
-// 玩家位置信息
-message PlayerPosition {
-  string user_id = 1; // 用户ID
-  int64 map_id = 2;   // 地图ID
-  int32 x = 3;        // X坐标
-  int32 y = 4;        // Y坐标
-  int32 status = 5;   // 状态：1正常、2移动中、3战斗中
-  int64 last_move = 6; // 最后移动时间戳
-}
-
-// ==================== 玩家移动 ====================
-
-// 移动玩家请求
-message MovePlayerRequest {
-  int32 target_x = 1; // 目标X坐标
-  int32 target_y = 2; // 目标Y坐标
-}
-
-// 移动玩家响应
-message MovePlayerResponse {
+message EnterMapResponse {
   types.CommonResp resp = 1;
 }
 
-// ==================== 可见区域 ====================
-
-// 获取可见区域请求
-message GetVisibleAreaRequest {
-  int64 map_id = 1;       // 地图ID
-  int32 vision_radius = 2; // 视野半径
+message MoveViewRequest {
+  int32 layer = 1;
+  Position center = 2;
+  Size size = 3;
 }
-
-// 获取可见区域响应
-message GetVisibleAreaResponse {
-  types.CommonResp resp = 1;
-  repeated TileInfo tiles = 2; // 可见格子列表
-}
-
-// 格子信息
-message TileInfo {
-  int64 id = 1;       // 格子ID
-  int64 map_id = 2;   // 地图ID
-  int32 x = 3;        // X坐标
-  int32 y = 4;        // Y坐标
-  int32 terrain = 5;  // 地形类型：0平原、1森林、2山地、3水域等
-  int32 resource = 6; // 资源类型：0无、1木材、2矿石、3食物等
-  int64 owner_id = 7; // 占领者ID，0表示无人占领
-}
-
-// ==================== 领土占领 ====================
-
-// 申请占领领土请求
-message ClaimTerritoryRequest {
-  int64 map_id = 1; // 地图ID
-  int32 x = 2;      // X坐标
-  int32 y = 3;      // Y坐标
-}
-
-// 申请占领领土响应
-message ClaimTerritoryResponse {
+message MoveViewResponse {
   types.CommonResp resp = 1;
 }
 
-// ==================== 地图事件 ====================
-
-// 获取活跃地图事件请求
-message GetActiveEventsRequest {
-  int64 map_id = 1; // 地图ID
+message LeaveMapRequest {
 }
-
-// 获取活跃地图事件响应
-message GetActiveEventsResponse {
-  types.CommonResp resp = 1;
-  repeated MapEventInfo events = 2; // 事件列表
-}
-
-// 处理地图事件请求
-message ProcessMapEventRequest {
-  int64 event_id = 1; // 事件ID
-}
-
-// 处理地图事件响应
-message ProcessMapEventResponse {
+message LeaveMapResponse {
   types.CommonResp resp = 1;
 }
 
-// 地图事件信息
-message MapEventInfo {
-  int64 id = 1;         // 事件ID
-  int64 map_id = 2;     // 地图ID
-  int32 x = 3;          // X坐标
-  int32 y = 4;          // Y坐标
-  int32 event_type = 5; // 事件类型：1资源刷新、2怪物出现、3宝箱等
-  int32 status = 6;     // 状态：1活跃、2已处理
-  string data = 7;      // 事件数据JSON
-  int64 start_time = 8; // 开始时间戳
-  int64 end_time = 9;   // 结束时间戳
+message Entity {
+  int32 id = 1;
+  int32 type = 2;
+  google.protobuf.Any data = 3;
+  Position pos = 4;
+  int64 version = 5;
+  int32 gridId = 6;
 }
 
-// ==================== AOI 推送 与 订阅接口 ====================
-
-// Subscribe/Unsubscribe 请求响应（客户端显式调用以注册/注销视野订阅）
-message SubscribeAOIRequest {
-  int64 map_id = 1;
-  int32 center_x = 2;
-  int32 center_y = 3;
-  int32 view_w = 4;
-  int32 view_h = 5;
-}
-message SubscribeAOIResponse {
-  types.CommonResp resp = 1;
+message Grid {
+  int32 id = 1;
+  Position pos = 2;
+  int64 version = 5;
+  int32 entityId = 6;
 }
 
-message UnsubscribeAOIRequest {
-  // 空，从 session 获取 user_id
-}
-message UnsubscribeAOIResponse {
-  types.CommonResp resp = 1;
-}
-
-// VisibleEntity 的 Protobuf 表示（包含完整字段）
-message VisibleEntityProto {
-  string id = 1;
-  int32 entity_type = 2;
-  int32 x = 3;
-  int32 y = 4;
-  int32 width = 5;
-  int32 height = 6;
-  int32 status = 7;
-  string extra = 8; // JSON 或扩展字段
-  int64 last_update = 9;
-}
-
-// AOIUpdatePush - 服务器向客户端推送的 AOI 更新（Full / Delta）
-message AOIUpdatePush {
-  string player_id = 1;
-  bool is_delta = 2;
-  repeated VisibleEntityProto entities = 3; // 全量或新增实体列表
-  repeated string removed_ids = 4;          // 增量中的移除ID列表
-  int64 timestamp = 5;
+message AOIUpdateNotify {
+  repeated Entity entities = 1; // 全量或新增实体列表
+  repeated int32 removed_ids = 2; // 增量中的移除ID列表
+  int64 timestamp = 4;
 }
