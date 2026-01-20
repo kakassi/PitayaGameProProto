@@ -1081,186 +1081,6 @@ func (x *MapEventInfo) GetEndTime() int64 {
 	return 0
 }
 
-type TestBattleRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *TestBattleRequest) Reset() {
-	*x = TestBattleRequest{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[18]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *TestBattleRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*TestBattleRequest) ProtoMessage() {}
-
-func (x *TestBattleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[18]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use TestBattleRequest.ProtoReflect.Descriptor instead.
-func (*TestBattleRequest) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{18}
-}
-
-type FighterInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"` //name ?
-	X             int32                  `protobuf:"varint,2,opt,name=x,proto3" json:"x,omitempty"`                              // X坐标
-	Y             int32                  `protobuf:"varint,3,opt,name=y,proto3" json:"y,omitempty"`                              // Y坐标
-	SoldierCount  int32                  `protobuf:"varint,4,opt,name=soldier_count,json=soldierCount,proto3" json:"soldier_count,omitempty"`
-	DeathCount    int32                  `protobuf:"varint,5,opt,name=death_count,json=deathCount,proto3" json:"death_count,omitempty"`
-	LiveCount     int32                  `protobuf:"varint,6,opt,name=live_count,json=liveCount,proto3" json:"live_count,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *FighterInfo) Reset() {
-	*x = FighterInfo{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[19]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *FighterInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*FighterInfo) ProtoMessage() {}
-
-func (x *FighterInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[19]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use FighterInfo.ProtoReflect.Descriptor instead.
-func (*FighterInfo) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{19}
-}
-
-func (x *FighterInfo) GetPlayerId() string {
-	if x != nil {
-		return x.PlayerId
-	}
-	return ""
-}
-
-func (x *FighterInfo) GetX() int32 {
-	if x != nil {
-		return x.X
-	}
-	return 0
-}
-
-func (x *FighterInfo) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-func (x *FighterInfo) GetSoldierCount() int32 {
-	if x != nil {
-		return x.SoldierCount
-	}
-	return 0
-}
-
-func (x *FighterInfo) GetDeathCount() int32 {
-	if x != nil {
-		return x.DeathCount
-	}
-	return 0
-}
-
-func (x *FighterInfo) GetLiveCount() int32 {
-	if x != nil {
-		return x.LiveCount
-	}
-	return 0
-}
-
-type TestBattleResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	Attacker      *FighterInfo           `protobuf:"bytes,2,opt,name=attacker,proto3" json:"attacker,omitempty"`
-	Defencer      *FighterInfo           `protobuf:"bytes,3,opt,name=defencer,proto3" json:"defencer,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *TestBattleResponse) Reset() {
-	*x = TestBattleResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[20]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *TestBattleResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*TestBattleResponse) ProtoMessage() {}
-
-func (x *TestBattleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[20]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use TestBattleResponse.ProtoReflect.Descriptor instead.
-func (*TestBattleResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{20}
-}
-
-func (x *TestBattleResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-func (x *TestBattleResponse) GetAttacker() *FighterInfo {
-	if x != nil {
-		return x.Attacker
-	}
-	return nil
-}
-
-func (x *TestBattleResponse) GetDefencer() *FighterInfo {
-	if x != nil {
-		return x.Defencer
-	}
-	return nil
-}
-
 var File_mapsvr_bigmap_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmap_proto_rawDesc = "" +
@@ -1334,21 +1154,7 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x04data\x18\a \x01(\tR\x04data\x12\x1d\n" +
 	"\n" +
 	"start_time\x18\b \x01(\x03R\tstartTime\x12\x19\n" +
-	"\bend_time\x18\t \x01(\x03R\aendTime\"\x13\n" +
-	"\x11TestBattleRequest\"\xab\x01\n" +
-	"\vFighterInfo\x12\x1b\n" +
-	"\tplayer_id\x18\x01 \x01(\tR\bplayerId\x12\f\n" +
-	"\x01x\x18\x02 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x03 \x01(\x05R\x01y\x12#\n" +
-	"\rsoldier_count\x18\x04 \x01(\x05R\fsoldierCount\x12\x1f\n" +
-	"\vdeath_count\x18\x05 \x01(\x05R\n" +
-	"deathCount\x12\x1d\n" +
-	"\n" +
-	"live_count\x18\x06 \x01(\x05R\tliveCount\"\x9d\x01\n" +
-	"\x12TestBattleResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12/\n" +
-	"\battacker\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
-	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencerB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\bend_time\x18\t \x01(\x03R\aendTimeB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
@@ -1362,7 +1168,7 @@ func file_mapsvr_bigmap_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmap_proto_rawDescData
 }
 
-var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*GetMapInfoRequest)(nil),         // 0: mapsvr.GetMapInfoRequest
 	(*GetMapInfoResponse)(nil),        // 1: mapsvr.GetMapInfoResponse
@@ -1382,31 +1188,25 @@ var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*ProcessMapEventRequest)(nil),    // 15: mapsvr.ProcessMapEventRequest
 	(*ProcessMapEventResponse)(nil),   // 16: mapsvr.ProcessMapEventResponse
 	(*MapEventInfo)(nil),              // 17: mapsvr.MapEventInfo
-	(*TestBattleRequest)(nil),         // 18: mapsvr.TestBattleRequest
-	(*FighterInfo)(nil),               // 19: mapsvr.FighterInfo
-	(*TestBattleResponse)(nil),        // 20: mapsvr.TestBattleResponse
-	(*types.CommonResp)(nil),          // 21: types.CommonResp
+	(*types.CommonResp)(nil),          // 18: types.CommonResp
 }
 var file_mapsvr_bigmap_proto_depIdxs = []int32{
-	21, // 0: mapsvr.GetMapInfoResponse.resp:type_name -> types.CommonResp
+	18, // 0: mapsvr.GetMapInfoResponse.resp:type_name -> types.CommonResp
 	2,  // 1: mapsvr.GetMapInfoResponse.map_info:type_name -> mapsvr.MapInfo
-	21, // 2: mapsvr.GetPlayerPositionResponse.resp:type_name -> types.CommonResp
+	18, // 2: mapsvr.GetPlayerPositionResponse.resp:type_name -> types.CommonResp
 	5,  // 3: mapsvr.GetPlayerPositionResponse.position:type_name -> mapsvr.PlayerPosition
-	21, // 4: mapsvr.MovePlayerResponse.resp:type_name -> types.CommonResp
-	21, // 5: mapsvr.GetVisibleAreaResponse.resp:type_name -> types.CommonResp
+	18, // 4: mapsvr.MovePlayerResponse.resp:type_name -> types.CommonResp
+	18, // 5: mapsvr.GetVisibleAreaResponse.resp:type_name -> types.CommonResp
 	10, // 6: mapsvr.GetVisibleAreaResponse.tiles:type_name -> mapsvr.TileInfo
-	21, // 7: mapsvr.ClaimTerritoryResponse.resp:type_name -> types.CommonResp
-	21, // 8: mapsvr.GetActiveEventsResponse.resp:type_name -> types.CommonResp
+	18, // 7: mapsvr.ClaimTerritoryResponse.resp:type_name -> types.CommonResp
+	18, // 8: mapsvr.GetActiveEventsResponse.resp:type_name -> types.CommonResp
 	17, // 9: mapsvr.GetActiveEventsResponse.events:type_name -> mapsvr.MapEventInfo
-	21, // 10: mapsvr.ProcessMapEventResponse.resp:type_name -> types.CommonResp
-	21, // 11: mapsvr.TestBattleResponse.resp:type_name -> types.CommonResp
-	19, // 12: mapsvr.TestBattleResponse.attacker:type_name -> mapsvr.FighterInfo
-	19, // 13: mapsvr.TestBattleResponse.defencer:type_name -> mapsvr.FighterInfo
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	18, // 10: mapsvr.ProcessMapEventResponse.resp:type_name -> types.CommonResp
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmap_proto_init() }
@@ -1420,7 +1220,7 @@ func file_mapsvr_bigmap_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmap_proto_rawDesc), len(file_mapsvr_bigmap_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   21,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

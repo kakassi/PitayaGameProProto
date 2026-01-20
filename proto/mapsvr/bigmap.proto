@@ -140,29 +140,3 @@ message MapEventInfo {
   int64 start_time = 8; // 开始时间戳
   int64 end_time = 9;   // 结束时间戳
 }
-
-
-message TestBattleRequest {
-
-}
-
-
-// 
-message FighterInfo {
-  string  player_id = 1;  //name ?
-  int32   x = 2;        // X坐标
-  int32   y = 3;        // Y坐标
-
-  int32   soldier_count = 4;
-  int32   death_count = 5;
-  int32   live_count = 6;
-}
-
-
-message TestBattleResponse {
-  types.CommonResp resp = 1;
-
-  FighterInfo attacker = 2;
-  FighterInfo defencer = 3;
-
-}

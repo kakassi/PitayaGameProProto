@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package mapsvr;
+option go_package = "pitaya-game/protos/protobuf/pb/golang/mapsvr";
+
+// 导入公共类型
+import "common/types/types.proto";
+import "common/errors/errors.proto";
+
+
+message BattleRequest {
+
+}
+
+
+// 
+message FighterInfo {
+  string  player_id = 1;  //name ?
+  int32   x = 2;        // X坐标
+  int32   y = 3;        // Y坐标
+
+  int32   soldier_count = 4;
+  int32   death_count = 5;
+  int32   live_count = 6;
+}
+
+
+message BattleResponse {
+  types.CommonResp resp = 1;
+
+  FighterInfo attacker = 2;
+  FighterInfo defencer = 3;
+
+}
