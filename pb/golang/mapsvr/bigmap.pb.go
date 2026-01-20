@@ -9,6 +9,7 @@ package mapsvr
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	anypb "google.golang.org/protobuf/types/known/anypb"
 	_ "pitaya-game/protos/protobuf/pb/golang/common/errors"
 	types "pitaya-game/protos/protobuf/pb/golang/common/types"
 	reflect "reflect"
@@ -23,28 +24,28 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// 获取地图信息请求
-type GetMapInfoRequest struct {
+type Position struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MapId         int64                  `protobuf:"varint,1,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"` // 地图ID
+	X             int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y             int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetMapInfoRequest) Reset() {
-	*x = GetMapInfoRequest{}
+func (x *Position) Reset() {
+	*x = Position{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetMapInfoRequest) String() string {
+func (x *Position) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMapInfoRequest) ProtoMessage() {}
+func (*Position) ProtoMessage() {}
 
-func (x *GetMapInfoRequest) ProtoReflect() protoreflect.Message {
+func (x *Position) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,41 +57,47 @@ func (x *GetMapInfoRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetMapInfoRequest.ProtoReflect.Descriptor instead.
-func (*GetMapInfoRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Position.ProtoReflect.Descriptor instead.
+func (*Position) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetMapInfoRequest) GetMapId() int64 {
+func (x *Position) GetX() int32 {
 	if x != nil {
-		return x.MapId
+		return x.X
 	}
 	return 0
 }
 
-// 获取地图信息响应
-type GetMapInfoResponse struct {
+func (x *Position) GetY() int32 {
+	if x != nil {
+		return x.Y
+	}
+	return 0
+}
+
+type Size struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	MapInfo       *MapInfo               `protobuf:"bytes,2,opt,name=map_info,json=mapInfo,proto3" json:"map_info,omitempty"`
+	W             int32                  `protobuf:"varint,1,opt,name=w,proto3" json:"w,omitempty"`
+	H             int32                  `protobuf:"varint,2,opt,name=h,proto3" json:"h,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetMapInfoResponse) Reset() {
-	*x = GetMapInfoResponse{}
+func (x *Size) Reset() {
+	*x = Size{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetMapInfoResponse) String() string {
+func (x *Size) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetMapInfoResponse) ProtoMessage() {}
+func (*Size) ProtoMessage() {}
 
-func (x *GetMapInfoResponse) ProtoReflect() protoreflect.Message {
+func (x *Size) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -102,52 +109,50 @@ func (x *GetMapInfoResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetMapInfoResponse.ProtoReflect.Descriptor instead.
-func (*GetMapInfoResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use Size.ProtoReflect.Descriptor instead.
+func (*Size) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetMapInfoResponse) GetResp() *types.CommonResp {
+func (x *Size) GetW() int32 {
 	if x != nil {
-		return x.Resp
+		return x.W
 	}
-	return nil
+	return 0
 }
 
-func (x *GetMapInfoResponse) GetMapInfo() *MapInfo {
+func (x *Size) GetH() int32 {
 	if x != nil {
-		return x.MapInfo
+		return x.H
 	}
-	return nil
+	return 0
 }
 
-// 地图信息
-type MapInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                             // 地图ID
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`                          // 地图名称
-	Width         int32                  `protobuf:"varint,3,opt,name=width,proto3" json:"width,omitempty"`                       // 地图宽度
-	Height        int32                  `protobuf:"varint,4,opt,name=height,proto3" json:"height,omitempty"`                     // 地图高度
-	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`            // 地图描述
-	IsActive      bool                   `protobuf:"varint,6,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"` // 是否激活
+type EnterMapRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	Layer int32                  `protobuf:"varint,1,opt,name=layer,proto3" json:"layer,omitempty"`
+	// 视野中心点格子的左下角坐标
+	Position *Position `protobuf:"bytes,2,opt,name=position,proto3" json:"position,omitempty"`
+	// 1.5屏幕格子数
+	Size          *Size `protobuf:"bytes,3,opt,name=size,proto3" json:"size,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *MapInfo) Reset() {
-	*x = MapInfo{}
+func (x *EnterMapRequest) Reset() {
+	*x = EnterMapRequest{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *MapInfo) String() string {
+func (x *EnterMapRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MapInfo) ProtoMessage() {}
+func (*EnterMapRequest) ProtoMessage() {}
 
-func (x *MapInfo) ProtoReflect() protoreflect.Message {
+func (x *EnterMapRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -159,170 +164,157 @@ func (x *MapInfo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MapInfo.ProtoReflect.Descriptor instead.
-func (*MapInfo) Descriptor() ([]byte, []int) {
+// Deprecated: Use EnterMapRequest.ProtoReflect.Descriptor instead.
+func (*EnterMapRequest) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *MapInfo) GetId() int64 {
+func (x *EnterMapRequest) GetLayer() int32 {
 	if x != nil {
-		return x.Id
+		return x.Layer
 	}
 	return 0
 }
 
-func (x *MapInfo) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *MapInfo) GetWidth() int32 {
-	if x != nil {
-		return x.Width
-	}
-	return 0
-}
-
-func (x *MapInfo) GetHeight() int32 {
-	if x != nil {
-		return x.Height
-	}
-	return 0
-}
-
-func (x *MapInfo) GetDescription() string {
-	if x != nil {
-		return x.Description
-	}
-	return ""
-}
-
-func (x *MapInfo) GetIsActive() bool {
-	if x != nil {
-		return x.IsActive
-	}
-	return false
-}
-
-// 获取玩家位置请求
-type GetPlayerPositionRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetPlayerPositionRequest) Reset() {
-	*x = GetPlayerPositionRequest{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetPlayerPositionRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetPlayerPositionRequest) ProtoMessage() {}
-
-func (x *GetPlayerPositionRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetPlayerPositionRequest.ProtoReflect.Descriptor instead.
-func (*GetPlayerPositionRequest) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{3}
-}
-
-// 获取玩家位置响应
-type GetPlayerPositionResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	Position      *PlayerPosition        `protobuf:"bytes,2,opt,name=position,proto3" json:"position,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetPlayerPositionResponse) Reset() {
-	*x = GetPlayerPositionResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetPlayerPositionResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetPlayerPositionResponse) ProtoMessage() {}
-
-func (x *GetPlayerPositionResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetPlayerPositionResponse.ProtoReflect.Descriptor instead.
-func (*GetPlayerPositionResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *GetPlayerPositionResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-func (x *GetPlayerPositionResponse) GetPosition() *PlayerPosition {
+func (x *EnterMapRequest) GetPosition() *Position {
 	if x != nil {
 		return x.Position
 	}
 	return nil
 }
 
-// 玩家位置信息
-type PlayerPosition struct {
+func (x *EnterMapRequest) GetSize() *Size {
+	if x != nil {
+		return x.Size
+	}
+	return nil
+}
+
+type EnterMapResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`        // 用户ID
-	MapId         int64                  `protobuf:"varint,2,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"`          // 地图ID
-	X             int32                  `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`                               // X坐标
-	Y             int32                  `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`                               // Y坐标
-	Status        int32                  `protobuf:"varint,5,opt,name=status,proto3" json:"status,omitempty"`                     // 状态：1正常、2移动中、3战斗中
-	LastMove      int64                  `protobuf:"varint,6,opt,name=last_move,json=lastMove,proto3" json:"last_move,omitempty"` // 最后移动时间戳
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *PlayerPosition) Reset() {
-	*x = PlayerPosition{}
+func (x *EnterMapResponse) Reset() {
+	*x = EnterMapResponse{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EnterMapResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EnterMapResponse) ProtoMessage() {}
+
+func (x *EnterMapResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EnterMapResponse.ProtoReflect.Descriptor instead.
+func (*EnterMapResponse) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *EnterMapResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
+	}
+	return nil
+}
+
+type MoveViewRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Layer         int32                  `protobuf:"varint,1,opt,name=layer,proto3" json:"layer,omitempty"`
+	Center        *Position              `protobuf:"bytes,2,opt,name=center,proto3" json:"center,omitempty"`
+	Size          *Size                  `protobuf:"bytes,3,opt,name=size,proto3" json:"size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveViewRequest) Reset() {
+	*x = MoveViewRequest{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MoveViewRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MoveViewRequest) ProtoMessage() {}
+
+func (x *MoveViewRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MoveViewRequest.ProtoReflect.Descriptor instead.
+func (*MoveViewRequest) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *MoveViewRequest) GetLayer() int32 {
+	if x != nil {
+		return x.Layer
+	}
+	return 0
+}
+
+func (x *MoveViewRequest) GetCenter() *Position {
+	if x != nil {
+		return x.Center
+	}
+	return nil
+}
+
+func (x *MoveViewRequest) GetSize() *Size {
+	if x != nil {
+		return x.Size
+	}
+	return nil
+}
+
+type MoveViewResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MoveViewResponse) Reset() {
+	*x = MoveViewResponse{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *PlayerPosition) String() string {
+func (x *MoveViewResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PlayerPosition) ProtoMessage() {}
+func (*MoveViewResponse) ProtoMessage() {}
 
-func (x *PlayerPosition) ProtoReflect() protoreflect.Message {
+func (x *MoveViewResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -334,76 +326,38 @@ func (x *PlayerPosition) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use PlayerPosition.ProtoReflect.Descriptor instead.
-func (*PlayerPosition) Descriptor() ([]byte, []int) {
+// Deprecated: Use MoveViewResponse.ProtoReflect.Descriptor instead.
+func (*MoveViewResponse) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *PlayerPosition) GetUserId() string {
+func (x *MoveViewResponse) GetResp() *types.CommonResp {
 	if x != nil {
-		return x.UserId
+		return x.Resp
 	}
-	return ""
+	return nil
 }
 
-func (x *PlayerPosition) GetMapId() int64 {
-	if x != nil {
-		return x.MapId
-	}
-	return 0
-}
-
-func (x *PlayerPosition) GetX() int32 {
-	if x != nil {
-		return x.X
-	}
-	return 0
-}
-
-func (x *PlayerPosition) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-func (x *PlayerPosition) GetStatus() int32 {
-	if x != nil {
-		return x.Status
-	}
-	return 0
-}
-
-func (x *PlayerPosition) GetLastMove() int64 {
-	if x != nil {
-		return x.LastMove
-	}
-	return 0
-}
-
-// 移动玩家请求
-type MovePlayerRequest struct {
+type LeaveMapRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	TargetX       int32                  `protobuf:"varint,1,opt,name=target_x,json=targetX,proto3" json:"target_x,omitempty"` // 目标X坐标
-	TargetY       int32                  `protobuf:"varint,2,opt,name=target_y,json=targetY,proto3" json:"target_y,omitempty"` // 目标Y坐标
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *MovePlayerRequest) Reset() {
-	*x = MovePlayerRequest{}
+func (x *LeaveMapRequest) Reset() {
+	*x = LeaveMapRequest{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *MovePlayerRequest) String() string {
+func (x *LeaveMapRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MovePlayerRequest) ProtoMessage() {}
+func (*LeaveMapRequest) ProtoMessage() {}
 
-func (x *MovePlayerRequest) ProtoReflect() protoreflect.Message {
+func (x *LeaveMapRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -415,47 +369,32 @@ func (x *MovePlayerRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MovePlayerRequest.ProtoReflect.Descriptor instead.
-func (*MovePlayerRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use LeaveMapRequest.ProtoReflect.Descriptor instead.
+func (*LeaveMapRequest) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *MovePlayerRequest) GetTargetX() int32 {
-	if x != nil {
-		return x.TargetX
-	}
-	return 0
-}
-
-func (x *MovePlayerRequest) GetTargetY() int32 {
-	if x != nil {
-		return x.TargetY
-	}
-	return 0
-}
-
-// 移动玩家响应
-type MovePlayerResponse struct {
+type LeaveMapResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *MovePlayerResponse) Reset() {
-	*x = MovePlayerResponse{}
+func (x *LeaveMapResponse) Reset() {
+	*x = LeaveMapResponse{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *MovePlayerResponse) String() string {
+func (x *LeaveMapResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*MovePlayerResponse) ProtoMessage() {}
+func (*LeaveMapResponse) ProtoMessage() {}
 
-func (x *MovePlayerResponse) ProtoReflect() protoreflect.Message {
+func (x *LeaveMapResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -467,41 +406,44 @@ func (x *MovePlayerResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use MovePlayerResponse.ProtoReflect.Descriptor instead.
-func (*MovePlayerResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use LeaveMapResponse.ProtoReflect.Descriptor instead.
+func (*LeaveMapResponse) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *MovePlayerResponse) GetResp() *types.CommonResp {
+func (x *LeaveMapResponse) GetResp() *types.CommonResp {
 	if x != nil {
 		return x.Resp
 	}
 	return nil
 }
 
-// 获取可见区域请求
-type GetVisibleAreaRequest struct {
+type Entity struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MapId         int64                  `protobuf:"varint,1,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"`                      // 地图ID
-	VisionRadius  int32                  `protobuf:"varint,2,opt,name=vision_radius,json=visionRadius,proto3" json:"vision_radius,omitempty"` // 视野半径
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type          int32                  `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
+	Data          *anypb.Any             `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+	Pos           *Position              `protobuf:"bytes,4,opt,name=pos,proto3" json:"pos,omitempty"`
+	Version       int64                  `protobuf:"varint,5,opt,name=version,proto3" json:"version,omitempty"`
+	GridId        int32                  `protobuf:"varint,6,opt,name=gridId,proto3" json:"gridId,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetVisibleAreaRequest) Reset() {
-	*x = GetVisibleAreaRequest{}
+func (x *Entity) Reset() {
+	*x = Entity{}
 	mi := &file_mapsvr_bigmap_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetVisibleAreaRequest) String() string {
+func (x *Entity) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetVisibleAreaRequest) ProtoMessage() {}
+func (*Entity) ProtoMessage() {}
 
-func (x *GetVisibleAreaRequest) ProtoReflect() protoreflect.Message {
+func (x *Entity) ProtoReflect() protoreflect.Message {
 	mi := &file_mapsvr_bigmap_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -513,570 +455,177 @@ func (x *GetVisibleAreaRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetVisibleAreaRequest.ProtoReflect.Descriptor instead.
-func (*GetVisibleAreaRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use Entity.ProtoReflect.Descriptor instead.
+func (*Entity) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *GetVisibleAreaRequest) GetMapId() int64 {
-	if x != nil {
-		return x.MapId
-	}
-	return 0
-}
-
-func (x *GetVisibleAreaRequest) GetVisionRadius() int32 {
-	if x != nil {
-		return x.VisionRadius
-	}
-	return 0
-}
-
-// 获取可见区域响应
-type GetVisibleAreaResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	Tiles         []*TileInfo            `protobuf:"bytes,2,rep,name=tiles,proto3" json:"tiles,omitempty"` // 可见格子列表
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetVisibleAreaResponse) Reset() {
-	*x = GetVisibleAreaResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetVisibleAreaResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetVisibleAreaResponse) ProtoMessage() {}
-
-func (x *GetVisibleAreaResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetVisibleAreaResponse.ProtoReflect.Descriptor instead.
-func (*GetVisibleAreaResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *GetVisibleAreaResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-func (x *GetVisibleAreaResponse) GetTiles() []*TileInfo {
-	if x != nil {
-		return x.Tiles
-	}
-	return nil
-}
-
-// 格子信息
-type TileInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                          // 格子ID
-	MapId         int64                  `protobuf:"varint,2,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"`       // 地图ID
-	X             int32                  `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`                            // X坐标
-	Y             int32                  `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`                            // Y坐标
-	Terrain       int32                  `protobuf:"varint,5,opt,name=terrain,proto3" json:"terrain,omitempty"`                // 地形类型：0平原、1森林、2山地、3水域等
-	Resource      int32                  `protobuf:"varint,6,opt,name=resource,proto3" json:"resource,omitempty"`              // 资源类型：0无、1木材、2矿石、3食物等
-	OwnerId       int64                  `protobuf:"varint,7,opt,name=owner_id,json=ownerId,proto3" json:"owner_id,omitempty"` // 占领者ID，0表示无人占领
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *TileInfo) Reset() {
-	*x = TileInfo{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *TileInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*TileInfo) ProtoMessage() {}
-
-func (x *TileInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use TileInfo.ProtoReflect.Descriptor instead.
-func (*TileInfo) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *TileInfo) GetId() int64 {
+func (x *Entity) GetId() int32 {
 	if x != nil {
 		return x.Id
 	}
 	return 0
 }
 
-func (x *TileInfo) GetMapId() int64 {
+func (x *Entity) GetType() int32 {
 	if x != nil {
-		return x.MapId
+		return x.Type
 	}
 	return 0
 }
 
-func (x *TileInfo) GetX() int32 {
-	if x != nil {
-		return x.X
-	}
-	return 0
-}
-
-func (x *TileInfo) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-func (x *TileInfo) GetTerrain() int32 {
-	if x != nil {
-		return x.Terrain
-	}
-	return 0
-}
-
-func (x *TileInfo) GetResource() int32 {
-	if x != nil {
-		return x.Resource
-	}
-	return 0
-}
-
-func (x *TileInfo) GetOwnerId() int64 {
-	if x != nil {
-		return x.OwnerId
-	}
-	return 0
-}
-
-// 申请占领领土请求
-type ClaimTerritoryRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MapId         int64                  `protobuf:"varint,1,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"` // 地图ID
-	X             int32                  `protobuf:"varint,2,opt,name=x,proto3" json:"x,omitempty"`                      // X坐标
-	Y             int32                  `protobuf:"varint,3,opt,name=y,proto3" json:"y,omitempty"`                      // Y坐标
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ClaimTerritoryRequest) Reset() {
-	*x = ClaimTerritoryRequest{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ClaimTerritoryRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ClaimTerritoryRequest) ProtoMessage() {}
-
-func (x *ClaimTerritoryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ClaimTerritoryRequest.ProtoReflect.Descriptor instead.
-func (*ClaimTerritoryRequest) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *ClaimTerritoryRequest) GetMapId() int64 {
-	if x != nil {
-		return x.MapId
-	}
-	return 0
-}
-
-func (x *ClaimTerritoryRequest) GetX() int32 {
-	if x != nil {
-		return x.X
-	}
-	return 0
-}
-
-func (x *ClaimTerritoryRequest) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-// 申请占领领土响应
-type ClaimTerritoryResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ClaimTerritoryResponse) Reset() {
-	*x = ClaimTerritoryResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ClaimTerritoryResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ClaimTerritoryResponse) ProtoMessage() {}
-
-func (x *ClaimTerritoryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ClaimTerritoryResponse.ProtoReflect.Descriptor instead.
-func (*ClaimTerritoryResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *ClaimTerritoryResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-// 获取活跃地图事件请求
-type GetActiveEventsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MapId         int64                  `protobuf:"varint,1,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"` // 地图ID
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetActiveEventsRequest) Reset() {
-	*x = GetActiveEventsRequest{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetActiveEventsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetActiveEventsRequest) ProtoMessage() {}
-
-func (x *GetActiveEventsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetActiveEventsRequest.ProtoReflect.Descriptor instead.
-func (*GetActiveEventsRequest) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{13}
-}
-
-func (x *GetActiveEventsRequest) GetMapId() int64 {
-	if x != nil {
-		return x.MapId
-	}
-	return 0
-}
-
-// 获取活跃地图事件响应
-type GetActiveEventsResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	Events        []*MapEventInfo        `protobuf:"bytes,2,rep,name=events,proto3" json:"events,omitempty"` // 事件列表
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *GetActiveEventsResponse) Reset() {
-	*x = GetActiveEventsResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *GetActiveEventsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetActiveEventsResponse) ProtoMessage() {}
-
-func (x *GetActiveEventsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetActiveEventsResponse.ProtoReflect.Descriptor instead.
-func (*GetActiveEventsResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
-}
-
-func (x *GetActiveEventsResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-func (x *GetActiveEventsResponse) GetEvents() []*MapEventInfo {
-	if x != nil {
-		return x.Events
-	}
-	return nil
-}
-
-// 处理地图事件请求
-type ProcessMapEventRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	EventId       int64                  `protobuf:"varint,1,opt,name=event_id,json=eventId,proto3" json:"event_id,omitempty"` // 事件ID
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ProcessMapEventRequest) Reset() {
-	*x = ProcessMapEventRequest{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ProcessMapEventRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProcessMapEventRequest) ProtoMessage() {}
-
-func (x *ProcessMapEventRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProcessMapEventRequest.ProtoReflect.Descriptor instead.
-func (*ProcessMapEventRequest) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{15}
-}
-
-func (x *ProcessMapEventRequest) GetEventId() int64 {
-	if x != nil {
-		return x.EventId
-	}
-	return 0
-}
-
-// 处理地图事件响应
-type ProcessMapEventResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ProcessMapEventResponse) Reset() {
-	*x = ProcessMapEventResponse{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[16]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ProcessMapEventResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ProcessMapEventResponse) ProtoMessage() {}
-
-func (x *ProcessMapEventResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[16]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ProcessMapEventResponse.ProtoReflect.Descriptor instead.
-func (*ProcessMapEventResponse) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{16}
-}
-
-func (x *ProcessMapEventResponse) GetResp() *types.CommonResp {
-	if x != nil {
-		return x.Resp
-	}
-	return nil
-}
-
-// 地图事件信息
-type MapEventInfo struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`                                // 事件ID
-	MapId         int64                  `protobuf:"varint,2,opt,name=map_id,json=mapId,proto3" json:"map_id,omitempty"`             // 地图ID
-	X             int32                  `protobuf:"varint,3,opt,name=x,proto3" json:"x,omitempty"`                                  // X坐标
-	Y             int32                  `protobuf:"varint,4,opt,name=y,proto3" json:"y,omitempty"`                                  // Y坐标
-	EventType     int32                  `protobuf:"varint,5,opt,name=event_type,json=eventType,proto3" json:"event_type,omitempty"` // 事件类型：1资源刷新、2怪物出现、3宝箱等
-	Status        int32                  `protobuf:"varint,6,opt,name=status,proto3" json:"status,omitempty"`                        // 状态：1活跃、2已处理
-	Data          string                 `protobuf:"bytes,7,opt,name=data,proto3" json:"data,omitempty"`                             // 事件数据JSON
-	StartTime     int64                  `protobuf:"varint,8,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"` // 开始时间戳
-	EndTime       int64                  `protobuf:"varint,9,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`       // 结束时间戳
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *MapEventInfo) Reset() {
-	*x = MapEventInfo{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[17]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *MapEventInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MapEventInfo) ProtoMessage() {}
-
-func (x *MapEventInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[17]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MapEventInfo.ProtoReflect.Descriptor instead.
-func (*MapEventInfo) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{17}
-}
-
-func (x *MapEventInfo) GetId() int64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetMapId() int64 {
-	if x != nil {
-		return x.MapId
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetX() int32 {
-	if x != nil {
-		return x.X
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetEventType() int32 {
-	if x != nil {
-		return x.EventType
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetStatus() int32 {
-	if x != nil {
-		return x.Status
-	}
-	return 0
-}
-
-func (x *MapEventInfo) GetData() string {
+func (x *Entity) GetData() *anypb.Any {
 	if x != nil {
 		return x.Data
 	}
-	return ""
+	return nil
 }
 
-func (x *MapEventInfo) GetStartTime() int64 {
+func (x *Entity) GetPos() *Position {
 	if x != nil {
-		return x.StartTime
+		return x.Pos
+	}
+	return nil
+}
+
+func (x *Entity) GetVersion() int64 {
+	if x != nil {
+		return x.Version
 	}
 	return 0
 }
 
-func (x *MapEventInfo) GetEndTime() int64 {
+func (x *Entity) GetGridId() int32 {
 	if x != nil {
-		return x.EndTime
+		return x.GridId
+	}
+	return 0
+}
+
+type Grid struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Pos           *Position              `protobuf:"bytes,2,opt,name=pos,proto3" json:"pos,omitempty"`
+	Version       int64                  `protobuf:"varint,5,opt,name=version,proto3" json:"version,omitempty"`
+	EntityId      int32                  `protobuf:"varint,6,opt,name=entityId,proto3" json:"entityId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Grid) Reset() {
+	*x = Grid{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Grid) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Grid) ProtoMessage() {}
+
+func (x *Grid) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Grid.ProtoReflect.Descriptor instead.
+func (*Grid) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *Grid) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Grid) GetPos() *Position {
+	if x != nil {
+		return x.Pos
+	}
+	return nil
+}
+
+func (x *Grid) GetVersion() int64 {
+	if x != nil {
+		return x.Version
+	}
+	return 0
+}
+
+func (x *Grid) GetEntityId() int32 {
+	if x != nil {
+		return x.EntityId
+	}
+	return 0
+}
+
+type AOIUpdateNotify struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Entities      []*Entity              `protobuf:"bytes,1,rep,name=entities,proto3" json:"entities,omitempty"`                               // 全量或新增实体列表
+	RemovedIds    []int32                `protobuf:"varint,2,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的移除ID列表
+	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AOIUpdateNotify) Reset() {
+	*x = AOIUpdateNotify{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AOIUpdateNotify) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AOIUpdateNotify) ProtoMessage() {}
+
+func (x *AOIUpdateNotify) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AOIUpdateNotify.ProtoReflect.Descriptor instead.
+func (*AOIUpdateNotify) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *AOIUpdateNotify) GetEntities() []*Entity {
+	if x != nil {
+		return x.Entities
+	}
+	return nil
+}
+
+func (x *AOIUpdateNotify) GetRemovedIds() []int32 {
+	if x != nil {
+		return x.RemovedIds
+	}
+	return nil
+}
+
+func (x *AOIUpdateNotify) GetTimestamp() int64 {
+	if x != nil {
+		return x.Timestamp
 	}
 	return 0
 }
@@ -1085,76 +634,45 @@ var File_mapsvr_bigmap_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\n" +
-	"\x13mapsvr/bigmap.proto\x12\x06mapsvr\x1a\x18common/types/types.proto\x1a\x1acommon/errors/errors.proto\"*\n" +
-	"\x11GetMapInfoRequest\x12\x15\n" +
-	"\x06map_id\x18\x01 \x01(\x03R\x05mapId\"g\n" +
-	"\x12GetMapInfoResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12*\n" +
-	"\bmap_info\x18\x02 \x01(\v2\x0f.mapsvr.MapInfoR\amapInfo\"\x9a\x01\n" +
-	"\aMapInfo\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
-	"\x05width\x18\x03 \x01(\x05R\x05width\x12\x16\n" +
-	"\x06height\x18\x04 \x01(\x05R\x06height\x12 \n" +
-	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x1b\n" +
-	"\tis_active\x18\x06 \x01(\bR\bisActive\"\x1a\n" +
-	"\x18GetPlayerPositionRequest\"v\n" +
-	"\x19GetPlayerPositionResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x122\n" +
-	"\bposition\x18\x02 \x01(\v2\x16.mapsvr.PlayerPositionR\bposition\"\x91\x01\n" +
-	"\x0ePlayerPosition\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x15\n" +
-	"\x06map_id\x18\x02 \x01(\x03R\x05mapId\x12\f\n" +
-	"\x01x\x18\x03 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x04 \x01(\x05R\x01y\x12\x16\n" +
-	"\x06status\x18\x05 \x01(\x05R\x06status\x12\x1b\n" +
-	"\tlast_move\x18\x06 \x01(\x03R\blastMove\"I\n" +
-	"\x11MovePlayerRequest\x12\x19\n" +
-	"\btarget_x\x18\x01 \x01(\x05R\atargetX\x12\x19\n" +
-	"\btarget_y\x18\x02 \x01(\x05R\atargetY\";\n" +
-	"\x12MovePlayerResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"S\n" +
-	"\x15GetVisibleAreaRequest\x12\x15\n" +
-	"\x06map_id\x18\x01 \x01(\x03R\x05mapId\x12#\n" +
-	"\rvision_radius\x18\x02 \x01(\x05R\fvisionRadius\"g\n" +
-	"\x16GetVisibleAreaResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12&\n" +
-	"\x05tiles\x18\x02 \x03(\v2\x10.mapsvr.TileInfoR\x05tiles\"\x9e\x01\n" +
-	"\bTileInfo\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x15\n" +
-	"\x06map_id\x18\x02 \x01(\x03R\x05mapId\x12\f\n" +
-	"\x01x\x18\x03 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x04 \x01(\x05R\x01y\x12\x18\n" +
-	"\aterrain\x18\x05 \x01(\x05R\aterrain\x12\x1a\n" +
-	"\bresource\x18\x06 \x01(\x05R\bresource\x12\x19\n" +
-	"\bowner_id\x18\a \x01(\x03R\aownerId\"J\n" +
-	"\x15ClaimTerritoryRequest\x12\x15\n" +
-	"\x06map_id\x18\x01 \x01(\x03R\x05mapId\x12\f\n" +
-	"\x01x\x18\x02 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x03 \x01(\x05R\x01y\"?\n" +
-	"\x16ClaimTerritoryResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"/\n" +
-	"\x16GetActiveEventsRequest\x12\x15\n" +
-	"\x06map_id\x18\x01 \x01(\x03R\x05mapId\"n\n" +
-	"\x17GetActiveEventsResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12,\n" +
-	"\x06events\x18\x02 \x03(\v2\x14.mapsvr.MapEventInfoR\x06events\"3\n" +
-	"\x16ProcessMapEventRequest\x12\x19\n" +
-	"\bevent_id\x18\x01 \x01(\x03R\aeventId\"@\n" +
-	"\x17ProcessMapEventResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\xd6\x01\n" +
-	"\fMapEventInfo\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x15\n" +
-	"\x06map_id\x18\x02 \x01(\x03R\x05mapId\x12\f\n" +
-	"\x01x\x18\x03 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x04 \x01(\x05R\x01y\x12\x1d\n" +
-	"\n" +
-	"event_type\x18\x05 \x01(\x05R\teventType\x12\x16\n" +
-	"\x06status\x18\x06 \x01(\x05R\x06status\x12\x12\n" +
-	"\x04data\x18\a \x01(\tR\x04data\x12\x1d\n" +
-	"\n" +
-	"start_time\x18\b \x01(\x03R\tstartTime\x12\x19\n" +
-	"\bend_time\x18\t \x01(\x03R\aendTimeB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\x13mapsvr/bigmap.proto\x12\x06mapsvr\x1a\x19google/protobuf/any.proto\x1a\x18common/types/types.proto\x1a\x1acommon/errors/errors.proto\"&\n" +
+	"\bPosition\x12\f\n" +
+	"\x01x\x18\x01 \x01(\x05R\x01x\x12\f\n" +
+	"\x01y\x18\x02 \x01(\x05R\x01y\"\"\n" +
+	"\x04Size\x12\f\n" +
+	"\x01w\x18\x01 \x01(\x05R\x01w\x12\f\n" +
+	"\x01h\x18\x02 \x01(\x05R\x01h\"w\n" +
+	"\x0fEnterMapRequest\x12\x14\n" +
+	"\x05layer\x18\x01 \x01(\x05R\x05layer\x12,\n" +
+	"\bposition\x18\x02 \x01(\v2\x10.mapsvr.PositionR\bposition\x12 \n" +
+	"\x04size\x18\x03 \x01(\v2\f.mapsvr.SizeR\x04size\"9\n" +
+	"\x10EnterMapResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"s\n" +
+	"\x0fMoveViewRequest\x12\x14\n" +
+	"\x05layer\x18\x01 \x01(\x05R\x05layer\x12(\n" +
+	"\x06center\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x06center\x12 \n" +
+	"\x04size\x18\x03 \x01(\v2\f.mapsvr.SizeR\x04size\"9\n" +
+	"\x10MoveViewResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\x11\n" +
+	"\x0fLeaveMapRequest\"9\n" +
+	"\x10LeaveMapResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\xac\x01\n" +
+	"\x06Entity\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\x05R\x04type\x12(\n" +
+	"\x04data\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x04data\x12\"\n" +
+	"\x03pos\x18\x04 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
+	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x16\n" +
+	"\x06gridId\x18\x06 \x01(\x05R\x06gridId\"p\n" +
+	"\x04Grid\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
+	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
+	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x1a\n" +
+	"\bentityId\x18\x06 \x01(\x05R\bentityId\"|\n" +
+	"\x0fAOIUpdateNotify\x12*\n" +
+	"\bentities\x18\x01 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
+	"\vremoved_ids\x18\x02 \x03(\x05R\n" +
+	"removedIds\x12\x1c\n" +
+	"\ttimestamp\x18\x04 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
@@ -1168,40 +686,34 @@ func file_mapsvr_bigmap_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmap_proto_rawDescData
 }
 
-var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_mapsvr_bigmap_proto_goTypes = []any{
-	(*GetMapInfoRequest)(nil),         // 0: mapsvr.GetMapInfoRequest
-	(*GetMapInfoResponse)(nil),        // 1: mapsvr.GetMapInfoResponse
-	(*MapInfo)(nil),                   // 2: mapsvr.MapInfo
-	(*GetPlayerPositionRequest)(nil),  // 3: mapsvr.GetPlayerPositionRequest
-	(*GetPlayerPositionResponse)(nil), // 4: mapsvr.GetPlayerPositionResponse
-	(*PlayerPosition)(nil),            // 5: mapsvr.PlayerPosition
-	(*MovePlayerRequest)(nil),         // 6: mapsvr.MovePlayerRequest
-	(*MovePlayerResponse)(nil),        // 7: mapsvr.MovePlayerResponse
-	(*GetVisibleAreaRequest)(nil),     // 8: mapsvr.GetVisibleAreaRequest
-	(*GetVisibleAreaResponse)(nil),    // 9: mapsvr.GetVisibleAreaResponse
-	(*TileInfo)(nil),                  // 10: mapsvr.TileInfo
-	(*ClaimTerritoryRequest)(nil),     // 11: mapsvr.ClaimTerritoryRequest
-	(*ClaimTerritoryResponse)(nil),    // 12: mapsvr.ClaimTerritoryResponse
-	(*GetActiveEventsRequest)(nil),    // 13: mapsvr.GetActiveEventsRequest
-	(*GetActiveEventsResponse)(nil),   // 14: mapsvr.GetActiveEventsResponse
-	(*ProcessMapEventRequest)(nil),    // 15: mapsvr.ProcessMapEventRequest
-	(*ProcessMapEventResponse)(nil),   // 16: mapsvr.ProcessMapEventResponse
-	(*MapEventInfo)(nil),              // 17: mapsvr.MapEventInfo
-	(*types.CommonResp)(nil),          // 18: types.CommonResp
+	(*Position)(nil),         // 0: mapsvr.Position
+	(*Size)(nil),             // 1: mapsvr.Size
+	(*EnterMapRequest)(nil),  // 2: mapsvr.EnterMapRequest
+	(*EnterMapResponse)(nil), // 3: mapsvr.EnterMapResponse
+	(*MoveViewRequest)(nil),  // 4: mapsvr.MoveViewRequest
+	(*MoveViewResponse)(nil), // 5: mapsvr.MoveViewResponse
+	(*LeaveMapRequest)(nil),  // 6: mapsvr.LeaveMapRequest
+	(*LeaveMapResponse)(nil), // 7: mapsvr.LeaveMapResponse
+	(*Entity)(nil),           // 8: mapsvr.Entity
+	(*Grid)(nil),             // 9: mapsvr.Grid
+	(*AOIUpdateNotify)(nil),  // 10: mapsvr.AOIUpdateNotify
+	(*types.CommonResp)(nil), // 11: types.CommonResp
+	(*anypb.Any)(nil),        // 12: google.protobuf.Any
 }
 var file_mapsvr_bigmap_proto_depIdxs = []int32{
-	18, // 0: mapsvr.GetMapInfoResponse.resp:type_name -> types.CommonResp
-	2,  // 1: mapsvr.GetMapInfoResponse.map_info:type_name -> mapsvr.MapInfo
-	18, // 2: mapsvr.GetPlayerPositionResponse.resp:type_name -> types.CommonResp
-	5,  // 3: mapsvr.GetPlayerPositionResponse.position:type_name -> mapsvr.PlayerPosition
-	18, // 4: mapsvr.MovePlayerResponse.resp:type_name -> types.CommonResp
-	18, // 5: mapsvr.GetVisibleAreaResponse.resp:type_name -> types.CommonResp
-	10, // 6: mapsvr.GetVisibleAreaResponse.tiles:type_name -> mapsvr.TileInfo
-	18, // 7: mapsvr.ClaimTerritoryResponse.resp:type_name -> types.CommonResp
-	18, // 8: mapsvr.GetActiveEventsResponse.resp:type_name -> types.CommonResp
-	17, // 9: mapsvr.GetActiveEventsResponse.events:type_name -> mapsvr.MapEventInfo
-	18, // 10: mapsvr.ProcessMapEventResponse.resp:type_name -> types.CommonResp
+	0,  // 0: mapsvr.EnterMapRequest.position:type_name -> mapsvr.Position
+	1,  // 1: mapsvr.EnterMapRequest.size:type_name -> mapsvr.Size
+	11, // 2: mapsvr.EnterMapResponse.resp:type_name -> types.CommonResp
+	0,  // 3: mapsvr.MoveViewRequest.center:type_name -> mapsvr.Position
+	1,  // 4: mapsvr.MoveViewRequest.size:type_name -> mapsvr.Size
+	11, // 5: mapsvr.MoveViewResponse.resp:type_name -> types.CommonResp
+	11, // 6: mapsvr.LeaveMapResponse.resp:type_name -> types.CommonResp
+	12, // 7: mapsvr.Entity.data:type_name -> google.protobuf.Any
+	0,  // 8: mapsvr.Entity.pos:type_name -> mapsvr.Position
+	0,  // 9: mapsvr.Grid.pos:type_name -> mapsvr.Position
+	8,  // 10: mapsvr.AOIUpdateNotify.entities:type_name -> mapsvr.Entity
 	11, // [11:11] is the sub-list for method output_type
 	11, // [11:11] is the sub-list for method input_type
 	11, // [11:11] is the sub-list for extension type_name
@@ -1220,7 +732,7 @@ func file_mapsvr_bigmap_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmap_proto_rawDesc), len(file_mapsvr_bigmap_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
