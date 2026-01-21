@@ -300,12 +300,11 @@ func (x *TroopLevels) GetLevelCounts() map[int32]int32 {
 }
 
 type StartMarchRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	X     int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`                      // X坐标
-	Y     int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`                      // Y坐标
-	FromX int32                  `protobuf:"varint,3,opt,name=from_x,json=fromX,proto3" json:"from_x,omitempty"` //临时加的出发坐标 未来这个值应该从服务器读取
-	FromY int32                  `protobuf:"varint,4,opt,name=from_y,json=fromY,proto3" json:"from_y,omitempty"`
-	// repeated TroopInfo troops = 5; // 行军兵力信息
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	X             int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`                      // X坐标
+	Y             int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`                      // Y坐标
+	FromX         int32                  `protobuf:"varint,3,opt,name=from_x,json=fromX,proto3" json:"from_x,omitempty"` //临时加的出发坐标 未来这个值应该从服务器读取
+	FromY         int32                  `protobuf:"varint,4,opt,name=from_y,json=fromY,proto3" json:"from_y,omitempty"`
 	Troops        map[int32]*TroopLevels `protobuf:"bytes,5,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -428,6 +427,58 @@ func (x *StartMarchResponse) GetMarchDuration() int32 {
 	return 0
 }
 
+type MarchBattleNotify struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Attacker      *FighterInfo           `protobuf:"bytes,1,opt,name=attacker,proto3" json:"attacker,omitempty"`
+	Defencer      *FighterInfo           `protobuf:"bytes,2,opt,name=defencer,proto3" json:"defencer,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MarchBattleNotify) Reset() {
+	*x = MarchBattleNotify{}
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MarchBattleNotify) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MarchBattleNotify) ProtoMessage() {}
+
+func (x *MarchBattleNotify) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MarchBattleNotify.ProtoReflect.Descriptor instead.
+func (*MarchBattleNotify) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *MarchBattleNotify) GetAttacker() *FighterInfo {
+	if x != nil {
+		return x.Attacker
+	}
+	return nil
+}
+
+func (x *MarchBattleNotify) GetDefencer() *FighterInfo {
+	if x != nil {
+		return x.Defencer
+	}
+	return nil
+}
+
 var File_mapsvr_bigmapbattle_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
@@ -463,7 +514,10 @@ const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\v2\x13.mapsvr.TroopLevelsR\x05value:\x028\x01\"b\n" +
 	"\x12StartMarchResponse\x12%\n" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12%\n" +
-	"\x0emarch_duration\x18\x02 \x01(\x05R\rmarchDuration*N\n" +
+	"\x0emarch_duration\x18\x02 \x01(\x05R\rmarchDuration\"u\n" +
+	"\x11MarchBattleNotify\x12/\n" +
+	"\battacker\x18\x01 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
+	"\bdefencer\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer*N\n" +
 	"\tTroopType\x12\x1a\n" +
 	"\x16TROOP_TYPE_UNSPECIFIED\x10\x00\x12\f\n" +
 	"\bINFANTRY\x10\x01\x12\v\n" +
@@ -484,7 +538,7 @@ func file_mapsvr_bigmapbattle_proto_rawDescGZIP() []byte {
 }
 
 var file_mapsvr_bigmapbattle_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_mapsvr_bigmapbattle_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_mapsvr_bigmapbattle_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_mapsvr_bigmapbattle_proto_goTypes = []any{
 	(TroopType)(0),             // 0: mapsvr.TroopType
 	(*BattleRequest)(nil),      // 1: mapsvr.BattleRequest
@@ -493,23 +547,26 @@ var file_mapsvr_bigmapbattle_proto_goTypes = []any{
 	(*TroopLevels)(nil),        // 4: mapsvr.TroopLevels
 	(*StartMarchRequest)(nil),  // 5: mapsvr.StartMarchRequest
 	(*StartMarchResponse)(nil), // 6: mapsvr.StartMarchResponse
-	nil,                        // 7: mapsvr.TroopLevels.LevelCountsEntry
-	nil,                        // 8: mapsvr.StartMarchRequest.TroopsEntry
-	(*types.CommonResp)(nil),   // 9: types.CommonResp
+	(*MarchBattleNotify)(nil),  // 7: mapsvr.MarchBattleNotify
+	nil,                        // 8: mapsvr.TroopLevels.LevelCountsEntry
+	nil,                        // 9: mapsvr.StartMarchRequest.TroopsEntry
+	(*types.CommonResp)(nil),   // 10: types.CommonResp
 }
 var file_mapsvr_bigmapbattle_proto_depIdxs = []int32{
-	9, // 0: mapsvr.BattleResponse.resp:type_name -> types.CommonResp
-	2, // 1: mapsvr.BattleResponse.attacker:type_name -> mapsvr.FighterInfo
-	2, // 2: mapsvr.BattleResponse.defencer:type_name -> mapsvr.FighterInfo
-	7, // 3: mapsvr.TroopLevels.level_counts:type_name -> mapsvr.TroopLevels.LevelCountsEntry
-	8, // 4: mapsvr.StartMarchRequest.troops:type_name -> mapsvr.StartMarchRequest.TroopsEntry
-	9, // 5: mapsvr.StartMarchResponse.resp:type_name -> types.CommonResp
-	4, // 6: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	10, // 0: mapsvr.BattleResponse.resp:type_name -> types.CommonResp
+	2,  // 1: mapsvr.BattleResponse.attacker:type_name -> mapsvr.FighterInfo
+	2,  // 2: mapsvr.BattleResponse.defencer:type_name -> mapsvr.FighterInfo
+	8,  // 3: mapsvr.TroopLevels.level_counts:type_name -> mapsvr.TroopLevels.LevelCountsEntry
+	9,  // 4: mapsvr.StartMarchRequest.troops:type_name -> mapsvr.StartMarchRequest.TroopsEntry
+	10, // 5: mapsvr.StartMarchResponse.resp:type_name -> types.CommonResp
+	2,  // 6: mapsvr.MarchBattleNotify.attacker:type_name -> mapsvr.FighterInfo
+	2,  // 7: mapsvr.MarchBattleNotify.defencer:type_name -> mapsvr.FighterInfo
+	4,  // 8: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	9,  // [9:9] is the sub-list for method output_type
+	9,  // [9:9] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmapbattle_proto_init() }
@@ -523,7 +580,7 @@ func file_mapsvr_bigmapbattle_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmapbattle_proto_rawDesc), len(file_mapsvr_bigmapbattle_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

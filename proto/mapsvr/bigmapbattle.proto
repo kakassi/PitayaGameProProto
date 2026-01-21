@@ -57,3 +57,10 @@ message StartMarchResponse {
   types.CommonResp resp = 1;
   int32 march_duration  = 2;   //行军所需时长（秒）
 }
+
+
+message MarchBattleNotify {
+  FighterInfo attacker = 1;
+  FighterInfo defencer = 2;
+}
+
