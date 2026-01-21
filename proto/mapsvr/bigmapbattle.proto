@@ -39,14 +39,8 @@ enum TroopType {
   ARCHER   = 3; // 弓兵
 }
 
-message TroopLevelCount {
-  int32 level = 1; // 兵种等级
-  int32 count = 2; // 该等级兵数量
-}
-
-message TroopInfo {
-  TroopType type = 1; // 兵种类型
-  repeated TroopLevelCount levels = 2; // 各等级兵力
+message TroopLevels {
+  map<int32, int32> level_counts = 1;
 }
 
 
@@ -55,9 +49,7 @@ message StartMarchRequest {
   int32  y = 2;   // Y坐标
   int32  from_x = 3;  //临时加的出发坐标 未来这个值应该从服务器读取
   int32  from_y = 4;
-
-  repeated TroopInfo troops = 5; // 行军兵力信息
-
+  map<int32, TroopLevels> troops = 5;
 
 }
 
