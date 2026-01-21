@@ -18,7 +18,6 @@ message FighterInfo {
   string  player_id = 1;  //name ?
   int32   x = 2;        // X坐标
   int32   y = 3;        // Y坐标
-
   int32   soldier_count = 4;
   int32   death_count = 5;
   int32   live_count = 6;
@@ -33,14 +32,36 @@ message BattleResponse {
 
 }
 
-
-
-message StartMatchRequest {
-  int32  x = 1;   // X坐标
-  int32  y = 2;   // Y坐标
+enum TroopType {
+  TROOP_TYPE_UNSPECIFIED = 0;
+  INFANTRY = 1; // 步兵
+  CAVALRY  = 2; // 骑兵
+  ARCHER   = 3; // 弓兵
 }
 
-message StartMatchResponse {
+message TroopLevelCount {
+  int32 level = 1; // 兵种等级
+  int32 count = 2; // 该等级兵数量
+}
+
+message TroopInfo {
+  TroopType type = 1; // 兵种类型
+  repeated TroopLevelCount levels = 2; // 各等级兵力
+}
+
+
+message StartMarchRequest {
+  int32  x = 1;   // X坐标
+  int32  y = 2;   // Y坐标
+  int32  from_x = 3;  //临时加的出发坐标 未来这个值应该从服务器读取
+  int32  from_y = 4;
+
+  repeated TroopInfo troops = 5; // 行军兵力信息
+
+
+}
+
+message StartMarchResponse {
   types.CommonResp resp = 1;
   int32 march_duration  = 2;   //行军所需时长（秒）
 }
