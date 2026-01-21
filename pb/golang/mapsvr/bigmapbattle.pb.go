@@ -203,6 +203,110 @@ func (x *BattleResponse) GetDefencer() *FighterInfo {
 	return nil
 }
 
+type StartMatchRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	X             int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"` // X坐标
+	Y             int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"` // Y坐标
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartMatchRequest) Reset() {
+	*x = StartMatchRequest{}
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartMatchRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartMatchRequest) ProtoMessage() {}
+
+func (x *StartMatchRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartMatchRequest.ProtoReflect.Descriptor instead.
+func (*StartMatchRequest) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *StartMatchRequest) GetX() int32 {
+	if x != nil {
+		return x.X
+	}
+	return 0
+}
+
+func (x *StartMatchRequest) GetY() int32 {
+	if x != nil {
+		return x.Y
+	}
+	return 0
+}
+
+type StartMatchResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	MarchDuration int32                  `protobuf:"varint,2,opt,name=march_duration,json=marchDuration,proto3" json:"march_duration,omitempty"` //行军所需时长（秒）
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StartMatchResponse) Reset() {
+	*x = StartMatchResponse{}
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StartMatchResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartMatchResponse) ProtoMessage() {}
+
+func (x *StartMatchResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartMatchResponse.ProtoReflect.Descriptor instead.
+func (*StartMatchResponse) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *StartMatchResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
+	}
+	return nil
+}
+
+func (x *StartMatchResponse) GetMarchDuration() int32 {
+	if x != nil {
+		return x.MarchDuration
+	}
+	return 0
+}
+
 var File_mapsvr_bigmapbattle_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
@@ -221,7 +325,13 @@ const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
 	"\x0eBattleResponse\x12%\n" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12/\n" +
 	"\battacker\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
-	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencerB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer\"/\n" +
+	"\x11StartMatchRequest\x12\f\n" +
+	"\x01x\x18\x01 \x01(\x05R\x01x\x12\f\n" +
+	"\x01y\x18\x02 \x01(\x05R\x01y\"b\n" +
+	"\x12StartMatchResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12%\n" +
+	"\x0emarch_duration\x18\x02 \x01(\x05R\rmarchDurationB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmapbattle_proto_rawDescOnce sync.Once
@@ -235,22 +345,25 @@ func file_mapsvr_bigmapbattle_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmapbattle_proto_rawDescData
 }
 
-var file_mapsvr_bigmapbattle_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_mapsvr_bigmapbattle_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_mapsvr_bigmapbattle_proto_goTypes = []any{
-	(*BattleRequest)(nil),    // 0: mapsvr.BattleRequest
-	(*FighterInfo)(nil),      // 1: mapsvr.FighterInfo
-	(*BattleResponse)(nil),   // 2: mapsvr.BattleResponse
-	(*types.CommonResp)(nil), // 3: types.CommonResp
+	(*BattleRequest)(nil),      // 0: mapsvr.BattleRequest
+	(*FighterInfo)(nil),        // 1: mapsvr.FighterInfo
+	(*BattleResponse)(nil),     // 2: mapsvr.BattleResponse
+	(*StartMatchRequest)(nil),  // 3: mapsvr.StartMatchRequest
+	(*StartMatchResponse)(nil), // 4: mapsvr.StartMatchResponse
+	(*types.CommonResp)(nil),   // 5: types.CommonResp
 }
 var file_mapsvr_bigmapbattle_proto_depIdxs = []int32{
-	3, // 0: mapsvr.BattleResponse.resp:type_name -> types.CommonResp
+	5, // 0: mapsvr.BattleResponse.resp:type_name -> types.CommonResp
 	1, // 1: mapsvr.BattleResponse.attacker:type_name -> mapsvr.FighterInfo
 	1, // 2: mapsvr.BattleResponse.defencer:type_name -> mapsvr.FighterInfo
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	5, // 3: mapsvr.StartMatchResponse.resp:type_name -> types.CommonResp
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmapbattle_proto_init() }
@@ -264,7 +377,7 @@ func file_mapsvr_bigmapbattle_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmapbattle_proto_rawDesc), len(file_mapsvr_bigmapbattle_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -32,3 +32,15 @@ message BattleResponse {
   FighterInfo defencer = 3;
 
 }
+
+
+
+message StartMatchRequest {
+  int32  x = 1;   // X坐标
+  int32  y = 2;   // Y坐标
+}
+
+message StartMatchResponse {
+  types.CommonResp resp = 1;
+  int32 march_duration  = 2;   //行军所需时长（秒）
+}
