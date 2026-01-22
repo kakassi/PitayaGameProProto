@@ -144,6 +144,9 @@ enum ErrorCode {
   ERR_CONFIG_NOT_FOUND = 9002 [(error_message) = "配置不存在", (error_message_en) = "Config not found"];
   ERR_CONFIG_INVALID_VERSION = 9003 [(error_message) = "配置版本无效", (error_message_en) = "Invalid config version"];
   ERR_SYSTEM_INTERNAL = 9999 [(error_message) = "系统错误", (error_message_en) = "Internal error"];
+
+  // bigmap march (10000-11000)
+  ERR_BIGMAPMARCH_ALLOCATE_MARCHID_FAIL = 10000 [(error_message) = "获取行军id失败", (error_message_en) = "allocate march id failed"];
 }
 
 
