@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	anypb "google.golang.org/protobuf/types/known/anypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	_ "pitaya-game/protos/protobuf/pb/golang/common/errors"
 	types "pitaya-game/protos/protobuf/pb/golang/common/types"
 	reflect "reflect"
@@ -418,14 +419,17 @@ func (x *LeaveMapResponse) GetResp() *types.CommonResp {
 	return nil
 }
 
+// ------------------- Entity ------------------
 type Entity struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Type          int32                  `protobuf:"varint,2,opt,name=type,proto3" json:"type,omitempty"`
-	Data          *anypb.Any             `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
-	Pos           *Position              `protobuf:"bytes,4,opt,name=pos,proto3" json:"pos,omitempty"`
-	Version       int64                  `protobuf:"varint,5,opt,name=version,proto3" json:"version,omitempty"`
-	GridId        int32                  `protobuf:"varint,6,opt,name=gridId,proto3" json:"gridId,omitempty"`
+	ConfigId      int32                  `protobuf:"varint,2,opt,name=config_id,json=configId,proto3" json:"config_id,omitempty"`
+	Type          int32                  `protobuf:"varint,3,opt,name=type,proto3" json:"type,omitempty"`
+	SubType       int32                  `protobuf:"varint,4,opt,name=sub_type,json=subType,proto3" json:"sub_type,omitempty"`
+	Data          []*anypb.Any           `protobuf:"bytes,5,rep,name=data,proto3" json:"data,omitempty"`
+	Pos           *Position              `protobuf:"bytes,6,opt,name=pos,proto3" json:"pos,omitempty"`
+	Version       int64                  `protobuf:"varint,7,opt,name=version,proto3" json:"version,omitempty"`
+	GridId        int32                  `protobuf:"varint,8,opt,name=gridId,proto3" json:"gridId,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -467,6 +471,13 @@ func (x *Entity) GetId() int32 {
 	return 0
 }
 
+func (x *Entity) GetConfigId() int32 {
+	if x != nil {
+		return x.ConfigId
+	}
+	return 0
+}
+
 func (x *Entity) GetType() int32 {
 	if x != nil {
 		return x.Type
@@ -474,7 +485,14 @@ func (x *Entity) GetType() int32 {
 	return 0
 }
 
-func (x *Entity) GetData() *anypb.Any {
+func (x *Entity) GetSubType() int32 {
+	if x != nil {
+		return x.SubType
+	}
+	return 0
+}
+
+func (x *Entity) GetData() []*anypb.Any {
 	if x != nil {
 		return x.Data
 	}
@@ -502,6 +520,190 @@ func (x *Entity) GetGridId() int32 {
 	return 0
 }
 
+type EntityStatus struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IsAlive       bool                   `protobuf:"varint,1,opt,name=IsAlive,proto3" json:"IsAlive,omitempty"`
+	IsLowHealth   bool                   `protobuf:"varint,2,opt,name=IsLowHealth,proto3" json:"IsLowHealth,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *EntityStatus) Reset() {
+	*x = EntityStatus{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *EntityStatus) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EntityStatus) ProtoMessage() {}
+
+func (x *EntityStatus) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EntityStatus.ProtoReflect.Descriptor instead.
+func (*EntityStatus) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *EntityStatus) GetIsAlive() bool {
+	if x != nil {
+		return x.IsAlive
+	}
+	return false
+}
+
+func (x *EntityStatus) GetIsLowHealth() bool {
+	if x != nil {
+		return x.IsLowHealth
+	}
+	return false
+}
+
+type BornTime struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Time          *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *BornTime) Reset() {
+	*x = BornTime{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *BornTime) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BornTime) ProtoMessage() {}
+
+func (x *BornTime) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BornTime.ProtoReflect.Descriptor instead.
+func (*BornTime) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *BornTime) GetTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Time
+	}
+	return nil
+}
+
+type LowHealthTime struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Time          *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LowHealthTime) Reset() {
+	*x = LowHealthTime{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LowHealthTime) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LowHealthTime) ProtoMessage() {}
+
+func (x *LowHealthTime) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LowHealthTime.ProtoReflect.Descriptor instead.
+func (*LowHealthTime) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *LowHealthTime) GetTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Time
+	}
+	return nil
+}
+
+type DeadTime struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Time          *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeadTime) Reset() {
+	*x = DeadTime{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeadTime) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeadTime) ProtoMessage() {}
+
+func (x *DeadTime) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeadTime.ProtoReflect.Descriptor instead.
+func (*DeadTime) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *DeadTime) GetTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Time
+	}
+	return nil
+}
+
 type Grid struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -514,7 +716,7 @@ type Grid struct {
 
 func (x *Grid) Reset() {
 	*x = Grid{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -526,7 +728,7 @@ func (x *Grid) String() string {
 func (*Grid) ProtoMessage() {}
 
 func (x *Grid) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[9]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -539,7 +741,7 @@ func (x *Grid) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Grid.ProtoReflect.Descriptor instead.
 func (*Grid) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{9}
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *Grid) GetId() int32 {
@@ -581,7 +783,7 @@ type AOIUpdateNotify struct {
 
 func (x *AOIUpdateNotify) Reset() {
 	*x = AOIUpdateNotify{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -593,7 +795,7 @@ func (x *AOIUpdateNotify) String() string {
 func (*AOIUpdateNotify) ProtoMessage() {}
 
 func (x *AOIUpdateNotify) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[10]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -606,7 +808,7 @@ func (x *AOIUpdateNotify) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AOIUpdateNotify.ProtoReflect.Descriptor instead.
 func (*AOIUpdateNotify) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{10}
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *AOIUpdateNotify) GetEntities() []*Entity {
@@ -634,7 +836,7 @@ var File_mapsvr_bigmap_proto protoreflect.FileDescriptor
 
 const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\n" +
-	"\x13mapsvr/bigmap.proto\x12\x06mapsvr\x1a\x19google/protobuf/any.proto\x1a\x18common/types/types.proto\x1a\x1acommon/errors/errors.proto\"&\n" +
+	"\x13mapsvr/bigmap.proto\x12\x06mapsvr\x1a\x19google/protobuf/any.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x18common/types/types.proto\x1a\x1acommon/errors/errors.proto\"&\n" +
 	"\bPosition\x12\f\n" +
 	"\x01x\x18\x01 \x01(\x05R\x01x\x12\f\n" +
 	"\x01y\x18\x02 \x01(\x05R\x01y\"\"\n" +
@@ -655,14 +857,25 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\x11\n" +
 	"\x0fLeaveMapRequest\"9\n" +
 	"\x10LeaveMapResponse\x12%\n" +
-	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\xac\x01\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\"\xe4\x01\n" +
 	"\x06Entity\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x12\n" +
-	"\x04type\x18\x02 \x01(\x05R\x04type\x12(\n" +
-	"\x04data\x18\x03 \x01(\v2\x14.google.protobuf.AnyR\x04data\x12\"\n" +
-	"\x03pos\x18\x04 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
-	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x16\n" +
-	"\x06gridId\x18\x06 \x01(\x05R\x06gridId\"p\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x1b\n" +
+	"\tconfig_id\x18\x02 \x01(\x05R\bconfigId\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\x05R\x04type\x12\x19\n" +
+	"\bsub_type\x18\x04 \x01(\x05R\asubType\x12(\n" +
+	"\x04data\x18\x05 \x03(\v2\x14.google.protobuf.AnyR\x04data\x12\"\n" +
+	"\x03pos\x18\x06 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
+	"\aversion\x18\a \x01(\x03R\aversion\x12\x16\n" +
+	"\x06gridId\x18\b \x01(\x05R\x06gridId\"J\n" +
+	"\fEntityStatus\x12\x18\n" +
+	"\aIsAlive\x18\x01 \x01(\bR\aIsAlive\x12 \n" +
+	"\vIsLowHealth\x18\x02 \x01(\bR\vIsLowHealth\":\n" +
+	"\bBornTime\x12.\n" +
+	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\"?\n" +
+	"\rLowHealthTime\x12.\n" +
+	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\":\n" +
+	"\bDeadTime\x12.\n" +
+	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\"p\n" +
 	"\x04Grid\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
@@ -686,39 +899,47 @@ func file_mapsvr_bigmap_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmap_proto_rawDescData
 }
 
-var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_mapsvr_bigmap_proto_goTypes = []any{
-	(*Position)(nil),         // 0: mapsvr.Position
-	(*Size)(nil),             // 1: mapsvr.Size
-	(*EnterMapRequest)(nil),  // 2: mapsvr.EnterMapRequest
-	(*EnterMapResponse)(nil), // 3: mapsvr.EnterMapResponse
-	(*MoveViewRequest)(nil),  // 4: mapsvr.MoveViewRequest
-	(*MoveViewResponse)(nil), // 5: mapsvr.MoveViewResponse
-	(*LeaveMapRequest)(nil),  // 6: mapsvr.LeaveMapRequest
-	(*LeaveMapResponse)(nil), // 7: mapsvr.LeaveMapResponse
-	(*Entity)(nil),           // 8: mapsvr.Entity
-	(*Grid)(nil),             // 9: mapsvr.Grid
-	(*AOIUpdateNotify)(nil),  // 10: mapsvr.AOIUpdateNotify
-	(*types.CommonResp)(nil), // 11: types.CommonResp
-	(*anypb.Any)(nil),        // 12: google.protobuf.Any
+	(*Position)(nil),              // 0: mapsvr.Position
+	(*Size)(nil),                  // 1: mapsvr.Size
+	(*EnterMapRequest)(nil),       // 2: mapsvr.EnterMapRequest
+	(*EnterMapResponse)(nil),      // 3: mapsvr.EnterMapResponse
+	(*MoveViewRequest)(nil),       // 4: mapsvr.MoveViewRequest
+	(*MoveViewResponse)(nil),      // 5: mapsvr.MoveViewResponse
+	(*LeaveMapRequest)(nil),       // 6: mapsvr.LeaveMapRequest
+	(*LeaveMapResponse)(nil),      // 7: mapsvr.LeaveMapResponse
+	(*Entity)(nil),                // 8: mapsvr.Entity
+	(*EntityStatus)(nil),          // 9: mapsvr.EntityStatus
+	(*BornTime)(nil),              // 10: mapsvr.BornTime
+	(*LowHealthTime)(nil),         // 11: mapsvr.LowHealthTime
+	(*DeadTime)(nil),              // 12: mapsvr.DeadTime
+	(*Grid)(nil),                  // 13: mapsvr.Grid
+	(*AOIUpdateNotify)(nil),       // 14: mapsvr.AOIUpdateNotify
+	(*types.CommonResp)(nil),      // 15: types.CommonResp
+	(*anypb.Any)(nil),             // 16: google.protobuf.Any
+	(*timestamppb.Timestamp)(nil), // 17: google.protobuf.Timestamp
 }
 var file_mapsvr_bigmap_proto_depIdxs = []int32{
 	0,  // 0: mapsvr.EnterMapRequest.position:type_name -> mapsvr.Position
 	1,  // 1: mapsvr.EnterMapRequest.size:type_name -> mapsvr.Size
-	11, // 2: mapsvr.EnterMapResponse.resp:type_name -> types.CommonResp
+	15, // 2: mapsvr.EnterMapResponse.resp:type_name -> types.CommonResp
 	0,  // 3: mapsvr.MoveViewRequest.center:type_name -> mapsvr.Position
 	1,  // 4: mapsvr.MoveViewRequest.size:type_name -> mapsvr.Size
-	11, // 5: mapsvr.MoveViewResponse.resp:type_name -> types.CommonResp
-	11, // 6: mapsvr.LeaveMapResponse.resp:type_name -> types.CommonResp
-	12, // 7: mapsvr.Entity.data:type_name -> google.protobuf.Any
+	15, // 5: mapsvr.MoveViewResponse.resp:type_name -> types.CommonResp
+	15, // 6: mapsvr.LeaveMapResponse.resp:type_name -> types.CommonResp
+	16, // 7: mapsvr.Entity.data:type_name -> google.protobuf.Any
 	0,  // 8: mapsvr.Entity.pos:type_name -> mapsvr.Position
-	0,  // 9: mapsvr.Grid.pos:type_name -> mapsvr.Position
-	8,  // 10: mapsvr.AOIUpdateNotify.entities:type_name -> mapsvr.Entity
-	11, // [11:11] is the sub-list for method output_type
-	11, // [11:11] is the sub-list for method input_type
-	11, // [11:11] is the sub-list for extension type_name
-	11, // [11:11] is the sub-list for extension extendee
-	0,  // [0:11] is the sub-list for field type_name
+	17, // 9: mapsvr.BornTime.time:type_name -> google.protobuf.Timestamp
+	17, // 10: mapsvr.LowHealthTime.time:type_name -> google.protobuf.Timestamp
+	17, // 11: mapsvr.DeadTime.time:type_name -> google.protobuf.Timestamp
+	0,  // 12: mapsvr.Grid.pos:type_name -> mapsvr.Position
+	8,  // 13: mapsvr.AOIUpdateNotify.entities:type_name -> mapsvr.Entity
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmap_proto_init() }
@@ -732,7 +953,7 @@ func file_mapsvr_bigmap_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmap_proto_rawDesc), len(file_mapsvr_bigmap_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
