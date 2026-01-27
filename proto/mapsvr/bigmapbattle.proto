@@ -60,8 +60,9 @@ message StartMarchResponse {
 
 
 message MarchBattleNotify {
-  FighterInfo attacker = 1;
-  FighterInfo defencer = 2;
+  bool is_win = 1; // 是否胜利
+  FighterInfo attacker = 2;
+  FighterInfo defencer = 3;
 }
 
 

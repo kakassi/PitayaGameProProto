@@ -429,8 +429,9 @@ func (x *StartMarchResponse) GetMarchDuration() int32 {
 
 type MarchBattleNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Attacker      *FighterInfo           `protobuf:"bytes,1,opt,name=attacker,proto3" json:"attacker,omitempty"`
-	Defencer      *FighterInfo           `protobuf:"bytes,2,opt,name=defencer,proto3" json:"defencer,omitempty"`
+	IsWin         bool                   `protobuf:"varint,1,opt,name=is_win,json=isWin,proto3" json:"is_win,omitempty"` // 是否胜利
+	Attacker      *FighterInfo           `protobuf:"bytes,2,opt,name=attacker,proto3" json:"attacker,omitempty"`
+	Defencer      *FighterInfo           `protobuf:"bytes,3,opt,name=defencer,proto3" json:"defencer,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -463,6 +464,13 @@ func (x *MarchBattleNotify) ProtoReflect() protoreflect.Message {
 // Deprecated: Use MarchBattleNotify.ProtoReflect.Descriptor instead.
 func (*MarchBattleNotify) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *MarchBattleNotify) GetIsWin() bool {
+	if x != nil {
+		return x.IsWin
+	}
+	return false
 }
 
 func (x *MarchBattleNotify) GetAttacker() *FighterInfo {
@@ -819,10 +827,11 @@ const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
 	"\x05value\x18\x02 \x01(\v2\x13.mapsvr.TroopLevelsR\x05value:\x028\x01\"b\n" +
 	"\x12StartMarchResponse\x12%\n" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12%\n" +
-	"\x0emarch_duration\x18\x02 \x01(\x05R\rmarchDuration\"u\n" +
-	"\x11MarchBattleNotify\x12/\n" +
-	"\battacker\x18\x01 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
-	"\bdefencer\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer\"\xfb\x01\n" +
+	"\x0emarch_duration\x18\x02 \x01(\x05R\rmarchDuration\"\x8c\x01\n" +
+	"\x11MarchBattleNotify\x12\x15\n" +
+	"\x06is_win\x18\x01 \x01(\bR\x05isWin\x12/\n" +
+	"\battacker\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
+	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer\"\xfb\x01\n" +
 	"\x0eMarchAddNotify\x12\x19\n" +
 	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\x12\x1b\n" +
 	"\tplayer_id\x18\x02 \x01(\tR\bplayerId\x12\x11\n" +
