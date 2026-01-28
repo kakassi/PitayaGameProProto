@@ -774,9 +774,11 @@ func (x *Grid) GetEntityId() int32 {
 
 type AOIUpdateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Entities      []*Entity              `protobuf:"bytes,1,rep,name=entities,proto3" json:"entities,omitempty"`                               // 全量或新增实体列表
-	RemovedIds    []int32                `protobuf:"varint,2,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的移除ID列表
-	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	X             int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y             int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	Entities      []*Entity              `protobuf:"bytes,3,rep,name=entities,proto3" json:"entities,omitempty"`                               // 全量或增量实体列表
+	RemovedIds    []int32                `protobuf:"varint,4,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的实体移除ID列表
+	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -809,6 +811,20 @@ func (x *AOIUpdateNotify) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AOIUpdateNotify.ProtoReflect.Descriptor instead.
 func (*AOIUpdateNotify) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *AOIUpdateNotify) GetX() int32 {
+	if x != nil {
+		return x.X
+	}
+	return 0
+}
+
+func (x *AOIUpdateNotify) GetY() int32 {
+	if x != nil {
+		return x.Y
+	}
+	return 0
 }
 
 func (x *AOIUpdateNotify) GetEntities() []*Entity {
@@ -880,12 +896,14 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
 	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x1a\n" +
-	"\bentityId\x18\x06 \x01(\x05R\bentityId\"|\n" +
-	"\x0fAOIUpdateNotify\x12*\n" +
-	"\bentities\x18\x01 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
-	"\vremoved_ids\x18\x02 \x03(\x05R\n" +
+	"\bentityId\x18\x06 \x01(\x05R\bentityId\"\x98\x01\n" +
+	"\x0fAOIUpdateNotify\x12\f\n" +
+	"\x01x\x18\x01 \x01(\x05R\x01x\x12\f\n" +
+	"\x01y\x18\x02 \x01(\x05R\x01y\x12*\n" +
+	"\bentities\x18\x03 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
+	"\vremoved_ids\x18\x04 \x03(\x05R\n" +
 	"removedIds\x12\x1c\n" +
-	"\ttimestamp\x18\x04 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\ttimestamp\x18\x05 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
