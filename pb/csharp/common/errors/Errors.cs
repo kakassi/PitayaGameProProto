@@ -25,7 +25,7 @@ namespace PitayaGame.Errors {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "Chpjb21tb24vZXJyb3JzL2Vycm9ycy5wcm90bxIGZXJyb3JzGiBnb29nbGUv",
-            "cHJvdG9idWYvZGVzY3JpcHRvci5wcm90byrtKQoJRXJyb3JDb2RlEigKB1NV",
+            "cHJvdG9idWYvZGVzY3JpcHRvci5wcm90byrPKgoJRXJyb3JDb2RlEigKB1NV",
             "Q0NFU1MQABobirUYDOaTjeS9nOaIkOWKn5K1GAdTdWNjZXNzEjMKC0VSUl9V",
             "TktOT1dOEOgHGiGKtRgM5pyq55+l6ZSZ6K+vkrUYDVVua25vd24gZXJyb3IS",
             "PQoRRVJSX0lOVkFMSURfUEFSQU0Q6QcaJYq1GAzlj4LmlbDplJnor6+StRgR",
@@ -144,12 +144,14 @@ namespace PitayaGame.Errors {
             "krUYEENvbmZpZyBub3QgZm91bmQSUQoaRVJSX0NPTkZJR19JTlZBTElEX1ZF",
             "UlNJT04Qq0YaMIq1GBLphY3nva7niYjmnKzml6DmlYiStRgWSW52YWxpZCBj",
             "b25maWcgdmVyc2lvbhI8ChNFUlJfU1lTVEVNX0lOVEVSTkFMEI9OGiKKtRgM",
-            "57O757uf6ZSZ6K+vkrUYDkludGVybmFsIGVycm9yOjoKDWVycm9yX21lc3Nh",
-            "Z2USIS5nb29nbGUucHJvdG9idWYuRW51bVZhbHVlT3B0aW9ucxjRhgMgASgJ",
-            "Oj0KEGVycm9yX21lc3NhZ2VfZW4SIS5nb29nbGUucHJvdG9idWYuRW51bVZh",
-            "bHVlT3B0aW9ucxjShgMgASgJQlJaPHBpdGF5YS1nYW1lL3Byb3Rvcy9wcm90",
-            "b2J1Zi9wYi9nb2xhbmcvY29tbW9uL2Vycm9ycztlcnJvcnNwYqoCEVBpdGF5",
-            "YUdhbWUuRXJyb3JzYgZwcm90bzM="));
+            "57O757uf6ZSZ6K+vkrUYDkludGVybmFsIGVycm9yEmAKJUVSUl9CSUdNQVBN",
+            "QVJDSF9BTExPQ0FURV9NQVJDSElEX0ZBSUwQkE4aNIq1GBTojrflj5booYzl",
+            "hptpZOWksei0pZK1GBhhbGxvY2F0ZSBtYXJjaCBpZCBmYWlsZWQ6OgoNZXJy",
+            "b3JfbWVzc2FnZRIhLmdvb2dsZS5wcm90b2J1Zi5FbnVtVmFsdWVPcHRpb25z",
+            "GNGGAyABKAk6PQoQZXJyb3JfbWVzc2FnZV9lbhIhLmdvb2dsZS5wcm90b2J1",
+            "Zi5FbnVtVmFsdWVPcHRpb25zGNKGAyABKAlCUlo8cGl0YXlhLWdhbWUvcHJv",
+            "dG9zL3Byb3RvYnVmL3BiL2dvbGFuZy9jb21tb24vZXJyb3JzO2Vycm9yc3Bi",
+            "qgIRUGl0YXlhR2FtZS5FcnJvcnNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.Reflection.DescriptorReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::PitayaGame.Errors.ErrorCode), }, new pb::Extension[] { ErrorsExtensions.ErrorMessage, ErrorsExtensions.ErrorMessageEn }, null));
@@ -292,6 +294,10 @@ namespace PitayaGame.Errors {
     [pbr::OriginalName("ERR_CONFIG_NOT_FOUND")] ErrConfigNotFound = 9002,
     [pbr::OriginalName("ERR_CONFIG_INVALID_VERSION")] ErrConfigInvalidVersion = 9003,
     [pbr::OriginalName("ERR_SYSTEM_INTERNAL")] ErrSystemInternal = 9999,
+    /// <summary>
+    /// bigmap march (10000-11000)
+    /// </summary>
+    [pbr::OriginalName("ERR_BIGMAPMARCH_ALLOCATE_MARCHID_FAIL")] ErrBigmapmarchAllocateMarchidFail = 10000,
   }
 
   #endregion
