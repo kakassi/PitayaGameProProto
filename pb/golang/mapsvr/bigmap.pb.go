@@ -774,11 +774,10 @@ func (x *Grid) GetEntityId() int32 {
 
 type AOIUpdateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	X             int32                  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
-	Y             int32                  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
-	Entities      []*Entity              `protobuf:"bytes,3,rep,name=entities,proto3" json:"entities,omitempty"`                               // 全量或增量实体列表
-	RemovedIds    []int32                `protobuf:"varint,4,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的实体移除ID列表
-	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Pos           *Position              `protobuf:"bytes,1,opt,name=pos,proto3" json:"pos,omitempty"`                                         // 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
+	Entities      []*Entity              `protobuf:"bytes,2,rep,name=entities,proto3" json:"entities,omitempty"`                               // 全量或增量实体列表
+	RemovedIds    []int32                `protobuf:"varint,3,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的实体移除ID列表
+	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -813,18 +812,11 @@ func (*AOIUpdateNotify) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *AOIUpdateNotify) GetX() int32 {
+func (x *AOIUpdateNotify) GetPos() *Position {
 	if x != nil {
-		return x.X
+		return x.Pos
 	}
-	return 0
-}
-
-func (x *AOIUpdateNotify) GetY() int32 {
-	if x != nil {
-		return x.Y
-	}
-	return 0
+	return nil
 }
 
 func (x *AOIUpdateNotify) GetEntities() []*Entity {
@@ -896,14 +888,13 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
 	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x1a\n" +
-	"\bentityId\x18\x06 \x01(\x05R\bentityId\"\x98\x01\n" +
-	"\x0fAOIUpdateNotify\x12\f\n" +
-	"\x01x\x18\x01 \x01(\x05R\x01x\x12\f\n" +
-	"\x01y\x18\x02 \x01(\x05R\x01y\x12*\n" +
-	"\bentities\x18\x03 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
-	"\vremoved_ids\x18\x04 \x03(\x05R\n" +
+	"\bentityId\x18\x06 \x01(\x05R\bentityId\"\xa0\x01\n" +
+	"\x0fAOIUpdateNotify\x12\"\n" +
+	"\x03pos\x18\x01 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12*\n" +
+	"\bentities\x18\x02 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
+	"\vremoved_ids\x18\x03 \x03(\x05R\n" +
 	"removedIds\x12\x1c\n" +
-	"\ttimestamp\x18\x05 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\ttimestamp\x18\x04 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
@@ -952,12 +943,13 @@ var file_mapsvr_bigmap_proto_depIdxs = []int32{
 	17, // 10: mapsvr.LowHealthTime.time:type_name -> google.protobuf.Timestamp
 	17, // 11: mapsvr.DeadTime.time:type_name -> google.protobuf.Timestamp
 	0,  // 12: mapsvr.Grid.pos:type_name -> mapsvr.Position
-	8,  // 13: mapsvr.AOIUpdateNotify.entities:type_name -> mapsvr.Entity
-	14, // [14:14] is the sub-list for method output_type
-	14, // [14:14] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	0,  // 13: mapsvr.AOIUpdateNotify.pos:type_name -> mapsvr.Position
+	8,  // 14: mapsvr.AOIUpdateNotify.entities:type_name -> mapsvr.Entity
+	15, // [15:15] is the sub-list for method output_type
+	15, // [15:15] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmap_proto_init() }

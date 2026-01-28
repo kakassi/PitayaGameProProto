@@ -84,9 +84,8 @@ message Grid {
 }
 
 message AOIUpdateNotify {
-  int32 x = 1;
-  int32 y = 2;
-  repeated Entity entities = 3; // 全量或增量实体列表
-  repeated int32 removed_ids = 4; // 增量中的实体移除ID列表
-  int64 timestamp = 5;
+  Position pos = 1; // 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
+  repeated Entity entities = 2; // 全量或增量实体列表
+  repeated int32 removed_ids = 3; // 增量中的实体移除ID列表
+  int64 timestamp = 4;
 }
