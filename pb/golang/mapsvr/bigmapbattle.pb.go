@@ -487,158 +487,6 @@ func (x *MarchBattleNotify) GetDefencer() *FighterInfo {
 	return nil
 }
 
-type MarchAddNotify struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`   //唯一id
-	PlayerId      string                 `protobuf:"bytes,2,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"` //name
-	ToX           int32                  `protobuf:"varint,3,opt,name=to_x,json=toX,proto3" json:"to_x,omitempty"`               // X坐标
-	ToY           int32                  `protobuf:"varint,4,opt,name=to_y,json=toY,proto3" json:"to_y,omitempty"`               // Y坐标
-	FromX         int32                  `protobuf:"varint,5,opt,name=from_x,json=fromX,proto3" json:"from_x,omitempty"`         //
-	FromY         int32                  `protobuf:"varint,6,opt,name=from_y,json=fromY,proto3" json:"from_y,omitempty"`
-	MarchDuration int32                  `protobuf:"varint,7,opt,name=march_duration,json=marchDuration,proto3" json:"march_duration,omitempty"` //行军所需时长（秒）
-	StartAt       int64                  `protobuf:"varint,8,opt,name=start_at,json=startAt,proto3" json:"start_at,omitempty"`
-	ArriveAt      int64                  `protobuf:"varint,9,opt,name=arrive_at,json=arriveAt,proto3" json:"arrive_at,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *MarchAddNotify) Reset() {
-	*x = MarchAddNotify{}
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *MarchAddNotify) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MarchAddNotify) ProtoMessage() {}
-
-func (x *MarchAddNotify) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MarchAddNotify.ProtoReflect.Descriptor instead.
-func (*MarchAddNotify) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *MarchAddNotify) GetMarchId() int64 {
-	if x != nil {
-		return x.MarchId
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetPlayerId() string {
-	if x != nil {
-		return x.PlayerId
-	}
-	return ""
-}
-
-func (x *MarchAddNotify) GetToX() int32 {
-	if x != nil {
-		return x.ToX
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetToY() int32 {
-	if x != nil {
-		return x.ToY
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetFromX() int32 {
-	if x != nil {
-		return x.FromX
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetFromY() int32 {
-	if x != nil {
-		return x.FromY
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetMarchDuration() int32 {
-	if x != nil {
-		return x.MarchDuration
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetStartAt() int64 {
-	if x != nil {
-		return x.StartAt
-	}
-	return 0
-}
-
-func (x *MarchAddNotify) GetArriveAt() int64 {
-	if x != nil {
-		return x.ArriveAt
-	}
-	return 0
-}
-
-type MarchRemoveNotify struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"` //唯一id
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *MarchRemoveNotify) Reset() {
-	*x = MarchRemoveNotify{}
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *MarchRemoveNotify) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*MarchRemoveNotify) ProtoMessage() {}
-
-func (x *MarchRemoveNotify) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use MarchRemoveNotify.ProtoReflect.Descriptor instead.
-func (*MarchRemoveNotify) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *MarchRemoveNotify) GetMarchId() int64 {
-	if x != nil {
-		return x.MarchId
-	}
-	return 0
-}
-
 type MarchInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`   //唯一id
@@ -656,7 +504,7 @@ type MarchInfo struct {
 
 func (x *MarchInfo) Reset() {
 	*x = MarchInfo{}
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[9]
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -668,7 +516,7 @@ func (x *MarchInfo) String() string {
 func (*MarchInfo) ProtoMessage() {}
 
 func (x *MarchInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[9]
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -681,7 +529,7 @@ func (x *MarchInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MarchInfo.ProtoReflect.Descriptor instead.
 func (*MarchInfo) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{9}
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *MarchInfo) GetMarchId() int64 {
@@ -743,6 +591,94 @@ func (x *MarchInfo) GetStartAt() int64 {
 func (x *MarchInfo) GetArriveAt() int64 {
 	if x != nil {
 		return x.ArriveAt
+	}
+	return 0
+}
+
+type MarchAddNotify struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Marches       []*MarchInfo           `protobuf:"bytes,1,rep,name=marches,proto3" json:"marches,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MarchAddNotify) Reset() {
+	*x = MarchAddNotify{}
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MarchAddNotify) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MarchAddNotify) ProtoMessage() {}
+
+func (x *MarchAddNotify) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MarchAddNotify.ProtoReflect.Descriptor instead.
+func (*MarchAddNotify) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *MarchAddNotify) GetMarches() []*MarchInfo {
+	if x != nil {
+		return x.Marches
+	}
+	return nil
+}
+
+type MarchRemoveNotify struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"` //唯一id
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MarchRemoveNotify) Reset() {
+	*x = MarchRemoveNotify{}
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MarchRemoveNotify) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MarchRemoveNotify) ProtoMessage() {}
+
+func (x *MarchRemoveNotify) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmapbattle_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MarchRemoveNotify.ProtoReflect.Descriptor instead.
+func (*MarchRemoveNotify) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *MarchRemoveNotify) GetMarchId() int64 {
+	if x != nil {
+		return x.MarchId
 	}
 	return 0
 }
@@ -831,19 +767,7 @@ const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
 	"\x11MarchBattleNotify\x12\x15\n" +
 	"\x06is_win\x18\x01 \x01(\bR\x05isWin\x12/\n" +
 	"\battacker\x18\x02 \x01(\v2\x13.mapsvr.FighterInfoR\battacker\x12/\n" +
-	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer\"\xfb\x01\n" +
-	"\x0eMarchAddNotify\x12\x19\n" +
-	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\x12\x1b\n" +
-	"\tplayer_id\x18\x02 \x01(\tR\bplayerId\x12\x11\n" +
-	"\x04to_x\x18\x03 \x01(\x05R\x03toX\x12\x11\n" +
-	"\x04to_y\x18\x04 \x01(\x05R\x03toY\x12\x15\n" +
-	"\x06from_x\x18\x05 \x01(\x05R\x05fromX\x12\x15\n" +
-	"\x06from_y\x18\x06 \x01(\x05R\x05fromY\x12%\n" +
-	"\x0emarch_duration\x18\a \x01(\x05R\rmarchDuration\x12\x19\n" +
-	"\bstart_at\x18\b \x01(\x03R\astartAt\x12\x1b\n" +
-	"\tarrive_at\x18\t \x01(\x03R\barriveAt\".\n" +
-	"\x11MarchRemoveNotify\x12\x19\n" +
-	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\"\xf6\x01\n" +
+	"\bdefencer\x18\x03 \x01(\v2\x13.mapsvr.FighterInfoR\bdefencer\"\xf6\x01\n" +
 	"\tMarchInfo\x12\x19\n" +
 	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\x12\x1b\n" +
 	"\tplayer_id\x18\x02 \x01(\tR\bplayerId\x12\x11\n" +
@@ -853,7 +777,11 @@ const file_mapsvr_bigmapbattle_proto_rawDesc = "" +
 	"\x06from_y\x18\x06 \x01(\x05R\x05fromY\x12%\n" +
 	"\x0emarch_duration\x18\a \x01(\x05R\rmarchDuration\x12\x19\n" +
 	"\bstart_at\x18\b \x01(\x03R\astartAt\x12\x1b\n" +
-	"\tarrive_at\x18\t \x01(\x03R\barriveAt\";\n" +
+	"\tarrive_at\x18\t \x01(\x03R\barriveAt\"=\n" +
+	"\x0eMarchAddNotify\x12+\n" +
+	"\amarches\x18\x01 \x03(\v2\x11.mapsvr.MarchInfoR\amarches\".\n" +
+	"\x11MarchRemoveNotify\x12\x19\n" +
+	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\";\n" +
 	"\fAllMarchPush\x12+\n" +
 	"\amarches\x18\x01 \x03(\v2\x11.mapsvr.MarchInfoR\amarches*N\n" +
 	"\tTroopType\x12\x1a\n" +
@@ -886,9 +814,9 @@ var file_mapsvr_bigmapbattle_proto_goTypes = []any{
 	(*StartMarchRequest)(nil),  // 5: mapsvr.StartMarchRequest
 	(*StartMarchResponse)(nil), // 6: mapsvr.StartMarchResponse
 	(*MarchBattleNotify)(nil),  // 7: mapsvr.MarchBattleNotify
-	(*MarchAddNotify)(nil),     // 8: mapsvr.MarchAddNotify
-	(*MarchRemoveNotify)(nil),  // 9: mapsvr.MarchRemoveNotify
-	(*MarchInfo)(nil),          // 10: mapsvr.MarchInfo
+	(*MarchInfo)(nil),          // 8: mapsvr.MarchInfo
+	(*MarchAddNotify)(nil),     // 9: mapsvr.MarchAddNotify
+	(*MarchRemoveNotify)(nil),  // 10: mapsvr.MarchRemoveNotify
 	(*AllMarchPush)(nil),       // 11: mapsvr.AllMarchPush
 	nil,                        // 12: mapsvr.TroopLevels.LevelCountsEntry
 	nil,                        // 13: mapsvr.StartMarchRequest.TroopsEntry
@@ -903,13 +831,14 @@ var file_mapsvr_bigmapbattle_proto_depIdxs = []int32{
 	14, // 5: mapsvr.StartMarchResponse.resp:type_name -> types.CommonResp
 	2,  // 6: mapsvr.MarchBattleNotify.attacker:type_name -> mapsvr.FighterInfo
 	2,  // 7: mapsvr.MarchBattleNotify.defencer:type_name -> mapsvr.FighterInfo
-	10, // 8: mapsvr.AllMarchPush.marches:type_name -> mapsvr.MarchInfo
-	4,  // 9: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	8,  // 8: mapsvr.MarchAddNotify.marches:type_name -> mapsvr.MarchInfo
+	8,  // 9: mapsvr.AllMarchPush.marches:type_name -> mapsvr.MarchInfo
+	4,  // 10: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmapbattle_proto_init() }
