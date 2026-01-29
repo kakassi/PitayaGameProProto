@@ -21,6 +21,7 @@ message FighterInfo {
   int32   soldier_count = 4;
   int32   death_count = 5;
   int32   live_count = 6;
+  map<int32, int32> troop_kill_count_map = 7; //  
 }
 
 
