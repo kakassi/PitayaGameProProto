@@ -65,6 +65,13 @@ message MarchBattleNotify {
   FighterInfo defencer = 3;
 }
 
+//未来需要扩展
+enum MarchType {
+  MARCH_TYPE_UNSPECIFIED = 0;
+  MarchTypeGo = 1; // 出征
+  MarchTypeReturn  = 2; // 回城 
+}
+
 // 
 message MarchInfo {
   int64  march_id = 1;       //唯一id
@@ -76,6 +83,7 @@ message MarchInfo {
   int32  march_duration = 7;   //行军所需时长（秒）
   int64  start_at = 8;
   int64  arrive_at = 9;
+  MarchType march_type = 10;
 }
 
 message MarchAddNotify {
