@@ -40,17 +40,18 @@ namespace Mapsvr {
             "bnRpdHkSCgoCaWQYASABKAUSEQoJY29uZmlnX2lkGAIgASgFEgwKBHR5cGUY",
             "AyABKAUSEAoIc3ViX3R5cGUYBCABKAUSIgoEZGF0YRgFIAMoCzIULmdvb2ds",
             "ZS5wcm90b2J1Zi5BbnkSHQoDcG9zGAYgASgLMhAubWFwc3ZyLlBvc2l0aW9u",
-            "Eg8KB3ZlcnNpb24YByABKAMSDgoGZ3JpZElkGAggASgFIjQKDEVudGl0eVN0",
-            "YXR1cxIPCgdJc0FsaXZlGAEgASgIEhMKC0lzTG93SGVhbHRoGAIgASgIIjQK",
-            "CEJvcm5UaW1lEigKBHRpbWUYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGlt",
-            "ZXN0YW1wIjkKDUxvd0hlYWx0aFRpbWUSKAoEdGltZRgBIAEoCzIaLmdvb2ds",
-            "ZS5wcm90b2J1Zi5UaW1lc3RhbXAiNAoIRGVhZFRpbWUSKAoEdGltZRgBIAEo",
-            "CzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXAiVAoER3JpZBIKCgJpZBgB",
-            "IAEoBRIdCgNwb3MYAiABKAsyEC5tYXBzdnIuUG9zaXRpb24SDwoHdmVyc2lv",
-            "bhgFIAEoAxIQCghlbnRpdHlJZBgGIAEoBSJbCg9BT0lVcGRhdGVOb3RpZnkS",
-            "IAoIZW50aXRpZXMYASADKAsyDi5tYXBzdnIuRW50aXR5EhMKC3JlbW92ZWRf",
-            "aWRzGAIgAygFEhEKCXRpbWVzdGFtcBgEIAEoA0IuWixwaXRheWEtZ2FtZS9w",
-            "cm90b3MvcHJvdG9idWYvcGIvZ29sYW5nL21hcHN2cmIGcHJvdG8z"));
+            "Eg8KB3ZlcnNpb24YByABKAMSDgoGZ3JpZElkGAggASgFIiAKDEVudGl0eVN0",
+            "YXR1cxIQCghJc1RhcmdldBgBIAEoCCI0CghCb3JuVGltZRIoCgR0aW1lGAEg",
+            "ASgLMhouZ29vZ2xlLnByb3RvYnVmLlRpbWVzdGFtcCI5Cg1Mb3dIZWFsdGhU",
+            "aW1lEigKBHRpbWUYASABKAsyGi5nb29nbGUucHJvdG9idWYuVGltZXN0YW1w",
+            "IjQKCERlYWRUaW1lEigKBHRpbWUYASABKAsyGi5nb29nbGUucHJvdG9idWYu",
+            "VGltZXN0YW1wIlQKBEdyaWQSCgoCaWQYASABKAUSHQoDcG9zGAIgASgLMhAu",
+            "bWFwc3ZyLlBvc2l0aW9uEg8KB3ZlcnNpb24YBSABKAMSEAoIZW50aXR5SWQY",
+            "BiABKAUiegoPQU9JVXBkYXRlTm90aWZ5Eh0KA3BvcxgBIAEoCzIQLm1hcHN2",
+            "ci5Qb3NpdGlvbhIgCghlbnRpdGllcxgCIAMoCzIOLm1hcHN2ci5FbnRpdHkS",
+            "EwoLcmVtb3ZlZF9pZHMYAyADKAUSEQoJdGltZXN0YW1wGAQgASgDQi5aLHBp",
+            "dGF5YS1nYW1lL3Byb3Rvcy9wcm90b2J1Zi9wYi9nb2xhbmcvbWFwc3ZyYgZw",
+            "cm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::PitayaGame.Types.TypesReflection.Descriptor, global::PitayaGame.Errors.ErrorsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -63,12 +64,12 @@ namespace Mapsvr {
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.LeaveMapRequest), global::Mapsvr.LeaveMapRequest.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.LeaveMapResponse), global::Mapsvr.LeaveMapResponse.Parser, new[]{ "Resp" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.Entity), global::Mapsvr.Entity.Parser, new[]{ "Id", "ConfigId", "Type", "SubType", "Data", "Pos", "Version", "GridId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.EntityStatus), global::Mapsvr.EntityStatus.Parser, new[]{ "IsAlive", "IsLowHealth" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.EntityStatus), global::Mapsvr.EntityStatus.Parser, new[]{ "IsTarget" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.BornTime), global::Mapsvr.BornTime.Parser, new[]{ "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.LowHealthTime), global::Mapsvr.LowHealthTime.Parser, new[]{ "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.DeadTime), global::Mapsvr.DeadTime.Parser, new[]{ "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.Grid), global::Mapsvr.Grid.Parser, new[]{ "Id", "Pos", "Version", "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.AOIUpdateNotify), global::Mapsvr.AOIUpdateNotify.Parser, new[]{ "Entities", "RemovedIds", "Timestamp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.AOIUpdateNotify), global::Mapsvr.AOIUpdateNotify.Parser, new[]{ "Pos", "Entities", "RemovedIds", "Timestamp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -2406,8 +2407,7 @@ namespace Mapsvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public EntityStatus(EntityStatus other) : this() {
-      isAlive_ = other.isAlive_;
-      isLowHealth_ = other.isLowHealth_;
+      isTarget_ = other.isTarget_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2417,27 +2417,15 @@ namespace Mapsvr {
       return new EntityStatus(this);
     }
 
-    /// <summary>Field number for the "IsAlive" field.</summary>
-    public const int IsAliveFieldNumber = 1;
-    private bool isAlive_;
+    /// <summary>Field number for the "IsTarget" field.</summary>
+    public const int IsTargetFieldNumber = 1;
+    private bool isTarget_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsAlive {
-      get { return isAlive_; }
+    public bool IsTarget {
+      get { return isTarget_; }
       set {
-        isAlive_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "IsLowHealth" field.</summary>
-    public const int IsLowHealthFieldNumber = 2;
-    private bool isLowHealth_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool IsLowHealth {
-      get { return isLowHealth_; }
-      set {
-        isLowHealth_ = value;
+        isTarget_ = value;
       }
     }
 
@@ -2456,8 +2444,7 @@ namespace Mapsvr {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (IsAlive != other.IsAlive) return false;
-      if (IsLowHealth != other.IsLowHealth) return false;
+      if (IsTarget != other.IsTarget) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2465,8 +2452,7 @@ namespace Mapsvr {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (IsAlive != false) hash ^= IsAlive.GetHashCode();
-      if (IsLowHealth != false) hash ^= IsLowHealth.GetHashCode();
+      if (IsTarget != false) hash ^= IsTarget.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2485,13 +2471,9 @@ namespace Mapsvr {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (IsAlive != false) {
+      if (IsTarget != false) {
         output.WriteRawTag(8);
-        output.WriteBool(IsAlive);
-      }
-      if (IsLowHealth != false) {
-        output.WriteRawTag(16);
-        output.WriteBool(IsLowHealth);
+        output.WriteBool(IsTarget);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -2503,13 +2485,9 @@ namespace Mapsvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (IsAlive != false) {
+      if (IsTarget != false) {
         output.WriteRawTag(8);
-        output.WriteBool(IsAlive);
-      }
-      if (IsLowHealth != false) {
-        output.WriteRawTag(16);
-        output.WriteBool(IsLowHealth);
+        output.WriteBool(IsTarget);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -2521,10 +2499,7 @@ namespace Mapsvr {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (IsAlive != false) {
-        size += 1 + 1;
-      }
-      if (IsLowHealth != false) {
+      if (IsTarget != false) {
         size += 1 + 1;
       }
       if (_unknownFields != null) {
@@ -2539,11 +2514,8 @@ namespace Mapsvr {
       if (other == null) {
         return;
       }
-      if (other.IsAlive != false) {
-        IsAlive = other.IsAlive;
-      }
-      if (other.IsLowHealth != false) {
-        IsLowHealth = other.IsLowHealth;
+      if (other.IsTarget != false) {
+        IsTarget = other.IsTarget;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -2565,11 +2537,7 @@ namespace Mapsvr {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            IsAlive = input.ReadBool();
-            break;
-          }
-          case 16: {
-            IsLowHealth = input.ReadBool();
+            IsTarget = input.ReadBool();
             break;
           }
         }
@@ -2592,11 +2560,7 @@ namespace Mapsvr {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            IsAlive = input.ReadBool();
-            break;
-          }
-          case 16: {
-            IsLowHealth = input.ReadBool();
+            IsTarget = input.ReadBool();
             break;
           }
         }
@@ -3580,6 +3544,7 @@ namespace Mapsvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AOIUpdateNotify(AOIUpdateNotify other) : this() {
+      pos_ = other.pos_ != null ? other.pos_.Clone() : null;
       entities_ = other.entities_.Clone();
       removedIds_ = other.removedIds_.Clone();
       timestamp_ = other.timestamp_;
@@ -3592,13 +3557,28 @@ namespace Mapsvr {
       return new AOIUpdateNotify(this);
     }
 
+    /// <summary>Field number for the "pos" field.</summary>
+    public const int PosFieldNumber = 1;
+    private global::Mapsvr.Position pos_;
+    /// <summary>
+    /// 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Mapsvr.Position Pos {
+      get { return pos_; }
+      set {
+        pos_ = value;
+      }
+    }
+
     /// <summary>Field number for the "entities" field.</summary>
-    public const int EntitiesFieldNumber = 1;
+    public const int EntitiesFieldNumber = 2;
     private static readonly pb::FieldCodec<global::Mapsvr.Entity> _repeated_entities_codec
-        = pb::FieldCodec.ForMessage(10, global::Mapsvr.Entity.Parser);
+        = pb::FieldCodec.ForMessage(18, global::Mapsvr.Entity.Parser);
     private readonly pbc::RepeatedField<global::Mapsvr.Entity> entities_ = new pbc::RepeatedField<global::Mapsvr.Entity>();
     /// <summary>
-    /// 全量或新增实体列表
+    /// 全量或增量实体列表
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3607,12 +3587,12 @@ namespace Mapsvr {
     }
 
     /// <summary>Field number for the "removed_ids" field.</summary>
-    public const int RemovedIdsFieldNumber = 2;
+    public const int RemovedIdsFieldNumber = 3;
     private static readonly pb::FieldCodec<int> _repeated_removedIds_codec
-        = pb::FieldCodec.ForInt32(18);
+        = pb::FieldCodec.ForInt32(26);
     private readonly pbc::RepeatedField<int> removedIds_ = new pbc::RepeatedField<int>();
     /// <summary>
-    /// 增量中的移除ID列表
+    /// 增量中的实体移除ID列表
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3647,6 +3627,7 @@ namespace Mapsvr {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (!object.Equals(Pos, other.Pos)) return false;
       if(!entities_.Equals(other.entities_)) return false;
       if(!removedIds_.Equals(other.removedIds_)) return false;
       if (Timestamp != other.Timestamp) return false;
@@ -3657,6 +3638,7 @@ namespace Mapsvr {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (pos_ != null) hash ^= Pos.GetHashCode();
       hash ^= entities_.GetHashCode();
       hash ^= removedIds_.GetHashCode();
       if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
@@ -3678,6 +3660,10 @@ namespace Mapsvr {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (pos_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pos);
+      }
       entities_.WriteTo(output, _repeated_entities_codec);
       removedIds_.WriteTo(output, _repeated_removedIds_codec);
       if (Timestamp != 0L) {
@@ -3694,6 +3680,10 @@ namespace Mapsvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (pos_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pos);
+      }
       entities_.WriteTo(ref output, _repeated_entities_codec);
       removedIds_.WriteTo(ref output, _repeated_removedIds_codec);
       if (Timestamp != 0L) {
@@ -3710,6 +3700,9 @@ namespace Mapsvr {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (pos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Pos);
+      }
       size += entities_.CalculateSize(_repeated_entities_codec);
       size += removedIds_.CalculateSize(_repeated_removedIds_codec);
       if (Timestamp != 0L) {
@@ -3726,6 +3719,12 @@ namespace Mapsvr {
     public void MergeFrom(AOIUpdateNotify other) {
       if (other == null) {
         return;
+      }
+      if (other.pos_ != null) {
+        if (pos_ == null) {
+          Pos = new global::Mapsvr.Position();
+        }
+        Pos.MergeFrom(other.Pos);
       }
       entities_.Add(other.entities_);
       removedIds_.Add(other.removedIds_);
@@ -3752,11 +3751,18 @@ namespace Mapsvr {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
+            if (pos_ == null) {
+              Pos = new global::Mapsvr.Position();
+            }
+            input.ReadMessage(Pos);
+            break;
+          }
+          case 18: {
             entities_.AddEntriesFrom(input, _repeated_entities_codec);
             break;
           }
-          case 18:
-          case 16: {
+          case 26:
+          case 24: {
             removedIds_.AddEntriesFrom(input, _repeated_removedIds_codec);
             break;
           }
@@ -3784,11 +3790,18 @@ namespace Mapsvr {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
+            if (pos_ == null) {
+              Pos = new global::Mapsvr.Position();
+            }
+            input.ReadMessage(Pos);
+            break;
+          }
+          case 18: {
             entities_.AddEntriesFrom(ref input, _repeated_entities_codec);
             break;
           }
-          case 18:
-          case 16: {
+          case 26:
+          case 24: {
             removedIds_.AddEntriesFrom(ref input, _repeated_removedIds_codec);
             break;
           }
