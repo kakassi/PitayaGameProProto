@@ -522,8 +522,7 @@ func (x *Entity) GetGridId() int32 {
 
 type EntityStatus struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	IsAlive       bool                   `protobuf:"varint,1,opt,name=IsAlive,proto3" json:"IsAlive,omitempty"`
-	IsLowHealth   bool                   `protobuf:"varint,2,opt,name=IsLowHealth,proto3" json:"IsLowHealth,omitempty"`
+	IsTarget      bool                   `protobuf:"varint,1,opt,name=IsTarget,proto3" json:"IsTarget,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -558,16 +557,9 @@ func (*EntityStatus) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *EntityStatus) GetIsAlive() bool {
+func (x *EntityStatus) GetIsTarget() bool {
 	if x != nil {
-		return x.IsAlive
-	}
-	return false
-}
-
-func (x *EntityStatus) GetIsLowHealth() bool {
-	if x != nil {
-		return x.IsLowHealth
+		return x.IsTarget
 	}
 	return false
 }
@@ -874,10 +866,9 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x04data\x18\x05 \x03(\v2\x14.google.protobuf.AnyR\x04data\x12\"\n" +
 	"\x03pos\x18\x06 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
 	"\aversion\x18\a \x01(\x03R\aversion\x12\x16\n" +
-	"\x06gridId\x18\b \x01(\x05R\x06gridId\"J\n" +
-	"\fEntityStatus\x12\x18\n" +
-	"\aIsAlive\x18\x01 \x01(\bR\aIsAlive\x12 \n" +
-	"\vIsLowHealth\x18\x02 \x01(\bR\vIsLowHealth\":\n" +
+	"\x06gridId\x18\b \x01(\x05R\x06gridId\"*\n" +
+	"\fEntityStatus\x12\x1a\n" +
+	"\bIsTarget\x18\x01 \x01(\bR\bIsTarget\":\n" +
 	"\bBornTime\x12.\n" +
 	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\"?\n" +
 	"\rLowHealthTime\x12.\n" +

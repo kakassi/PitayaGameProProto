@@ -58,8 +58,7 @@ message Entity {
 }
 
 message EntityStatus {
-  bool IsAlive = 1;
-  bool IsLowHealth = 2;
+  bool IsTarget = 1;
 }
 
 message BornTime {
