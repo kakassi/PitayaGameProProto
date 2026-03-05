@@ -47,11 +47,13 @@ namespace Mapsvr {
             "IjQKCERlYWRUaW1lEigKBHRpbWUYASABKAsyGi5nb29nbGUucHJvdG9idWYu",
             "VGltZXN0YW1wIlQKBEdyaWQSCgoCaWQYASABKAUSHQoDcG9zGAIgASgLMhAu",
             "bWFwc3ZyLlBvc2l0aW9uEg8KB3ZlcnNpb24YBSABKAMSEAoIZW50aXR5SWQY",
-            "BiABKAUiegoPQU9JVXBkYXRlTm90aWZ5Eh0KA3BvcxgBIAEoCzIQLm1hcHN2",
-            "ci5Qb3NpdGlvbhIgCghlbnRpdGllcxgCIAMoCzIOLm1hcHN2ci5FbnRpdHkS",
-            "EwoLcmVtb3ZlZF9pZHMYAyADKAUSEQoJdGltZXN0YW1wGAQgASgDQi5aLHBp",
-            "dGF5YS1nYW1lL3Byb3Rvcy9wcm90b2J1Zi9wYi9nb2xhbmcvbWFwc3ZyYgZw",
-            "cm90bzM="));
+            "BiABKAUiZwoRQU9JU25hcHNob3ROb3RpZnkSHQoDcG9zGAEgASgLMhAubWFw",
+            "c3ZyLlBvc2l0aW9uEiAKCGVudGl0aWVzGAIgAygLMg4ubWFwc3ZyLkVudGl0",
+            "eRIRCgl0aW1lc3RhbXAYAyABKAMieQoOQU9JRGVsdGFOb3RpZnkSHQoDcG9z",
+            "GAEgASgLMhAubWFwc3ZyLlBvc2l0aW9uEiAKCGVudGl0aWVzGAIgAygLMg4u",
+            "bWFwc3ZyLkVudGl0eRITCgtyZW1vdmVkX2lkcxgDIAMoBRIRCgl0aW1lc3Rh",
+            "bXAYBCABKANCLloscGl0YXlhLWdhbWUvcHJvdG9zL3Byb3RvYnVmL3BiL2dv",
+            "bGFuZy9tYXBzdnJiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, global::PitayaGame.Types.TypesReflection.Descriptor, global::PitayaGame.Errors.ErrorsReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -69,7 +71,8 @@ namespace Mapsvr {
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.LowHealthTime), global::Mapsvr.LowHealthTime.Parser, new[]{ "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.DeadTime), global::Mapsvr.DeadTime.Parser, new[]{ "Time" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.Grid), global::Mapsvr.Grid.Parser, new[]{ "Id", "Pos", "Version", "EntityId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.AOIUpdateNotify), global::Mapsvr.AOIUpdateNotify.Parser, new[]{ "Pos", "Entities", "RemovedIds", "Timestamp" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.AOISnapshotNotify), global::Mapsvr.AOISnapshotNotify.Parser, new[]{ "Pos", "Entities", "Timestamp" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Mapsvr.AOIDeltaNotify), global::Mapsvr.AOIDeltaNotify.Parser, new[]{ "Pos", "Entities", "RemovedIds", "Timestamp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3510,16 +3513,16 @@ namespace Mapsvr {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class AOIUpdateNotify : pb::IMessage<AOIUpdateNotify>
+  public sealed partial class AOISnapshotNotify : pb::IMessage<AOISnapshotNotify>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<AOIUpdateNotify> _parser = new pb::MessageParser<AOIUpdateNotify>(() => new AOIUpdateNotify());
+    private static readonly pb::MessageParser<AOISnapshotNotify> _parser = new pb::MessageParser<AOISnapshotNotify>(() => new AOISnapshotNotify());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<AOIUpdateNotify> Parser { get { return _parser; } }
+    public static pb::MessageParser<AOISnapshotNotify> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3535,7 +3538,7 @@ namespace Mapsvr {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AOIUpdateNotify() {
+    public AOISnapshotNotify() {
       OnConstruction();
     }
 
@@ -3543,18 +3546,17 @@ namespace Mapsvr {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AOIUpdateNotify(AOIUpdateNotify other) : this() {
+    public AOISnapshotNotify(AOISnapshotNotify other) : this() {
       pos_ = other.pos_ != null ? other.pos_.Clone() : null;
       entities_ = other.entities_.Clone();
-      removedIds_ = other.removedIds_.Clone();
       timestamp_ = other.timestamp_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public AOIUpdateNotify Clone() {
-      return new AOIUpdateNotify(this);
+    public AOISnapshotNotify Clone() {
+      return new AOISnapshotNotify(this);
     }
 
     /// <summary>Field number for the "pos" field.</summary>
@@ -3578,7 +3580,284 @@ namespace Mapsvr {
         = pb::FieldCodec.ForMessage(18, global::Mapsvr.Entity.Parser);
     private readonly pbc::RepeatedField<global::Mapsvr.Entity> entities_ = new pbc::RepeatedField<global::Mapsvr.Entity>();
     /// <summary>
-    /// 全量或增量实体列表
+    /// 全量实体列表
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::Mapsvr.Entity> Entities {
+      get { return entities_; }
+    }
+
+    /// <summary>Field number for the "timestamp" field.</summary>
+    public const int TimestampFieldNumber = 3;
+    private long timestamp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public long Timestamp {
+      get { return timestamp_; }
+      set {
+        timestamp_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as AOISnapshotNotify);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(AOISnapshotNotify other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Pos, other.Pos)) return false;
+      if(!entities_.Equals(other.entities_)) return false;
+      if (Timestamp != other.Timestamp) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (pos_ != null) hash ^= Pos.GetHashCode();
+      hash ^= entities_.GetHashCode();
+      if (Timestamp != 0L) hash ^= Timestamp.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (pos_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pos);
+      }
+      entities_.WriteTo(output, _repeated_entities_codec);
+      if (Timestamp != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (pos_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Pos);
+      }
+      entities_.WriteTo(ref output, _repeated_entities_codec);
+      if (Timestamp != 0L) {
+        output.WriteRawTag(24);
+        output.WriteInt64(Timestamp);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (pos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Pos);
+      }
+      size += entities_.CalculateSize(_repeated_entities_codec);
+      if (Timestamp != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Timestamp);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(AOISnapshotNotify other) {
+      if (other == null) {
+        return;
+      }
+      if (other.pos_ != null) {
+        if (pos_ == null) {
+          Pos = new global::Mapsvr.Position();
+        }
+        Pos.MergeFrom(other.Pos);
+      }
+      entities_.Add(other.entities_);
+      if (other.Timestamp != 0L) {
+        Timestamp = other.Timestamp;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (pos_ == null) {
+              Pos = new global::Mapsvr.Position();
+            }
+            input.ReadMessage(Pos);
+            break;
+          }
+          case 18: {
+            entities_.AddEntriesFrom(input, _repeated_entities_codec);
+            break;
+          }
+          case 24: {
+            Timestamp = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (pos_ == null) {
+              Pos = new global::Mapsvr.Position();
+            }
+            input.ReadMessage(Pos);
+            break;
+          }
+          case 18: {
+            entities_.AddEntriesFrom(ref input, _repeated_entities_codec);
+            break;
+          }
+          case 24: {
+            Timestamp = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class AOIDeltaNotify : pb::IMessage<AOIDeltaNotify>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AOIDeltaNotify> _parser = new pb::MessageParser<AOIDeltaNotify>(() => new AOIDeltaNotify());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<AOIDeltaNotify> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Mapsvr.BigmapReflection.Descriptor.MessageTypes[15]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AOIDeltaNotify() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AOIDeltaNotify(AOIDeltaNotify other) : this() {
+      pos_ = other.pos_ != null ? other.pos_.Clone() : null;
+      entities_ = other.entities_.Clone();
+      removedIds_ = other.removedIds_.Clone();
+      timestamp_ = other.timestamp_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public AOIDeltaNotify Clone() {
+      return new AOIDeltaNotify(this);
+    }
+
+    /// <summary>Field number for the "pos" field.</summary>
+    public const int PosFieldNumber = 1;
+    private global::Mapsvr.Position pos_;
+    /// <summary>
+    /// 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Mapsvr.Position Pos {
+      get { return pos_; }
+      set {
+        pos_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "entities" field.</summary>
+    public const int EntitiesFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::Mapsvr.Entity> _repeated_entities_codec
+        = pb::FieldCodec.ForMessage(18, global::Mapsvr.Entity.Parser);
+    private readonly pbc::RepeatedField<global::Mapsvr.Entity> entities_ = new pbc::RepeatedField<global::Mapsvr.Entity>();
+    /// <summary>
+    /// 增量新增或更新实体列表
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -3615,12 +3894,12 @@ namespace Mapsvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as AOIUpdateNotify);
+      return Equals(other as AOIDeltaNotify);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(AOIUpdateNotify other) {
+    public bool Equals(AOIDeltaNotify other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -3716,7 +3995,7 @@ namespace Mapsvr {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(AOIUpdateNotify other) {
+    public void MergeFrom(AOIDeltaNotify other) {
       if (other == null) {
         return;
       }
