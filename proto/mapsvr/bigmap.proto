@@ -73,6 +73,11 @@ message DeadTime {
   google.protobuf.Timestamp time = 1;
 }
 
+// OwnerID 城市归属玩家 ID 组件
+message OwnerID {
+  string player_id = 1;
+}
+
 // ------------------- Grid ------------------
 
 message Grid {

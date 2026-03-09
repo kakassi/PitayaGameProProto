@@ -696,6 +696,51 @@ func (x *DeadTime) GetTime() *timestamppb.Timestamp {
 	return nil
 }
 
+// OwnerID 城市归属玩家 ID 组件
+type OwnerID struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OwnerID) Reset() {
+	*x = OwnerID{}
+	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OwnerID) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OwnerID) ProtoMessage() {}
+
+func (x *OwnerID) ProtoReflect() protoreflect.Message {
+	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OwnerID.ProtoReflect.Descriptor instead.
+func (*OwnerID) Descriptor() ([]byte, []int) {
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *OwnerID) GetPlayerId() string {
+	if x != nil {
+		return x.PlayerId
+	}
+	return ""
+}
+
 type Grid struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -708,7 +753,7 @@ type Grid struct {
 
 func (x *Grid) Reset() {
 	*x = Grid{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -720,7 +765,7 @@ func (x *Grid) String() string {
 func (*Grid) ProtoMessage() {}
 
 func (x *Grid) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[13]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -733,7 +778,7 @@ func (x *Grid) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Grid.ProtoReflect.Descriptor instead.
 func (*Grid) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{13}
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *Grid) GetId() int32 {
@@ -775,7 +820,7 @@ type AOISnapshotNotify struct {
 
 func (x *AOISnapshotNotify) Reset() {
 	*x = AOISnapshotNotify{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -787,7 +832,7 @@ func (x *AOISnapshotNotify) String() string {
 func (*AOISnapshotNotify) ProtoMessage() {}
 
 func (x *AOISnapshotNotify) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[14]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -800,7 +845,7 @@ func (x *AOISnapshotNotify) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AOISnapshotNotify.ProtoReflect.Descriptor instead.
 func (*AOISnapshotNotify) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{14}
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *AOISnapshotNotify) GetPos() *Position {
@@ -836,7 +881,7 @@ type AOIDeltaNotify struct {
 
 func (x *AOIDeltaNotify) Reset() {
 	*x = AOIDeltaNotify{}
-	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -848,7 +893,7 @@ func (x *AOIDeltaNotify) String() string {
 func (*AOIDeltaNotify) ProtoMessage() {}
 
 func (x *AOIDeltaNotify) ProtoReflect() protoreflect.Message {
-	mi := &file_mapsvr_bigmap_proto_msgTypes[15]
+	mi := &file_mapsvr_bigmap_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -861,7 +906,7 @@ func (x *AOIDeltaNotify) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AOIDeltaNotify.ProtoReflect.Descriptor instead.
 func (*AOIDeltaNotify) Descriptor() ([]byte, []int) {
-	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{15}
+	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *AOIDeltaNotify) GetPos() *Position {
@@ -934,7 +979,9 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\rLowHealthTime\x12.\n" +
 	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\":\n" +
 	"\bDeadTime\x12.\n" +
-	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\"p\n" +
+	"\x04time\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampR\x04time\"&\n" +
+	"\aOwnerID\x12\x1b\n" +
+	"\tplayer_id\x18\x01 \x01(\tR\bplayerId\"p\n" +
 	"\x04Grid\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
@@ -963,7 +1010,7 @@ func file_mapsvr_bigmap_proto_rawDescGZIP() []byte {
 	return file_mapsvr_bigmap_proto_rawDescData
 }
 
-var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_mapsvr_bigmap_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*Position)(nil),              // 0: mapsvr.Position
 	(*Size)(nil),                  // 1: mapsvr.Size
@@ -978,26 +1025,27 @@ var file_mapsvr_bigmap_proto_goTypes = []any{
 	(*BornTime)(nil),              // 10: mapsvr.BornTime
 	(*LowHealthTime)(nil),         // 11: mapsvr.LowHealthTime
 	(*DeadTime)(nil),              // 12: mapsvr.DeadTime
-	(*Grid)(nil),                  // 13: mapsvr.Grid
-	(*AOISnapshotNotify)(nil),     // 14: mapsvr.AOISnapshotNotify
-	(*AOIDeltaNotify)(nil),        // 15: mapsvr.AOIDeltaNotify
-	(*types.CommonResp)(nil),      // 16: types.CommonResp
-	(*anypb.Any)(nil),             // 17: google.protobuf.Any
-	(*timestamppb.Timestamp)(nil), // 18: google.protobuf.Timestamp
+	(*OwnerID)(nil),               // 13: mapsvr.OwnerID
+	(*Grid)(nil),                  // 14: mapsvr.Grid
+	(*AOISnapshotNotify)(nil),     // 15: mapsvr.AOISnapshotNotify
+	(*AOIDeltaNotify)(nil),        // 16: mapsvr.AOIDeltaNotify
+	(*types.CommonResp)(nil),      // 17: types.CommonResp
+	(*anypb.Any)(nil),             // 18: google.protobuf.Any
+	(*timestamppb.Timestamp)(nil), // 19: google.protobuf.Timestamp
 }
 var file_mapsvr_bigmap_proto_depIdxs = []int32{
 	0,  // 0: mapsvr.EnterMapRequest.position:type_name -> mapsvr.Position
 	1,  // 1: mapsvr.EnterMapRequest.size:type_name -> mapsvr.Size
-	16, // 2: mapsvr.EnterMapResponse.resp:type_name -> types.CommonResp
+	17, // 2: mapsvr.EnterMapResponse.resp:type_name -> types.CommonResp
 	0,  // 3: mapsvr.MoveViewRequest.center:type_name -> mapsvr.Position
 	1,  // 4: mapsvr.MoveViewRequest.size:type_name -> mapsvr.Size
-	16, // 5: mapsvr.MoveViewResponse.resp:type_name -> types.CommonResp
-	16, // 6: mapsvr.LeaveMapResponse.resp:type_name -> types.CommonResp
-	17, // 7: mapsvr.Entity.data:type_name -> google.protobuf.Any
+	17, // 5: mapsvr.MoveViewResponse.resp:type_name -> types.CommonResp
+	17, // 6: mapsvr.LeaveMapResponse.resp:type_name -> types.CommonResp
+	18, // 7: mapsvr.Entity.data:type_name -> google.protobuf.Any
 	0,  // 8: mapsvr.Entity.pos:type_name -> mapsvr.Position
-	18, // 9: mapsvr.BornTime.time:type_name -> google.protobuf.Timestamp
-	18, // 10: mapsvr.LowHealthTime.time:type_name -> google.protobuf.Timestamp
-	18, // 11: mapsvr.DeadTime.time:type_name -> google.protobuf.Timestamp
+	19, // 9: mapsvr.BornTime.time:type_name -> google.protobuf.Timestamp
+	19, // 10: mapsvr.LowHealthTime.time:type_name -> google.protobuf.Timestamp
+	19, // 11: mapsvr.DeadTime.time:type_name -> google.protobuf.Timestamp
 	0,  // 12: mapsvr.Grid.pos:type_name -> mapsvr.Position
 	0,  // 13: mapsvr.AOISnapshotNotify.pos:type_name -> mapsvr.Position
 	8,  // 14: mapsvr.AOISnapshotNotify.entities:type_name -> mapsvr.Entity
@@ -1021,7 +1069,7 @@ func file_mapsvr_bigmap_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_mapsvr_bigmap_proto_rawDesc), len(file_mapsvr_bigmap_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
