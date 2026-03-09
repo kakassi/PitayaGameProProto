@@ -57,6 +57,8 @@ message Entity {
   int32 gridId = 8;
 }
 
+// ------------------- Component ------------------
+
 message EntityStatus {
   bool IsTarget = 1;
 }
