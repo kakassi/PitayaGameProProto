@@ -811,9 +811,10 @@ func (x *Grid) GetEntityId() int32 {
 
 type AOISnapshotNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Pos           *Position              `protobuf:"bytes,1,opt,name=pos,proto3" json:"pos,omitempty"`           // 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
-	Entities      []*Entity              `protobuf:"bytes,2,rep,name=entities,proto3" json:"entities,omitempty"` // 全量实体列表
-	Timestamp     int64                  `protobuf:"varint,3,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Layer         int32                  `protobuf:"varint,1,opt,name=layer,proto3" json:"layer,omitempty"`      // 所属层级 (1~5)
+	Pos           *Position              `protobuf:"bytes,2,opt,name=pos,proto3" json:"pos,omitempty"`           // 该层的分区索引坐标
+	Entities      []*Entity              `protobuf:"bytes,3,rep,name=entities,proto3" json:"entities,omitempty"` // 全量实体列表
+	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -848,6 +849,13 @@ func (*AOISnapshotNotify) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{15}
 }
 
+func (x *AOISnapshotNotify) GetLayer() int32 {
+	if x != nil {
+		return x.Layer
+	}
+	return 0
+}
+
 func (x *AOISnapshotNotify) GetPos() *Position {
 	if x != nil {
 		return x.Pos
@@ -871,10 +879,11 @@ func (x *AOISnapshotNotify) GetTimestamp() int64 {
 
 type AOIDeltaNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Pos           *Position              `protobuf:"bytes,1,opt,name=pos,proto3" json:"pos,omitempty"`                                         // 分区坐标（横坐标x=(0,11) 纵坐标y=(0,11)）
-	Entities      []*Entity              `protobuf:"bytes,2,rep,name=entities,proto3" json:"entities,omitempty"`                               // 增量新增或更新实体列表
-	RemovedIds    []int32                `protobuf:"varint,3,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的实体移除ID列表
-	Timestamp     int64                  `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Layer         int32                  `protobuf:"varint,1,opt,name=layer,proto3" json:"layer,omitempty"`                                    // 所属层级 (1~5)
+	Pos           *Position              `protobuf:"bytes,2,opt,name=pos,proto3" json:"pos,omitempty"`                                         // 该层的分区索引坐标
+	Entities      []*Entity              `protobuf:"bytes,3,rep,name=entities,proto3" json:"entities,omitempty"`                               // 增量新增或更新实体列表
+	RemovedIds    []int32                `protobuf:"varint,4,rep,packed,name=removed_ids,json=removedIds,proto3" json:"removed_ids,omitempty"` // 增量中的实体移除ID列表
+	Timestamp     int64                  `protobuf:"varint,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -907,6 +916,13 @@ func (x *AOIDeltaNotify) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AOIDeltaNotify.ProtoReflect.Descriptor instead.
 func (*AOIDeltaNotify) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmap_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *AOIDeltaNotify) GetLayer() int32 {
+	if x != nil {
+		return x.Layer
+	}
+	return 0
 }
 
 func (x *AOIDeltaNotify) GetPos() *Position {
@@ -986,17 +1002,19 @@ const file_mapsvr_bigmap_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x05R\x02id\x12\"\n" +
 	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12\x18\n" +
 	"\aversion\x18\x05 \x01(\x03R\aversion\x12\x1a\n" +
-	"\bentityId\x18\x06 \x01(\x05R\bentityId\"\x81\x01\n" +
-	"\x11AOISnapshotNotify\x12\"\n" +
-	"\x03pos\x18\x01 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12*\n" +
-	"\bentities\x18\x02 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1c\n" +
-	"\ttimestamp\x18\x03 \x01(\x03R\ttimestamp\"\x9f\x01\n" +
-	"\x0eAOIDeltaNotify\x12\"\n" +
-	"\x03pos\x18\x01 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12*\n" +
-	"\bentities\x18\x02 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
-	"\vremoved_ids\x18\x03 \x03(\x05R\n" +
+	"\bentityId\x18\x06 \x01(\x05R\bentityId\"\x97\x01\n" +
+	"\x11AOISnapshotNotify\x12\x14\n" +
+	"\x05layer\x18\x01 \x01(\x05R\x05layer\x12\"\n" +
+	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12*\n" +
+	"\bentities\x18\x03 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1c\n" +
+	"\ttimestamp\x18\x04 \x01(\x03R\ttimestamp\"\xb5\x01\n" +
+	"\x0eAOIDeltaNotify\x12\x14\n" +
+	"\x05layer\x18\x01 \x01(\x05R\x05layer\x12\"\n" +
+	"\x03pos\x18\x02 \x01(\v2\x10.mapsvr.PositionR\x03pos\x12*\n" +
+	"\bentities\x18\x03 \x03(\v2\x0e.mapsvr.EntityR\bentities\x12\x1f\n" +
+	"\vremoved_ids\x18\x04 \x03(\x05R\n" +
 	"removedIds\x12\x1c\n" +
-	"\ttimestamp\x18\x04 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
+	"\ttimestamp\x18\x05 \x01(\x03R\ttimestampB.Z,pitaya-game/protos/protobuf/pb/golang/mapsvrb\x06proto3"
 
 var (
 	file_mapsvr_bigmap_proto_rawDescOnce sync.Once
