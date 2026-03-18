@@ -1,0 +1,220 @@
+syntax = "proto3";
+
+package mapsvr;
+option go_package = "pitaya-game/protos/protobuf/pb/golang/mapsvr";
+
+import "common/types/types.proto";
+import "mapsvr/bigmap.proto";
+
+// ======================== 枚举 ========================
+
+enum TroopType {
+  TROOP_TYPE_UNSPECIFIED = 0;
+  INFANTRY = 1; // 步兵
+  CAVALRY  = 2; // 骑兵
+  ARCHER   = 3; // 弓兵
+}
+
+enum MarchType {
+  MARCH_TYPE_UNSPECIFIED = 0;
+  MARCH_TYPE_ATTACK      = 1; // 出征攻击
+  MARCH_TYPE_GATHER      = 2; // 采集资源
+  MARCH_TYPE_SCOUT       = 3; // 侦察
+  MARCH_TYPE_RALLY       = 4; // 集结（参与者）
+  MARCH_TYPE_REINFORCE   = 5; // 援军驻防
+  MARCH_TYPE_RETURN      = 6; // 回城
+  MARCH_TYPE_RALLY_LEAD  = 7; // 集结发起者
+}
+
+enum MarchState {
+  MARCH_STATE_UNSPECIFIED = 0;
+  MARCH_STATE_MARCHING    = 1; // 行进中
+  MARCH_STATE_FIGHTING    = 2; // 战斗中
+  MARCH_STATE_GATHERING   = 3; // 采集中
+  MARCH_STATE_STATIONED   = 4; // 驻防中
+  MARCH_STATE_SCOUTING    = 5; // 侦察中
+  MARCH_STATE_RETURNING   = 6; // 返回中
+}
+
+enum TargetType {
+  TARGET_TYPE_UNSPECIFIED  = 0;
+  TARGET_TYPE_PLAYER_CITY  = 1; // 玩家城池
+  TARGET_TYPE_MONSTER      = 2; // 野怪
+  TARGET_TYPE_RESOURCE     = 3; // 资源点
+  TARGET_TYPE_ALLIANCE     = 4; // 联盟建筑
+}
+
+enum RallyState {
+  RALLY_STATE_UNSPECIFIED = 0;
+  RALLY_STATE_WAITING     = 1; // 等待成员加入
+  RALLY_STATE_MARCHING    = 2; // 集结行军中
+  RALLY_STATE_FIGHTING    = 3; // 战斗中
+  RALLY_STATE_ENDED       = 4; // 已结束
+}
+
+// ======================== 公共数据结构 ========================
+
+message TroopLevels {
+  map<int32, int32> level_counts = 1; // level -> count
+}
+
+message MarchInfo {
+  int64       march_id    = 1;
+  string      player_id   = 2;
+  MarchType   march_type  = 3;
+  MarchState  state       = 4;
+
+  Position    from_pos    = 5;
+  Position    to_pos      = 6;
+
+  int64       start_at    = 7;  // 出发时间戳（秒）
+  int64       arrive_at   = 8;  // 预计到达时间戳（秒）
+
+  TargetType  target_type = 9;
+  int64       target_id   = 10;
+
+  repeated int64 hero_ids = 11;
+  map<int32, TroopLevels> troops = 12; // TroopType(int32) -> TroopLevels
+
+  int64       rally_id    = 13; // 所属集结 ID, 0 表示非集结
+}
+
+message RallyMemberInfo {
+  string player_id = 1;
+  map<int32, TroopLevels> troops = 2;
+  repeated int64 hero_ids = 3;
+}
+
+message RallyInfo {
+  int64       rally_id      = 1;
+  string      leader_id     = 2;
+  string      alliance_id   = 3;
+  Position    target_pos    = 4;
+  TargetType  target_type   = 5;
+  int64       target_id     = 6;
+  int64       max_capacity  = 7;
+  int64       create_at     = 8;
+  int64       launch_at     = 9;  // 预计发起时间
+  RallyState  state         = 10;
+  repeated RallyMemberInfo members = 11;
+}
+
+// ======================== 请求/响应 ========================
+
+// --- 行军 ---
+
+message StartMarchRequest {
+  MarchType   march_type  = 1;
+  Position    to_pos      = 2;
+  TargetType  target_type = 3;
+  int64       target_id   = 4;
+  repeated int64 hero_ids = 5;
+  map<int32, TroopLevels> troops = 6;
+}
+
+message StartMarchResponse {
+  types.CommonResp resp = 1;
+  MarchInfo march = 2;
+}
+
+message CancelMarchRequest {
+  int64 march_id = 1;
+}
+
+message CancelMarchResponse {
+  types.CommonResp resp = 1;
+}
+
+message SpeedUpMarchRequest {
+  int64 march_id = 1;
+  int32 item_id  = 2;
+  int32 item_num = 3;
+}
+
+message SpeedUpMarchResponse {
+  types.CommonResp resp = 1;
+  int64 new_arrive_at = 2;
+}
+
+// --- 集结 ---
+
+message CreateRallyRequest {
+  Position    target_pos    = 1;
+  TargetType  target_type   = 2;
+  int64       target_id     = 3;
+  int64       wait_duration = 4; // 等待时间（秒）
+  repeated int64 hero_ids   = 5;
+  map<int32, TroopLevels> troops = 6;
+}
+
+message CreateRallyResponse {
+  types.CommonResp resp = 1;
+  RallyInfo rally = 2;
+}
+
+message JoinRallyRequest {
+  int64 rally_id = 1;
+  repeated int64 hero_ids = 2;
+  map<int32, TroopLevels> troops = 3;
+}
+
+message JoinRallyResponse {
+  types.CommonResp resp = 1;
+}
+
+message LaunchRallyRequest {
+  int64 rally_id = 1;
+}
+
+message LaunchRallyResponse {
+  types.CommonResp resp = 1;
+}
+
+message CancelRallyRequest {
+  int64 rally_id = 1;
+}
+
+message CancelRallyResponse {
+  types.CommonResp resp = 1;
+}
+
+// ======================== 服务器推送通知 ========================
+
+message MarchCreateNotify {
+  MarchInfo march = 1;
+}
+
+message MarchStateNotify {
+  MarchInfo march = 1;
+}
+
+message MarchRemoveNotify {
+  int64 march_id = 1;
+}
+
+message AllMarchSyncPush {
+  repeated MarchInfo marches = 1;
+  repeated RallyInfo rallies = 2;
+}
+
+message BattleResultNotify {
+  int64 march_id = 1;
+  bool  is_win   = 2;
+}
+
+message GatherResultNotify {
+  int64 march_id = 1;
+  map<int32, int64> gathered_resources = 2;
+}
+
+message ScoutResultNotify {
+  int64 march_id = 1;
+}
+
+message RallyCreateNotify {
+  RallyInfo rally = 1;
+}
+
+message RallyUpdateNotify {
+  RallyInfo rally = 1;
+}
