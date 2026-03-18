@@ -8,6 +8,7 @@ import "mapsvr/bigmap.proto";
 
 // ======================== 枚举 ========================
 
+// TroopType 兵种类型
 enum TroopType {
   TROOP_TYPE_UNSPECIFIED = 0;
   INFANTRY = 1; // 步兵
@@ -15,27 +16,30 @@ enum TroopType {
   ARCHER   = 3; // 弓兵
 }
 
+// MarchType 行军类型，决定行军到达后的行为
 enum MarchType {
   MARCH_TYPE_UNSPECIFIED = 0;
-  MARCH_TYPE_ATTACK      = 1; // 出征攻击
-  MARCH_TYPE_GATHER      = 2; // 采集资源
-  MARCH_TYPE_SCOUT       = 3; // 侦察
-  MARCH_TYPE_RALLY       = 4; // 集结（参与者）
-  MARCH_TYPE_REINFORCE   = 5; // 援军驻防
-  MARCH_TYPE_RETURN      = 6; // 回城
-  MARCH_TYPE_RALLY_LEAD  = 7; // 集结发起者
+  MARCH_TYPE_ATTACK      = 1; // 出征攻击：到达后触发战斗
+  MARCH_TYPE_GATHER      = 2; // 采集资源：到达后进入采集状态
+  MARCH_TYPE_SCOUT       = 3; // 侦察：到达后获取目标信息并返回
+  MARCH_TYPE_RALLY       = 4; // 集结（参与者）：加入他人发起的集结
+  MARCH_TYPE_REINFORCE   = 5; // 援军驻防：到达后驻守在目标位置
+  MARCH_TYPE_RETURN      = 6; // 回城：部队返回出发地
+  MARCH_TYPE_RALLY_LEAD  = 7; // 集结发起者：发起集结的那路部队
 }
 
+// MarchState 行军状态，表示行军当前所处的阶段
 enum MarchState {
   MARCH_STATE_UNSPECIFIED = 0;
-  MARCH_STATE_MARCHING    = 1; // 行进中
-  MARCH_STATE_FIGHTING    = 2; // 战斗中
-  MARCH_STATE_GATHERING   = 3; // 采集中
-  MARCH_STATE_STATIONED   = 4; // 驻防中
-  MARCH_STATE_SCOUTING    = 5; // 侦察中
-  MARCH_STATE_RETURNING   = 6; // 返回中
+  MARCH_STATE_MARCHING    = 1; // 行进中：部队正在从出发地移动到目标地
+  MARCH_STATE_FIGHTING    = 2; // 战斗中：部队已到达目标，正在战斗
+  MARCH_STATE_GATHERING   = 3; // 采集中：部队正在资源点采集资源
+  MARCH_STATE_STATIONED   = 4; // 驻防中：援军部队驻守在目标位置
+  MARCH_STATE_SCOUTING    = 5; // 侦察中：部队正在侦察目标
+  MARCH_STATE_RETURNING   = 6; // 返回中：部队正在返回出发地
 }
 
+// TargetType 行军目标类型
 enum TargetType {
   TARGET_TYPE_UNSPECIFIED  = 0;
   TARGET_TYPE_PLAYER_CITY  = 1; // 玩家城池
@@ -44,177 +48,238 @@ enum TargetType {
   TARGET_TYPE_ALLIANCE     = 4; // 联盟建筑
 }
 
+// RallyState 集结状态
 enum RallyState {
   RALLY_STATE_UNSPECIFIED = 0;
   RALLY_STATE_WAITING     = 1; // 等待成员加入
-  RALLY_STATE_MARCHING    = 2; // 集结行军中
-  RALLY_STATE_FIGHTING    = 3; // 战斗中
-  RALLY_STATE_ENDED       = 4; // 已结束
+  RALLY_STATE_MARCHING    = 2; // 集结部队行军中
+  RALLY_STATE_FIGHTING    = 3; // 集结部队战斗中
+  RALLY_STATE_ENDED       = 4; // 集结已结束
 }
 
 // ======================== 公共数据结构 ========================
 
+// TroopLevels 某一兵种各等级的数量分布，key=兵等级, value=数量
 message TroopLevels {
-  map<int32, int32> level_counts = 1; // level -> count
+  map<int32, int32> level_counts = 1;
 }
 
+// MarchInfo 行军完整信息
+// 客户端维护 map[march_id]*MarchInfo 的本地缓存表
+// 服务端通过 MarchCreateNotify/MarchStateNotify 推送此结构，客户端直接覆盖缓存即可
 message MarchInfo {
-  int64       march_id    = 1;
-  string      player_id   = 2;
-  MarchType   march_type  = 3;
-  MarchState  state       = 4;
+  int64       march_id    = 1;  // 行军唯一 ID
+  string      player_id   = 2;  // 发起行军的玩家 ID
+  MarchType   march_type  = 3;  // 行军类型
+  MarchState  state       = 4;  // 当前状态
 
-  Position    from_pos    = 5;
-  Position    to_pos      = 6;
+  Position    from_pos    = 5;  // 出发坐标
+  Position    to_pos      = 6;  // 目标坐标
 
   int64       start_at    = 7;  // 出发时间戳（秒）
-  int64       arrive_at   = 8;  // 预计到达时间戳（秒）
+  int64       arrive_at   = 8;  // 预计到达时间戳（秒），客户端据此做线性插值
 
-  TargetType  target_type = 9;
-  int64       target_id   = 10;
+  TargetType  target_type = 9;  // 目标类型
+  int64       target_id   = 10; // 目标实体 ID
 
-  repeated int64 hero_ids = 11;
-  map<int32, TroopLevels> troops = 12; // TroopType(int32) -> TroopLevels
+  repeated int64 hero_ids = 11; // 出征英雄 ID 列表
+  map<int32, TroopLevels> troops = 12; // 兵种->等级数量，key 为 TroopType 的 int32 值
 
-  int64       rally_id    = 13; // 所属集结 ID, 0 表示非集结
+  int64       rally_id    = 13; // 所属集结 ID，0 表示非集结行军
 }
 
+// RallyMemberInfo 集结中某一成员的参与信息
 message RallyMemberInfo {
-  string player_id = 1;
-  map<int32, TroopLevels> troops = 2;
-  repeated int64 hero_ids = 3;
+  string player_id = 1;                // 成员玩家 ID
+  map<int32, TroopLevels> troops = 2;  // 该成员派出的兵种
+  repeated int64 hero_ids = 3;         // 该成员派出的英雄
 }
 
+// RallyInfo 集结完整信息，用于联盟内广播和玩家进入地图同步
 message RallyInfo {
-  int64       rally_id      = 1;
-  string      leader_id     = 2;
-  string      alliance_id   = 3;
-  Position    target_pos    = 4;
-  TargetType  target_type   = 5;
-  int64       target_id     = 6;
-  int64       max_capacity  = 7;
-  int64       create_at     = 8;
-  int64       launch_at     = 9;  // 预计发起时间
-  RallyState  state         = 10;
-  repeated RallyMemberInfo members = 11;
+  int64       rally_id      = 1;  // 集结唯一 ID
+  string      leader_id     = 2;  // 发起者玩家 ID
+  string      alliance_id   = 3;  // 所属联盟 ID
+  Position    target_pos    = 4;  // 目标坐标
+  TargetType  target_type   = 5;  // 目标类型
+  int64       target_id     = 6;  // 目标实体 ID
+  int64       max_capacity  = 7;  // 集结最大兵力容量
+  int64       create_at     = 8;  // 创建时间戳（秒）
+  int64       launch_at     = 9;  // 预计发起时间戳（秒）= create_at + wait_duration
+  RallyState  state         = 10; // 当前集结状态
+  repeated RallyMemberInfo members = 11; // 已加入的成员列表
 }
 
-// ======================== 请求/响应 ========================
+// ======================== 请求/响应（客户端 -> 服务端） ========================
 
 // --- 行军 ---
 
+// StartMarchRequest 创建行军请求
+// 路由: mapsvr.bigmapmarch.startmarch
+// 出发坐标由服务端从玩家城池位置读取，客户端无需传入
 message StartMarchRequest {
-  MarchType   march_type  = 1;
-  Position    to_pos      = 2;
-  TargetType  target_type = 3;
-  int64       target_id   = 4;
-  repeated int64 hero_ids = 5;
-  map<int32, TroopLevels> troops = 6;
+  MarchType   march_type  = 1;  // 行军类型
+  Position    to_pos      = 2;  // 目标坐标
+  TargetType  target_type = 3;  // 目标类型
+  int64       target_id   = 4;  // 目标实体 ID
+  repeated int64 hero_ids = 5;  // 派出的英雄 ID 列表
+  map<int32, TroopLevels> troops = 6; // 派出的兵种
 }
 
+// StartMarchResponse 创建行军响应，成功时返回完整行军信息
 message StartMarchResponse {
   types.CommonResp resp = 1;
-  MarchInfo march = 2;
+  MarchInfo march = 2;          // 创建成功后的完整行军信息
 }
 
+// CancelMarchRequest 取消/召回行军请求
+// 路由: mapsvr.bigmapmarch.cancelmarch
+// 行军将反转方向，以已行进时间等比计算返回时间
 message CancelMarchRequest {
   int64 march_id = 1;
 }
 
+// CancelMarchResponse 取消行军响应
 message CancelMarchResponse {
   types.CommonResp resp = 1;
 }
 
+// SpeedUpMarchRequest 使用加速道具加速行军
+// 路由: mapsvr.bigmapmarch.speedupmarch
 message SpeedUpMarchRequest {
-  int64 march_id = 1;
-  int32 item_id  = 2;
-  int32 item_num = 3;
+  int64 march_id = 1;  // 要加速的行军 ID
+  int32 item_id  = 2;  // 加速道具 ID
+  int32 item_num = 3;  // 使用数量
 }
 
+// SpeedUpMarchResponse 加速行军响应
 message SpeedUpMarchResponse {
   types.CommonResp resp = 1;
-  int64 new_arrive_at = 2;
+  int64 new_arrive_at = 2;  // 加速后新的预计到达时间戳
 }
 
 // --- 集结 ---
 
+// CreateRallyRequest 发起集结请求
+// 路由: mapsvr.bigmapmarch.createrally
 message CreateRallyRequest {
-  Position    target_pos    = 1;
-  TargetType  target_type   = 2;
-  int64       target_id     = 3;
-  int64       wait_duration = 4; // 等待时间（秒）
-  repeated int64 hero_ids   = 5;
-  map<int32, TroopLevels> troops = 6;
+  Position    target_pos    = 1;  // 目标坐标
+  TargetType  target_type   = 2;  // 目标类型
+  int64       target_id     = 3;  // 目标实体 ID
+  int64       wait_duration = 4;  // 等待成员加入的时间（秒）
+  repeated int64 hero_ids   = 5;  // 发起者派出的英雄
+  map<int32, TroopLevels> troops = 6; // 发起者派出的兵种
 }
 
+// CreateRallyResponse 发起集结响应
 message CreateRallyResponse {
   types.CommonResp resp = 1;
-  RallyInfo rally = 2;
+  RallyInfo rally = 2;  // 创建成功后的完整集结信息
 }
 
+// JoinRallyRequest 加入集结请求
+// 路由: mapsvr.bigmapmarch.joinrally
 message JoinRallyRequest {
-  int64 rally_id = 1;
-  repeated int64 hero_ids = 2;
-  map<int32, TroopLevels> troops = 3;
+  int64 rally_id = 1;              // 要加入的集结 ID
+  repeated int64 hero_ids = 2;     // 派出的英雄
+  map<int32, TroopLevels> troops = 3; // 派出的兵种
 }
 
+// JoinRallyResponse 加入集结响应
 message JoinRallyResponse {
   types.CommonResp resp = 1;
 }
 
+// LaunchRallyRequest 手动提前发起集结（不等待倒计时结束）
+// 路由: mapsvr.bigmapmarch.launchrally
 message LaunchRallyRequest {
   int64 rally_id = 1;
 }
 
+// LaunchRallyResponse 手动发起集结响应
 message LaunchRallyResponse {
   types.CommonResp resp = 1;
 }
 
+// CancelRallyRequest 取消集结请求
+// 路由: mapsvr.bigmapmarch.cancelrally
 message CancelRallyRequest {
   int64 rally_id = 1;
 }
 
+// CancelRallyResponse 取消集结响应
 message CancelRallyResponse {
   types.CommonResp resp = 1;
 }
 
-// ======================== 服务器推送通知 ========================
+// ======================== 服务器推送通知（服务端 -> 客户端） ========================
 
+// MarchCreateNotify 新行军创建通知
+// 推送路由: bigmap.bigmapmarch.marchcreatenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
 message MarchCreateNotify {
   MarchInfo march = 1;
 }
 
+// MarchStateNotify 行军状态变更通知（到达/加速/取消等统一用此消息）
+// 推送路由: bigmap.bigmapmarch.marchstatenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
+// 客户端收到后用 march.march_id 匹配本地缓存并覆盖更新
 message MarchStateNotify {
   MarchInfo march = 1;
 }
 
+// MarchRemoveNotify 行军移除通知（回城到达或行军销毁）
+// 推送路由: bigmap.bigmapmarch.marchremovenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
+// 客户端收到后从本地缓存中删除该 march_id
 message MarchRemoveNotify {
   int64 march_id = 1;
 }
 
+// AllMarchSyncPush 玩家进入大地图时的全量同步
+// 推送路由: bigmap.bigmapmarch.allmarchsyncpush
+// 推送范围: 仅该玩家
+// 包含当前所有活跃行军 + 本联盟活跃集结
 message AllMarchSyncPush {
-  repeated MarchInfo marches = 1;
-  repeated RallyInfo rallies = 2;
+  repeated MarchInfo marches = 1;  // 全服所有活跃行军
+  repeated RallyInfo rallies = 2;  // 本联盟活跃集结
 }
 
+// BattleResultNotify 战斗结果通知
+// 推送路由: bigmap.bigmapmarch.battleresultnotify
+// 推送范围: 攻防双方玩家
 message BattleResultNotify {
-  int64 march_id = 1;
-  bool  is_win   = 2;
+  int64 march_id = 1;  // 触发战斗的行军 ID
+  bool  is_win   = 2;  // 攻击方是否胜利
 }
 
+// GatherResultNotify 采集结果通知
+// 推送路由: bigmap.bigmapmarch.gatherresultnotify
+// 推送范围: 采集玩家
 message GatherResultNotify {
   int64 march_id = 1;
-  map<int32, int64> gathered_resources = 2;
+  map<int32, int64> gathered_resources = 2; // 采集到的资源，key=资源类型ID, value=数量
 }
 
+// ScoutResultNotify 侦察报告通知
+// 推送路由: bigmap.bigmapmarch.scoutresultnotify
+// 推送范围: 侦察发起玩家
 message ScoutResultNotify {
   int64 march_id = 1;
+  // 侦察详细信息字段后续扩展
 }
 
+// RallyCreateNotify 集结创建通知
+// 推送路由: bigmap.bigmapmarch.rallycreatenotify
+// 推送范围: 联盟全体成员
 message RallyCreateNotify {
   RallyInfo rally = 1;
 }
 
+// RallyUpdateNotify 集结变更通知（成员加入/手动发起/取消等）
+// 推送路由: bigmap.bigmapmarch.rallyupdatenotify
+// 推送范围: 联盟全体成员
 message RallyUpdateNotify {
   RallyInfo rally = 1;
 }
