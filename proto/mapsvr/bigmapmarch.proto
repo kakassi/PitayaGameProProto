@@ -265,9 +265,22 @@ message GatherResultNotify {
 // ScoutResultNotify 侦察报告通知
 // 推送路由: bigmap.bigmapmarch.scoutresultnotify
 // 推送范围: 侦察发起玩家
+// proto3 零值字段不传输，客户端按 target_type 解读对应字段即可
 message ScoutResultNotify {
-  int64 march_id = 1;
-  // 侦察详细信息字段后续扩展
+  int64      march_id    = 1;
+  TargetType target_type = 2;
+  int64      target_id   = 3;
+  Position   target_pos  = 4;
+  int32      config_id   = 5;  // MapUnit 配置 ID
+
+  // 资源点信息（target_type == RESOURCE）
+  int32  resource_item_id   = 10; // 资源物品 ID
+  int64  resource_total      = 11; // 资源总量
+  int64  resource_remaining  = 12; // 剩余量
+  string gather_player_id    = 13; // 正在采集的玩家 ID（空=无人采集）
+
+  // 玩家城池信息（target_type == PLAYER_CITY）
+  string owner_player_id = 20; // 城主玩家 ID
 }
 
 // RallyCreateNotify 集结创建通知

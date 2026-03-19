@@ -22,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// TroopType 兵种类型
 type TroopType int32
 
 const (
@@ -74,17 +75,18 @@ func (TroopType) EnumDescriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapmarch_proto_rawDescGZIP(), []int{0}
 }
 
+// MarchType 行军类型，决定行军到达后的行为
 type MarchType int32
 
 const (
 	MarchType_MARCH_TYPE_UNSPECIFIED MarchType = 0
-	MarchType_MARCH_TYPE_ATTACK      MarchType = 1 // 出征攻击
-	MarchType_MARCH_TYPE_GATHER      MarchType = 2 // 采集资源
-	MarchType_MARCH_TYPE_SCOUT       MarchType = 3 // 侦察
-	MarchType_MARCH_TYPE_RALLY       MarchType = 4 // 集结（参与者）
-	MarchType_MARCH_TYPE_REINFORCE   MarchType = 5 // 援军驻防
-	MarchType_MARCH_TYPE_RETURN      MarchType = 6 // 回城
-	MarchType_MARCH_TYPE_RALLY_LEAD  MarchType = 7 // 集结发起者
+	MarchType_MARCH_TYPE_ATTACK      MarchType = 1 // 出征攻击：到达后触发战斗
+	MarchType_MARCH_TYPE_GATHER      MarchType = 2 // 采集资源：到达后进入采集状态
+	MarchType_MARCH_TYPE_SCOUT       MarchType = 3 // 侦察：到达后获取目标信息并返回
+	MarchType_MARCH_TYPE_RALLY       MarchType = 4 // 集结（参与者）：加入他人发起的集结
+	MarchType_MARCH_TYPE_REINFORCE   MarchType = 5 // 援军驻防：到达后驻守在目标位置
+	MarchType_MARCH_TYPE_RETURN      MarchType = 6 // 回城：部队返回出发地
+	MarchType_MARCH_TYPE_RALLY_LEAD  MarchType = 7 // 集结发起者：发起集结的那路部队
 )
 
 // Enum value maps for MarchType.
@@ -138,16 +140,17 @@ func (MarchType) EnumDescriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapmarch_proto_rawDescGZIP(), []int{1}
 }
 
+// MarchState 行军状态，表示行军当前所处的阶段
 type MarchState int32
 
 const (
 	MarchState_MARCH_STATE_UNSPECIFIED MarchState = 0
-	MarchState_MARCH_STATE_MARCHING    MarchState = 1 // 行进中
-	MarchState_MARCH_STATE_FIGHTING    MarchState = 2 // 战斗中
-	MarchState_MARCH_STATE_GATHERING   MarchState = 3 // 采集中
-	MarchState_MARCH_STATE_STATIONED   MarchState = 4 // 驻防中
-	MarchState_MARCH_STATE_SCOUTING    MarchState = 5 // 侦察中
-	MarchState_MARCH_STATE_RETURNING   MarchState = 6 // 返回中
+	MarchState_MARCH_STATE_MARCHING    MarchState = 1 // 行进中：部队正在从出发地移动到目标地
+	MarchState_MARCH_STATE_FIGHTING    MarchState = 2 // 战斗中：部队已到达目标，正在战斗
+	MarchState_MARCH_STATE_GATHERING   MarchState = 3 // 采集中：部队正在资源点采集资源
+	MarchState_MARCH_STATE_STATIONED   MarchState = 4 // 驻防中：援军部队驻守在目标位置
+	MarchState_MARCH_STATE_SCOUTING    MarchState = 5 // 侦察中：部队正在侦察目标
+	MarchState_MARCH_STATE_RETURNING   MarchState = 6 // 返回中：部队正在返回出发地
 )
 
 // Enum value maps for MarchState.
@@ -199,6 +202,7 @@ func (MarchState) EnumDescriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapmarch_proto_rawDescGZIP(), []int{2}
 }
 
+// TargetType 行军目标类型
 type TargetType int32
 
 const (
@@ -254,14 +258,15 @@ func (TargetType) EnumDescriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapmarch_proto_rawDescGZIP(), []int{3}
 }
 
+// RallyState 集结状态
 type RallyState int32
 
 const (
 	RallyState_RALLY_STATE_UNSPECIFIED RallyState = 0
 	RallyState_RALLY_STATE_WAITING     RallyState = 1 // 等待成员加入
-	RallyState_RALLY_STATE_MARCHING    RallyState = 2 // 集结行军中
-	RallyState_RALLY_STATE_FIGHTING    RallyState = 3 // 战斗中
-	RallyState_RALLY_STATE_ENDED       RallyState = 4 // 已结束
+	RallyState_RALLY_STATE_MARCHING    RallyState = 2 // 集结部队行军中
+	RallyState_RALLY_STATE_FIGHTING    RallyState = 3 // 集结部队战斗中
+	RallyState_RALLY_STATE_ENDED       RallyState = 4 // 集结已结束
 )
 
 // Enum value maps for RallyState.
@@ -309,9 +314,10 @@ func (RallyState) EnumDescriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapmarch_proto_rawDescGZIP(), []int{4}
 }
 
+// TroopLevels 某一兵种各等级的数量分布，key=兵等级, value=数量
 type TroopLevels struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	LevelCounts   map[int32]int32        `protobuf:"bytes,1,rep,name=level_counts,json=levelCounts,proto3" json:"level_counts,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"` // level -> count
+	LevelCounts   map[int32]int32        `protobuf:"bytes,1,rep,name=level_counts,json=levelCounts,proto3" json:"level_counts,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -353,21 +359,24 @@ func (x *TroopLevels) GetLevelCounts() map[int32]int32 {
 	return nil
 }
 
+// MarchInfo 行军完整信息
+// 客户端维护 map[march_id]*MarchInfo 的本地缓存表
+// 服务端通过 MarchCreateNotify/MarchStateNotify 推送此结构，客户端直接覆盖缓存即可
 type MarchInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
-	PlayerId      string                 `protobuf:"bytes,2,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
-	MarchType     MarchType              `protobuf:"varint,3,opt,name=march_type,json=marchType,proto3,enum=mapsvr.MarchType" json:"march_type,omitempty"`
-	State         MarchState             `protobuf:"varint,4,opt,name=state,proto3,enum=mapsvr.MarchState" json:"state,omitempty"`
-	FromPos       *Position              `protobuf:"bytes,5,opt,name=from_pos,json=fromPos,proto3" json:"from_pos,omitempty"`
-	ToPos         *Position              `protobuf:"bytes,6,opt,name=to_pos,json=toPos,proto3" json:"to_pos,omitempty"`
-	StartAt       int64                  `protobuf:"varint,7,opt,name=start_at,json=startAt,proto3" json:"start_at,omitempty"`    // 出发时间戳（秒）
-	ArriveAt      int64                  `protobuf:"varint,8,opt,name=arrive_at,json=arriveAt,proto3" json:"arrive_at,omitempty"` // 预计到达时间戳（秒）
-	TargetType    TargetType             `protobuf:"varint,9,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`
-	TargetId      int64                  `protobuf:"varint,10,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	HeroIds       []int64                `protobuf:"varint,11,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`
-	Troops        map[int32]*TroopLevels `protobuf:"bytes,12,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // TroopType(int32) -> TroopLevels
-	RallyId       int64                  `protobuf:"varint,13,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`                                                          // 所属集结 ID, 0 表示非集结
+	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`                                                           // 行军唯一 ID
+	PlayerId      string                 `protobuf:"bytes,2,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`                                                         // 发起行军的玩家 ID
+	MarchType     MarchType              `protobuf:"varint,3,opt,name=march_type,json=marchType,proto3,enum=mapsvr.MarchType" json:"march_type,omitempty"`                               // 行军类型
+	State         MarchState             `protobuf:"varint,4,opt,name=state,proto3,enum=mapsvr.MarchState" json:"state,omitempty"`                                                       // 当前状态
+	FromPos       *Position              `protobuf:"bytes,5,opt,name=from_pos,json=fromPos,proto3" json:"from_pos,omitempty"`                                                            // 出发坐标
+	ToPos         *Position              `protobuf:"bytes,6,opt,name=to_pos,json=toPos,proto3" json:"to_pos,omitempty"`                                                                  // 目标坐标
+	StartAt       int64                  `protobuf:"varint,7,opt,name=start_at,json=startAt,proto3" json:"start_at,omitempty"`                                                           // 出发时间戳（秒）
+	ArriveAt      int64                  `protobuf:"varint,8,opt,name=arrive_at,json=arriveAt,proto3" json:"arrive_at,omitempty"`                                                        // 预计到达时间戳（秒），客户端据此做线性插值
+	TargetType    TargetType             `protobuf:"varint,9,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`                           // 目标类型
+	TargetId      int64                  `protobuf:"varint,10,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`                                                       // 目标实体 ID
+	HeroIds       []int64                `protobuf:"varint,11,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 出征英雄 ID 列表
+	Troops        map[int32]*TroopLevels `protobuf:"bytes,12,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 兵种->等级数量，key 为 TroopType 的 int32 值
+	RallyId       int64                  `protobuf:"varint,13,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`                                                          // 所属集结 ID，0 表示非集结行军
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -493,11 +502,12 @@ func (x *MarchInfo) GetRallyId() int64 {
 	return 0
 }
 
+// RallyMemberInfo 集结中某一成员的参与信息
 type RallyMemberInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
-	Troops        map[int32]*TroopLevels `protobuf:"bytes,2,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	HeroIds       []int64                `protobuf:"varint,3,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`
+	PlayerId      string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`                                                        // 成员玩家 ID
+	Troops        map[int32]*TroopLevels `protobuf:"bytes,2,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 该成员派出的兵种
+	HeroIds       []int64                `protobuf:"varint,3,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 该成员派出的英雄
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -553,19 +563,20 @@ func (x *RallyMemberInfo) GetHeroIds() []int64 {
 	return nil
 }
 
+// RallyInfo 集结完整信息，用于联盟内广播和玩家进入地图同步
 type RallyInfo struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`
-	LeaderId      string                 `protobuf:"bytes,2,opt,name=leader_id,json=leaderId,proto3" json:"leader_id,omitempty"`
-	AllianceId    string                 `protobuf:"bytes,3,opt,name=alliance_id,json=allianceId,proto3" json:"alliance_id,omitempty"`
-	TargetPos     *Position              `protobuf:"bytes,4,opt,name=target_pos,json=targetPos,proto3" json:"target_pos,omitempty"`
-	TargetType    TargetType             `protobuf:"varint,5,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`
-	TargetId      int64                  `protobuf:"varint,6,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	MaxCapacity   int64                  `protobuf:"varint,7,opt,name=max_capacity,json=maxCapacity,proto3" json:"max_capacity,omitempty"`
-	CreateAt      int64                  `protobuf:"varint,8,opt,name=create_at,json=createAt,proto3" json:"create_at,omitempty"`
-	LaunchAt      int64                  `protobuf:"varint,9,opt,name=launch_at,json=launchAt,proto3" json:"launch_at,omitempty"` // 预计发起时间
-	State         RallyState             `protobuf:"varint,10,opt,name=state,proto3,enum=mapsvr.RallyState" json:"state,omitempty"`
-	Members       []*RallyMemberInfo     `protobuf:"bytes,11,rep,name=members,proto3" json:"members,omitempty"`
+	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`                                 // 集结唯一 ID
+	LeaderId      string                 `protobuf:"bytes,2,opt,name=leader_id,json=leaderId,proto3" json:"leader_id,omitempty"`                               // 发起者玩家 ID
+	AllianceId    string                 `protobuf:"bytes,3,opt,name=alliance_id,json=allianceId,proto3" json:"alliance_id,omitempty"`                         // 所属联盟 ID
+	TargetPos     *Position              `protobuf:"bytes,4,opt,name=target_pos,json=targetPos,proto3" json:"target_pos,omitempty"`                            // 目标坐标
+	TargetType    TargetType             `protobuf:"varint,5,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"` // 目标类型
+	TargetId      int64                  `protobuf:"varint,6,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`                              // 目标实体 ID
+	MaxCapacity   int64                  `protobuf:"varint,7,opt,name=max_capacity,json=maxCapacity,proto3" json:"max_capacity,omitempty"`                     // 集结最大兵力容量
+	CreateAt      int64                  `protobuf:"varint,8,opt,name=create_at,json=createAt,proto3" json:"create_at,omitempty"`                              // 创建时间戳（秒）
+	LaunchAt      int64                  `protobuf:"varint,9,opt,name=launch_at,json=launchAt,proto3" json:"launch_at,omitempty"`                              // 预计发起时间戳（秒）= create_at + wait_duration
+	State         RallyState             `protobuf:"varint,10,opt,name=state,proto3,enum=mapsvr.RallyState" json:"state,omitempty"`                            // 当前集结状态
+	Members       []*RallyMemberInfo     `protobuf:"bytes,11,rep,name=members,proto3" json:"members,omitempty"`                                                // 已加入的成员列表
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -677,14 +688,17 @@ func (x *RallyInfo) GetMembers() []*RallyMemberInfo {
 	return nil
 }
 
+// StartMarchRequest 创建行军请求
+// 路由: mapsvr.bigmapmarch.startmarch
+// 出发坐标由服务端从玩家城池位置读取，客户端无需传入
 type StartMarchRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchType     MarchType              `protobuf:"varint,1,opt,name=march_type,json=marchType,proto3,enum=mapsvr.MarchType" json:"march_type,omitempty"`
-	ToPos         *Position              `protobuf:"bytes,2,opt,name=to_pos,json=toPos,proto3" json:"to_pos,omitempty"`
-	TargetType    TargetType             `protobuf:"varint,3,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`
-	TargetId      int64                  `protobuf:"varint,4,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	HeroIds       []int64                `protobuf:"varint,5,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`
-	Troops        map[int32]*TroopLevels `protobuf:"bytes,6,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	MarchType     MarchType              `protobuf:"varint,1,opt,name=march_type,json=marchType,proto3,enum=mapsvr.MarchType" json:"march_type,omitempty"`                              // 行军类型
+	ToPos         *Position              `protobuf:"bytes,2,opt,name=to_pos,json=toPos,proto3" json:"to_pos,omitempty"`                                                                 // 目标坐标
+	TargetType    TargetType             `protobuf:"varint,3,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`                          // 目标类型
+	TargetId      int64                  `protobuf:"varint,4,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`                                                       // 目标实体 ID
+	HeroIds       []int64                `protobuf:"varint,5,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 派出的英雄 ID 列表
+	Troops        map[int32]*TroopLevels `protobuf:"bytes,6,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 派出的兵种
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -761,10 +775,11 @@ func (x *StartMarchRequest) GetTroops() map[int32]*TroopLevels {
 	return nil
 }
 
+// StartMarchResponse 创建行军响应，成功时返回完整行军信息
 type StartMarchResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	March         *MarchInfo             `protobuf:"bytes,2,opt,name=march,proto3" json:"march,omitempty"`
+	March         *MarchInfo             `protobuf:"bytes,2,opt,name=march,proto3" json:"march,omitempty"` // 创建成功后的完整行军信息
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -813,6 +828,9 @@ func (x *StartMarchResponse) GetMarch() *MarchInfo {
 	return nil
 }
 
+// CancelMarchRequest 取消/召回行军请求
+// 路由: mapsvr.bigmapmarch.cancelmarch
+// 行军将反转方向，以已行进时间等比计算返回时间
 type CancelMarchRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
@@ -857,6 +875,7 @@ func (x *CancelMarchRequest) GetMarchId() int64 {
 	return 0
 }
 
+// CancelMarchResponse 取消行军响应
 type CancelMarchResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
@@ -901,11 +920,13 @@ func (x *CancelMarchResponse) GetResp() *types.CommonResp {
 	return nil
 }
 
+// SpeedUpMarchRequest 使用加速道具加速行军
+// 路由: mapsvr.bigmapmarch.speedupmarch
 type SpeedUpMarchRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
-	ItemId        int32                  `protobuf:"varint,2,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
-	ItemNum       int32                  `protobuf:"varint,3,opt,name=item_num,json=itemNum,proto3" json:"item_num,omitempty"`
+	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"` // 要加速的行军 ID
+	ItemId        int32                  `protobuf:"varint,2,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`    // 加速道具 ID
+	ItemNum       int32                  `protobuf:"varint,3,opt,name=item_num,json=itemNum,proto3" json:"item_num,omitempty"` // 使用数量
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -961,10 +982,11 @@ func (x *SpeedUpMarchRequest) GetItemNum() int32 {
 	return 0
 }
 
+// SpeedUpMarchResponse 加速行军响应
 type SpeedUpMarchResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	NewArriveAt   int64                  `protobuf:"varint,2,opt,name=new_arrive_at,json=newArriveAt,proto3" json:"new_arrive_at,omitempty"`
+	NewArriveAt   int64                  `protobuf:"varint,2,opt,name=new_arrive_at,json=newArriveAt,proto3" json:"new_arrive_at,omitempty"` // 加速后新的预计到达时间戳
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1013,14 +1035,16 @@ func (x *SpeedUpMarchResponse) GetNewArriveAt() int64 {
 	return 0
 }
 
+// CreateRallyRequest 发起集结请求
+// 路由: mapsvr.bigmapmarch.createrally
 type CreateRallyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	TargetPos     *Position              `protobuf:"bytes,1,opt,name=target_pos,json=targetPos,proto3" json:"target_pos,omitempty"`
-	TargetType    TargetType             `protobuf:"varint,2,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`
-	TargetId      int64                  `protobuf:"varint,3,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
-	WaitDuration  int64                  `protobuf:"varint,4,opt,name=wait_duration,json=waitDuration,proto3" json:"wait_duration,omitempty"` // 等待时间（秒）
-	HeroIds       []int64                `protobuf:"varint,5,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`
-	Troops        map[int32]*TroopLevels `protobuf:"bytes,6,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	TargetPos     *Position              `protobuf:"bytes,1,opt,name=target_pos,json=targetPos,proto3" json:"target_pos,omitempty"`                                                     // 目标坐标
+	TargetType    TargetType             `protobuf:"varint,2,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`                          // 目标类型
+	TargetId      int64                  `protobuf:"varint,3,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`                                                       // 目标实体 ID
+	WaitDuration  int64                  `protobuf:"varint,4,opt,name=wait_duration,json=waitDuration,proto3" json:"wait_duration,omitempty"`                                           // 等待成员加入的时间（秒）
+	HeroIds       []int64                `protobuf:"varint,5,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 发起者派出的英雄
+	Troops        map[int32]*TroopLevels `protobuf:"bytes,6,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 发起者派出的兵种
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1097,10 +1121,11 @@ func (x *CreateRallyRequest) GetTroops() map[int32]*TroopLevels {
 	return nil
 }
 
+// CreateRallyResponse 发起集结响应
 type CreateRallyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
-	Rally         *RallyInfo             `protobuf:"bytes,2,opt,name=rally,proto3" json:"rally,omitempty"`
+	Rally         *RallyInfo             `protobuf:"bytes,2,opt,name=rally,proto3" json:"rally,omitempty"` // 创建成功后的完整集结信息
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1149,11 +1174,13 @@ func (x *CreateRallyResponse) GetRally() *RallyInfo {
 	return nil
 }
 
+// JoinRallyRequest 加入集结请求
+// 路由: mapsvr.bigmapmarch.joinrally
 type JoinRallyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`
-	HeroIds       []int64                `protobuf:"varint,2,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`
-	Troops        map[int32]*TroopLevels `protobuf:"bytes,3,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`                                                          // 要加入的集结 ID
+	HeroIds       []int64                `protobuf:"varint,2,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 派出的英雄
+	Troops        map[int32]*TroopLevels `protobuf:"bytes,3,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 派出的兵种
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1209,6 +1236,7 @@ func (x *JoinRallyRequest) GetTroops() map[int32]*TroopLevels {
 	return nil
 }
 
+// JoinRallyResponse 加入集结响应
 type JoinRallyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
@@ -1253,6 +1281,8 @@ func (x *JoinRallyResponse) GetResp() *types.CommonResp {
 	return nil
 }
 
+// LaunchRallyRequest 手动提前发起集结（不等待倒计时结束）
+// 路由: mapsvr.bigmapmarch.launchrally
 type LaunchRallyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`
@@ -1297,6 +1327,7 @@ func (x *LaunchRallyRequest) GetRallyId() int64 {
 	return 0
 }
 
+// LaunchRallyResponse 手动发起集结响应
 type LaunchRallyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
@@ -1341,6 +1372,8 @@ func (x *LaunchRallyResponse) GetResp() *types.CommonResp {
 	return nil
 }
 
+// CancelRallyRequest 取消集结请求
+// 路由: mapsvr.bigmapmarch.cancelrally
 type CancelRallyRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	RallyId       int64                  `protobuf:"varint,1,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`
@@ -1385,6 +1418,7 @@ func (x *CancelRallyRequest) GetRallyId() int64 {
 	return 0
 }
 
+// CancelRallyResponse 取消集结响应
 type CancelRallyResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
@@ -1429,6 +1463,9 @@ func (x *CancelRallyResponse) GetResp() *types.CommonResp {
 	return nil
 }
 
+// MarchCreateNotify 新行军创建通知
+// 推送路由: bigmap.bigmapmarch.marchcreatenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
 type MarchCreateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	March         *MarchInfo             `protobuf:"bytes,1,opt,name=march,proto3" json:"march,omitempty"`
@@ -1473,6 +1510,10 @@ func (x *MarchCreateNotify) GetMarch() *MarchInfo {
 	return nil
 }
 
+// MarchStateNotify 行军状态变更通知（到达/加速/取消等统一用此消息）
+// 推送路由: bigmap.bigmapmarch.marchstatenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
+// 客户端收到后用 march.march_id 匹配本地缓存并覆盖更新
 type MarchStateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	March         *MarchInfo             `protobuf:"bytes,1,opt,name=march,proto3" json:"march,omitempty"`
@@ -1517,6 +1558,10 @@ func (x *MarchStateNotify) GetMarch() *MarchInfo {
 	return nil
 }
 
+// MarchRemoveNotify 行军移除通知（回城到达或行军销毁）
+// 推送路由: bigmap.bigmapmarch.marchremovenotify
+// 推送范围: 所有在线大地图玩家（全服广播）
+// 客户端收到后从本地缓存中删除该 march_id
 type MarchRemoveNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
@@ -1561,10 +1606,14 @@ func (x *MarchRemoveNotify) GetMarchId() int64 {
 	return 0
 }
 
+// AllMarchSyncPush 玩家进入大地图时的全量同步
+// 推送路由: bigmap.bigmapmarch.allmarchsyncpush
+// 推送范围: 仅该玩家
+// 包含当前所有活跃行军 + 本联盟活跃集结
 type AllMarchSyncPush struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Marches       []*MarchInfo           `protobuf:"bytes,1,rep,name=marches,proto3" json:"marches,omitempty"`
-	Rallies       []*RallyInfo           `protobuf:"bytes,2,rep,name=rallies,proto3" json:"rallies,omitempty"`
+	Marches       []*MarchInfo           `protobuf:"bytes,1,rep,name=marches,proto3" json:"marches,omitempty"` // 全服所有活跃行军
+	Rallies       []*RallyInfo           `protobuf:"bytes,2,rep,name=rallies,proto3" json:"rallies,omitempty"` // 本联盟活跃集结
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1613,10 +1662,13 @@ func (x *AllMarchSyncPush) GetRallies() []*RallyInfo {
 	return nil
 }
 
+// BattleResultNotify 战斗结果通知
+// 推送路由: bigmap.bigmapmarch.battleresultnotify
+// 推送范围: 攻防双方玩家
 type BattleResultNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
-	IsWin         bool                   `protobuf:"varint,2,opt,name=is_win,json=isWin,proto3" json:"is_win,omitempty"`
+	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"` // 触发战斗的行军 ID
+	IsWin         bool                   `protobuf:"varint,2,opt,name=is_win,json=isWin,proto3" json:"is_win,omitempty"`       // 攻击方是否胜利
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1665,10 +1717,13 @@ func (x *BattleResultNotify) GetIsWin() bool {
 	return false
 }
 
+// GatherResultNotify 采集结果通知
+// 推送路由: bigmap.bigmapmarch.gatherresultnotify
+// 推送范围: 采集玩家
 type GatherResultNotify struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	MarchId           int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
-	GatheredResources map[int32]int64        `protobuf:"bytes,2,rep,name=gathered_resources,json=gatheredResources,proto3" json:"gathered_resources,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	GatheredResources map[int32]int64        `protobuf:"bytes,2,rep,name=gathered_resources,json=gatheredResources,proto3" json:"gathered_resources,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"` // 采集到的资源，key=资源类型ID, value=数量
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
@@ -1717,9 +1772,24 @@ func (x *GatherResultNotify) GetGatheredResources() map[int32]int64 {
 	return nil
 }
 
+// ScoutResultNotify 侦察报告通知
+// 推送路由: bigmap.bigmapmarch.scoutresultnotify
+// 推送范围: 侦察发起玩家
+// proto3 零值字段不传输，客户端按 target_type 解读对应字段即可
 type ScoutResultNotify struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	MarchId       int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	MarchId    int64                  `protobuf:"varint,1,opt,name=march_id,json=marchId,proto3" json:"march_id,omitempty"`
+	TargetType TargetType             `protobuf:"varint,2,opt,name=target_type,json=targetType,proto3,enum=mapsvr.TargetType" json:"target_type,omitempty"`
+	TargetId   int64                  `protobuf:"varint,3,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
+	TargetPos  *Position              `protobuf:"bytes,4,opt,name=target_pos,json=targetPos,proto3" json:"target_pos,omitempty"`
+	ConfigId   int32                  `protobuf:"varint,5,opt,name=config_id,json=configId,proto3" json:"config_id,omitempty"` // MapUnit 配置 ID
+	// 资源点信息（target_type == RESOURCE）
+	ResourceItemId    int32  `protobuf:"varint,10,opt,name=resource_item_id,json=resourceItemId,proto3" json:"resource_item_id,omitempty"`        // 资源物品 ID
+	ResourceTotal     int64  `protobuf:"varint,11,opt,name=resource_total,json=resourceTotal,proto3" json:"resource_total,omitempty"`             // 资源总量
+	ResourceRemaining int64  `protobuf:"varint,12,opt,name=resource_remaining,json=resourceRemaining,proto3" json:"resource_remaining,omitempty"` // 剩余量
+	GatherPlayerId    string `protobuf:"bytes,13,opt,name=gather_player_id,json=gatherPlayerId,proto3" json:"gather_player_id,omitempty"`         // 正在采集的玩家 ID（空=无人采集）
+	// 玩家城池信息（target_type == PLAYER_CITY）
+	OwnerPlayerId string `protobuf:"bytes,20,opt,name=owner_player_id,json=ownerPlayerId,proto3" json:"owner_player_id,omitempty"` // 城主玩家 ID
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1761,6 +1831,72 @@ func (x *ScoutResultNotify) GetMarchId() int64 {
 	return 0
 }
 
+func (x *ScoutResultNotify) GetTargetType() TargetType {
+	if x != nil {
+		return x.TargetType
+	}
+	return TargetType_TARGET_TYPE_UNSPECIFIED
+}
+
+func (x *ScoutResultNotify) GetTargetId() int64 {
+	if x != nil {
+		return x.TargetId
+	}
+	return 0
+}
+
+func (x *ScoutResultNotify) GetTargetPos() *Position {
+	if x != nil {
+		return x.TargetPos
+	}
+	return nil
+}
+
+func (x *ScoutResultNotify) GetConfigId() int32 {
+	if x != nil {
+		return x.ConfigId
+	}
+	return 0
+}
+
+func (x *ScoutResultNotify) GetResourceItemId() int32 {
+	if x != nil {
+		return x.ResourceItemId
+	}
+	return 0
+}
+
+func (x *ScoutResultNotify) GetResourceTotal() int64 {
+	if x != nil {
+		return x.ResourceTotal
+	}
+	return 0
+}
+
+func (x *ScoutResultNotify) GetResourceRemaining() int64 {
+	if x != nil {
+		return x.ResourceRemaining
+	}
+	return 0
+}
+
+func (x *ScoutResultNotify) GetGatherPlayerId() string {
+	if x != nil {
+		return x.GatherPlayerId
+	}
+	return ""
+}
+
+func (x *ScoutResultNotify) GetOwnerPlayerId() string {
+	if x != nil {
+		return x.OwnerPlayerId
+	}
+	return ""
+}
+
+// RallyCreateNotify 集结创建通知
+// 推送路由: bigmap.bigmapmarch.rallycreatenotify
+// 推送范围: 联盟全体成员
 type RallyCreateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Rally         *RallyInfo             `protobuf:"bytes,1,opt,name=rally,proto3" json:"rally,omitempty"`
@@ -1805,6 +1941,9 @@ func (x *RallyCreateNotify) GetRally() *RallyInfo {
 	return nil
 }
 
+// RallyUpdateNotify 集结变更通知（成员加入/手动发起/取消等）
+// 推送路由: bigmap.bigmapmarch.rallyupdatenotify
+// 推送范围: 联盟全体成员
 type RallyUpdateNotify struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Rally         *RallyInfo             `protobuf:"bytes,1,opt,name=rally,proto3" json:"rally,omitempty"`
@@ -1977,9 +2116,21 @@ const file_mapsvr_bigmapmarch_proto_rawDesc = "" +
 	"\x12gathered_resources\x18\x02 \x03(\v21.mapsvr.GatherResultNotify.GatheredResourcesEntryR\x11gatheredResources\x1aD\n" +
 	"\x16GatheredResourcesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\x05R\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x03R\x05value:\x028\x01\".\n" +
+	"\x05value\x18\x02 \x01(\x03R\x05value:\x028\x01\"\xa0\x03\n" +
 	"\x11ScoutResultNotify\x12\x19\n" +
-	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\"<\n" +
+	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\x123\n" +
+	"\vtarget_type\x18\x02 \x01(\x0e2\x12.mapsvr.TargetTypeR\n" +
+	"targetType\x12\x1b\n" +
+	"\ttarget_id\x18\x03 \x01(\x03R\btargetId\x12/\n" +
+	"\n" +
+	"target_pos\x18\x04 \x01(\v2\x10.mapsvr.PositionR\ttargetPos\x12\x1b\n" +
+	"\tconfig_id\x18\x05 \x01(\x05R\bconfigId\x12(\n" +
+	"\x10resource_item_id\x18\n" +
+	" \x01(\x05R\x0eresourceItemId\x12%\n" +
+	"\x0eresource_total\x18\v \x01(\x03R\rresourceTotal\x12-\n" +
+	"\x12resource_remaining\x18\f \x01(\x03R\x11resourceRemaining\x12(\n" +
+	"\x10gather_player_id\x18\r \x01(\tR\x0egatherPlayerId\x12&\n" +
+	"\x0fowner_player_id\x18\x14 \x01(\tR\rownerPlayerId\"<\n" +
 	"\x11RallyCreateNotify\x12'\n" +
 	"\x05rally\x18\x01 \x01(\v2\x11.mapsvr.RallyInfoR\x05rally\"<\n" +
 	"\x11RallyUpdateNotify\x12'\n" +
@@ -2115,18 +2266,20 @@ var file_mapsvr_bigmapmarch_proto_depIdxs = []int32{
 	6,  // 31: mapsvr.AllMarchSyncPush.marches:type_name -> mapsvr.MarchInfo
 	8,  // 32: mapsvr.AllMarchSyncPush.rallies:type_name -> mapsvr.RallyInfo
 	38, // 33: mapsvr.GatherResultNotify.gathered_resources:type_name -> mapsvr.GatherResultNotify.GatheredResourcesEntry
-	8,  // 34: mapsvr.RallyCreateNotify.rally:type_name -> mapsvr.RallyInfo
-	8,  // 35: mapsvr.RallyUpdateNotify.rally:type_name -> mapsvr.RallyInfo
-	5,  // 36: mapsvr.MarchInfo.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	5,  // 37: mapsvr.RallyMemberInfo.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	5,  // 38: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	5,  // 39: mapsvr.CreateRallyRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	5,  // 40: mapsvr.JoinRallyRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
-	41, // [41:41] is the sub-list for method output_type
-	41, // [41:41] is the sub-list for method input_type
-	41, // [41:41] is the sub-list for extension type_name
-	41, // [41:41] is the sub-list for extension extendee
-	0,  // [0:41] is the sub-list for field type_name
+	3,  // 34: mapsvr.ScoutResultNotify.target_type:type_name -> mapsvr.TargetType
+	39, // 35: mapsvr.ScoutResultNotify.target_pos:type_name -> mapsvr.Position
+	8,  // 36: mapsvr.RallyCreateNotify.rally:type_name -> mapsvr.RallyInfo
+	8,  // 37: mapsvr.RallyUpdateNotify.rally:type_name -> mapsvr.RallyInfo
+	5,  // 38: mapsvr.MarchInfo.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	5,  // 39: mapsvr.RallyMemberInfo.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	5,  // 40: mapsvr.StartMarchRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	5,  // 41: mapsvr.CreateRallyRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	5,  // 42: mapsvr.JoinRallyRequest.TroopsEntry.value:type_name -> mapsvr.TroopLevels
+	43, // [43:43] is the sub-list for method output_type
+	43, // [43:43] is the sub-list for method input_type
+	43, // [43:43] is the sub-list for extension type_name
+	43, // [43:43] is the sub-list for extension extendee
+	0,  // [0:43] is the sub-list for field type_name
 }
 
 func init() { file_mapsvr_bigmapmarch_proto_init() }
