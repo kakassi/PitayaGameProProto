@@ -98,7 +98,7 @@ message SyncResourceResponse {
   ResourceInfo resources = 2;
 }
 
-// 发放奖励请求
+// 发放奖励请求（客户端通过 Handler 调用，UserID 从 Session 获取）
 message GrantRewardRequest {
   repeated RewardItem rewards = 1;
   string source = 2;        // 奖励来源（如任务、GM）
@@ -107,6 +107,21 @@ message GrantRewardRequest {
 
 // 发放奖励响应
 message GrantRewardResponse {
+  types.CommonResp resp = 1;
+  repeated RewardDelta applied_rewards = 2;
+}
+
+// 发放奖励请求 - 服务内部 Remote RPC 专用
+// 由其他服务（如 MapSvr）通过 Remote RPC 调用，必须显式传入 user_id
+message GrantRewardRemoteRequest {
+  string user_id = 1;       // 目标玩家ID（必填）
+  repeated RewardItem rewards = 2;
+  string source = 3;        // 奖励来源（如 gather、battle）
+  string reference_id = 4;  // 业务ID（如 march_1001）
+}
+
+// 发放奖励响应 - 服务内部 Remote RPC 专用
+message GrantRewardRemoteResponse {
   types.CommonResp resp = 1;
   repeated RewardDelta applied_rewards = 2;
 }

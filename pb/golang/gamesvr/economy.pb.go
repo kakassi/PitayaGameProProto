@@ -818,7 +818,7 @@ func (x *SyncResourceResponse) GetResources() *ResourceInfo {
 	return nil
 }
 
-// 发放奖励请求
+// 发放奖励请求（客户端通过 Handler 调用，UserID 从 Session 获取）
 type GrantRewardRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Rewards       []*RewardItem          `protobuf:"bytes,1,rep,name=rewards,proto3" json:"rewards,omitempty"`
@@ -932,6 +932,129 @@ func (x *GrantRewardResponse) GetAppliedRewards() []*RewardDelta {
 	return nil
 }
 
+// 发放奖励请求 - 服务内部 Remote RPC 专用
+// 由其他服务（如 MapSvr）通过 Remote RPC 调用，必须显式传入 user_id
+type GrantRewardRemoteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"` // 目标玩家ID（必填）
+	Rewards       []*RewardItem          `protobuf:"bytes,2,rep,name=rewards,proto3" json:"rewards,omitempty"`
+	Source        string                 `protobuf:"bytes,3,opt,name=source,proto3" json:"source,omitempty"`                              // 奖励来源（如 gather、battle）
+	ReferenceId   string                 `protobuf:"bytes,4,opt,name=reference_id,json=referenceId,proto3" json:"reference_id,omitempty"` // 业务ID（如 march_1001）
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GrantRewardRemoteRequest) Reset() {
+	*x = GrantRewardRemoteRequest{}
+	mi := &file_gamesvr_economy_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GrantRewardRemoteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GrantRewardRemoteRequest) ProtoMessage() {}
+
+func (x *GrantRewardRemoteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_gamesvr_economy_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GrantRewardRemoteRequest.ProtoReflect.Descriptor instead.
+func (*GrantRewardRemoteRequest) Descriptor() ([]byte, []int) {
+	return file_gamesvr_economy_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GrantRewardRemoteRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *GrantRewardRemoteRequest) GetRewards() []*RewardItem {
+	if x != nil {
+		return x.Rewards
+	}
+	return nil
+}
+
+func (x *GrantRewardRemoteRequest) GetSource() string {
+	if x != nil {
+		return x.Source
+	}
+	return ""
+}
+
+func (x *GrantRewardRemoteRequest) GetReferenceId() string {
+	if x != nil {
+		return x.ReferenceId
+	}
+	return ""
+}
+
+// 发放奖励响应 - 服务内部 Remote RPC 专用
+type GrantRewardRemoteResponse struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Resp           *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	AppliedRewards []*RewardDelta         `protobuf:"bytes,2,rep,name=applied_rewards,json=appliedRewards,proto3" json:"applied_rewards,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *GrantRewardRemoteResponse) Reset() {
+	*x = GrantRewardRemoteResponse{}
+	mi := &file_gamesvr_economy_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GrantRewardRemoteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GrantRewardRemoteResponse) ProtoMessage() {}
+
+func (x *GrantRewardRemoteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_gamesvr_economy_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GrantRewardRemoteResponse.ProtoReflect.Descriptor instead.
+func (*GrantRewardRemoteResponse) Descriptor() ([]byte, []int) {
+	return file_gamesvr_economy_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GrantRewardRemoteResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
+	}
+	return nil
+}
+
+func (x *GrantRewardRemoteResponse) GetAppliedRewards() []*RewardDelta {
+	if x != nil {
+		return x.AppliedRewards
+	}
+	return nil
+}
+
 var File_gamesvr_economy_proto protoreflect.FileDescriptor
 
 const file_gamesvr_economy_proto_rawDesc = "" +
@@ -990,6 +1113,14 @@ const file_gamesvr_economy_proto_rawDesc = "" +
 	"\freference_id\x18\x03 \x01(\tR\vreferenceId\"{\n" +
 	"\x13GrantRewardResponse\x12%\n" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12=\n" +
+	"\x0fapplied_rewards\x18\x02 \x03(\v2\x14.gamesvr.RewardDeltaR\x0eappliedRewards\"\x9d\x01\n" +
+	"\x18GrantRewardRemoteRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\x12-\n" +
+	"\arewards\x18\x02 \x03(\v2\x13.gamesvr.RewardItemR\arewards\x12\x16\n" +
+	"\x06source\x18\x03 \x01(\tR\x06source\x12!\n" +
+	"\freference_id\x18\x04 \x01(\tR\vreferenceId\"\x81\x01\n" +
+	"\x19GrantRewardRemoteResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12=\n" +
 	"\x0fapplied_rewards\x18\x02 \x03(\v2\x14.gamesvr.RewardDeltaR\x0eappliedRewardsBNZ7pitaya-game/protos/protobuf/pb/golang/gamesvr;gamesvrpb\xaa\x02\x12PitayaGame.GameSvrb\x06proto3"
 
 var (
@@ -1004,25 +1135,27 @@ func file_gamesvr_economy_proto_rawDescGZIP() []byte {
 	return file_gamesvr_economy_proto_rawDescData
 }
 
-var file_gamesvr_economy_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_gamesvr_economy_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_gamesvr_economy_proto_goTypes = []any{
-	(*CurrencyInfo)(nil),           // 0: gamesvr.CurrencyInfo
-	(*ResourceAmount)(nil),         // 1: gamesvr.ResourceAmount
-	(*ResourceInfo)(nil),           // 2: gamesvr.ResourceInfo
-	(*CurrencyChange)(nil),         // 3: gamesvr.CurrencyChange
-	(*ResourceChange)(nil),         // 4: gamesvr.ResourceChange
-	(*ItemReward)(nil),             // 5: gamesvr.ItemReward
-	(*RewardItem)(nil),             // 6: gamesvr.RewardItem
-	(*RewardDelta)(nil),            // 7: gamesvr.RewardDelta
-	(*GetEconomyInfoRequest)(nil),  // 8: gamesvr.GetEconomyInfoRequest
-	(*GetEconomyInfoResponse)(nil), // 9: gamesvr.GetEconomyInfoResponse
-	(*SyncCurrencyRequest)(nil),    // 10: gamesvr.SyncCurrencyRequest
-	(*SyncCurrencyResponse)(nil),   // 11: gamesvr.SyncCurrencyResponse
-	(*SyncResourceRequest)(nil),    // 12: gamesvr.SyncResourceRequest
-	(*SyncResourceResponse)(nil),   // 13: gamesvr.SyncResourceResponse
-	(*GrantRewardRequest)(nil),     // 14: gamesvr.GrantRewardRequest
-	(*GrantRewardResponse)(nil),    // 15: gamesvr.GrantRewardResponse
-	(*types.CommonResp)(nil),       // 16: types.CommonResp
+	(*CurrencyInfo)(nil),              // 0: gamesvr.CurrencyInfo
+	(*ResourceAmount)(nil),            // 1: gamesvr.ResourceAmount
+	(*ResourceInfo)(nil),              // 2: gamesvr.ResourceInfo
+	(*CurrencyChange)(nil),            // 3: gamesvr.CurrencyChange
+	(*ResourceChange)(nil),            // 4: gamesvr.ResourceChange
+	(*ItemReward)(nil),                // 5: gamesvr.ItemReward
+	(*RewardItem)(nil),                // 6: gamesvr.RewardItem
+	(*RewardDelta)(nil),               // 7: gamesvr.RewardDelta
+	(*GetEconomyInfoRequest)(nil),     // 8: gamesvr.GetEconomyInfoRequest
+	(*GetEconomyInfoResponse)(nil),    // 9: gamesvr.GetEconomyInfoResponse
+	(*SyncCurrencyRequest)(nil),       // 10: gamesvr.SyncCurrencyRequest
+	(*SyncCurrencyResponse)(nil),      // 11: gamesvr.SyncCurrencyResponse
+	(*SyncResourceRequest)(nil),       // 12: gamesvr.SyncResourceRequest
+	(*SyncResourceResponse)(nil),      // 13: gamesvr.SyncResourceResponse
+	(*GrantRewardRequest)(nil),        // 14: gamesvr.GrantRewardRequest
+	(*GrantRewardResponse)(nil),       // 15: gamesvr.GrantRewardResponse
+	(*GrantRewardRemoteRequest)(nil),  // 16: gamesvr.GrantRewardRemoteRequest
+	(*GrantRewardRemoteResponse)(nil), // 17: gamesvr.GrantRewardRemoteResponse
+	(*types.CommonResp)(nil),          // 18: types.CommonResp
 }
 var file_gamesvr_economy_proto_depIdxs = []int32{
 	1,  // 0: gamesvr.ResourceInfo.resources:type_name -> gamesvr.ResourceAmount
@@ -1030,23 +1163,26 @@ var file_gamesvr_economy_proto_depIdxs = []int32{
 	5,  // 2: gamesvr.RewardItem.item:type_name -> gamesvr.ItemReward
 	4,  // 3: gamesvr.RewardItem.resource:type_name -> gamesvr.ResourceChange
 	6,  // 4: gamesvr.RewardDelta.reward:type_name -> gamesvr.RewardItem
-	16, // 5: gamesvr.GetEconomyInfoResponse.resp:type_name -> types.CommonResp
+	18, // 5: gamesvr.GetEconomyInfoResponse.resp:type_name -> types.CommonResp
 	0,  // 6: gamesvr.GetEconomyInfoResponse.currency:type_name -> gamesvr.CurrencyInfo
 	2,  // 7: gamesvr.GetEconomyInfoResponse.resources:type_name -> gamesvr.ResourceInfo
 	3,  // 8: gamesvr.SyncCurrencyRequest.changes:type_name -> gamesvr.CurrencyChange
-	16, // 9: gamesvr.SyncCurrencyResponse.resp:type_name -> types.CommonResp
+	18, // 9: gamesvr.SyncCurrencyResponse.resp:type_name -> types.CommonResp
 	0,  // 10: gamesvr.SyncCurrencyResponse.currency:type_name -> gamesvr.CurrencyInfo
 	4,  // 11: gamesvr.SyncResourceRequest.changes:type_name -> gamesvr.ResourceChange
-	16, // 12: gamesvr.SyncResourceResponse.resp:type_name -> types.CommonResp
+	18, // 12: gamesvr.SyncResourceResponse.resp:type_name -> types.CommonResp
 	2,  // 13: gamesvr.SyncResourceResponse.resources:type_name -> gamesvr.ResourceInfo
 	6,  // 14: gamesvr.GrantRewardRequest.rewards:type_name -> gamesvr.RewardItem
-	16, // 15: gamesvr.GrantRewardResponse.resp:type_name -> types.CommonResp
+	18, // 15: gamesvr.GrantRewardResponse.resp:type_name -> types.CommonResp
 	7,  // 16: gamesvr.GrantRewardResponse.applied_rewards:type_name -> gamesvr.RewardDelta
-	17, // [17:17] is the sub-list for method output_type
-	17, // [17:17] is the sub-list for method input_type
-	17, // [17:17] is the sub-list for extension type_name
-	17, // [17:17] is the sub-list for extension extendee
-	0,  // [0:17] is the sub-list for field type_name
+	6,  // 17: gamesvr.GrantRewardRemoteRequest.rewards:type_name -> gamesvr.RewardItem
+	18, // 18: gamesvr.GrantRewardRemoteResponse.resp:type_name -> types.CommonResp
+	7,  // 19: gamesvr.GrantRewardRemoteResponse.applied_rewards:type_name -> gamesvr.RewardDelta
+	20, // [20:20] is the sub-list for method output_type
+	20, // [20:20] is the sub-list for method input_type
+	20, // [20:20] is the sub-list for extension type_name
+	20, // [20:20] is the sub-list for extension extendee
+	0,  // [0:20] is the sub-list for field type_name
 }
 
 func init() { file_gamesvr_economy_proto_init() }
@@ -1065,7 +1201,7 @@ func file_gamesvr_economy_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_gamesvr_economy_proto_rawDesc), len(file_gamesvr_economy_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

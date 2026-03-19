@@ -54,9 +54,14 @@ namespace PitayaGame.GameSvr {
             "ZXdhcmRJdGVtEg4KBnNvdXJjZRgCIAEoCRIUCgxyZWZlcmVuY2VfaWQYAyAB",
             "KAkiZQoTR3JhbnRSZXdhcmRSZXNwb25zZRIfCgRyZXNwGAEgASgLMhEudHlw",
             "ZXMuQ29tbW9uUmVzcBItCg9hcHBsaWVkX3Jld2FyZHMYAiADKAsyFC5nYW1l",
-            "c3ZyLlJld2FyZERlbHRhQk5aN3BpdGF5YS1nYW1lL3Byb3Rvcy9wcm90b2J1",
-            "Zi9wYi9nb2xhbmcvZ2FtZXN2cjtnYW1lc3ZycGKqAhJQaXRheWFHYW1lLkdh",
-            "bWVTdnJiBnByb3RvMw=="));
+            "c3ZyLlJld2FyZERlbHRhIncKGEdyYW50UmV3YXJkUmVtb3RlUmVxdWVzdBIP",
+            "Cgd1c2VyX2lkGAEgASgJEiQKB3Jld2FyZHMYAiADKAsyEy5nYW1lc3ZyLlJl",
+            "d2FyZEl0ZW0SDgoGc291cmNlGAMgASgJEhQKDHJlZmVyZW5jZV9pZBgEIAEo",
+            "CSJrChlHcmFudFJld2FyZFJlbW90ZVJlc3BvbnNlEh8KBHJlc3AYASABKAsy",
+            "ES50eXBlcy5Db21tb25SZXNwEi0KD2FwcGxpZWRfcmV3YXJkcxgCIAMoCzIU",
+            "LmdhbWVzdnIuUmV3YXJkRGVsdGFCTlo3cGl0YXlhLWdhbWUvcHJvdG9zL3By",
+            "b3RvYnVmL3BiL2dvbGFuZy9nYW1lc3ZyO2dhbWVzdnJwYqoCElBpdGF5YUdh",
+            "bWUuR2FtZVN2cmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::PitayaGame.Types.TypesReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -75,7 +80,9 @@ namespace PitayaGame.GameSvr {
             new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.SyncResourceRequest), global::PitayaGame.GameSvr.SyncResourceRequest.Parser, new[]{ "Changes", "Reason" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.SyncResourceResponse), global::PitayaGame.GameSvr.SyncResourceResponse.Parser, new[]{ "Resp", "Resources" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.GrantRewardRequest), global::PitayaGame.GameSvr.GrantRewardRequest.Parser, new[]{ "Rewards", "Source", "ReferenceId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.GrantRewardResponse), global::PitayaGame.GameSvr.GrantRewardResponse.Parser, new[]{ "Resp", "AppliedRewards" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.GrantRewardResponse), global::PitayaGame.GameSvr.GrantRewardResponse.Parser, new[]{ "Resp", "AppliedRewards" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.GrantRewardRemoteRequest), global::PitayaGame.GameSvr.GrantRewardRemoteRequest.Parser, new[]{ "UserId", "Rewards", "Source", "ReferenceId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::PitayaGame.GameSvr.GrantRewardRemoteResponse), global::PitayaGame.GameSvr.GrantRewardRemoteResponse.Parser, new[]{ "Resp", "AppliedRewards" }, null, null, null, null)
           }));
     }
     #endregion
@@ -3624,7 +3631,7 @@ namespace PitayaGame.GameSvr {
   }
 
   /// <summary>
-  /// 发放奖励请求
+  /// 发放奖励请求（客户端通过 Handler 调用，UserID 从 Session 获取）
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class GrantRewardRequest : pb::IMessage<GrantRewardRequest>
@@ -4052,6 +4059,553 @@ namespace PitayaGame.GameSvr {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public void MergeFrom(GrantRewardResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.resp_ != null) {
+        if (resp_ == null) {
+          Resp = new global::PitayaGame.Types.CommonResp();
+        }
+        Resp.MergeFrom(other.Resp);
+      }
+      appliedRewards_.Add(other.appliedRewards_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (resp_ == null) {
+              Resp = new global::PitayaGame.Types.CommonResp();
+            }
+            input.ReadMessage(Resp);
+            break;
+          }
+          case 18: {
+            appliedRewards_.AddEntriesFrom(input, _repeated_appliedRewards_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            if (resp_ == null) {
+              Resp = new global::PitayaGame.Types.CommonResp();
+            }
+            input.ReadMessage(Resp);
+            break;
+          }
+          case 18: {
+            appliedRewards_.AddEntriesFrom(ref input, _repeated_appliedRewards_codec);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// 发放奖励请求 - 服务内部 Remote RPC 专用
+  /// 由其他服务（如 MapSvr）通过 Remote RPC 调用，必须显式传入 user_id
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GrantRewardRemoteRequest : pb::IMessage<GrantRewardRemoteRequest>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GrantRewardRemoteRequest> _parser = new pb::MessageParser<GrantRewardRemoteRequest>(() => new GrantRewardRemoteRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GrantRewardRemoteRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PitayaGame.GameSvr.EconomyReflection.Descriptor.MessageTypes[16]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteRequest(GrantRewardRemoteRequest other) : this() {
+      userId_ = other.userId_;
+      rewards_ = other.rewards_.Clone();
+      source_ = other.source_;
+      referenceId_ = other.referenceId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteRequest Clone() {
+      return new GrantRewardRemoteRequest(this);
+    }
+
+    /// <summary>Field number for the "user_id" field.</summary>
+    public const int UserIdFieldNumber = 1;
+    private string userId_ = "";
+    /// <summary>
+    /// 目标玩家ID（必填）
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string UserId {
+      get { return userId_; }
+      set {
+        userId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "rewards" field.</summary>
+    public const int RewardsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::PitayaGame.GameSvr.RewardItem> _repeated_rewards_codec
+        = pb::FieldCodec.ForMessage(18, global::PitayaGame.GameSvr.RewardItem.Parser);
+    private readonly pbc::RepeatedField<global::PitayaGame.GameSvr.RewardItem> rewards_ = new pbc::RepeatedField<global::PitayaGame.GameSvr.RewardItem>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::PitayaGame.GameSvr.RewardItem> Rewards {
+      get { return rewards_; }
+    }
+
+    /// <summary>Field number for the "source" field.</summary>
+    public const int SourceFieldNumber = 3;
+    private string source_ = "";
+    /// <summary>
+    /// 奖励来源（如 gather、battle）
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Source {
+      get { return source_; }
+      set {
+        source_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "reference_id" field.</summary>
+    public const int ReferenceIdFieldNumber = 4;
+    private string referenceId_ = "";
+    /// <summary>
+    /// 业务ID（如 march_1001）
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string ReferenceId {
+      get { return referenceId_; }
+      set {
+        referenceId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GrantRewardRemoteRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GrantRewardRemoteRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (UserId != other.UserId) return false;
+      if(!rewards_.Equals(other.rewards_)) return false;
+      if (Source != other.Source) return false;
+      if (ReferenceId != other.ReferenceId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (UserId.Length != 0) hash ^= UserId.GetHashCode();
+      hash ^= rewards_.GetHashCode();
+      if (Source.Length != 0) hash ^= Source.GetHashCode();
+      if (ReferenceId.Length != 0) hash ^= ReferenceId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (UserId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(UserId);
+      }
+      rewards_.WriteTo(output, _repeated_rewards_codec);
+      if (Source.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Source);
+      }
+      if (ReferenceId.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferenceId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (UserId.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(UserId);
+      }
+      rewards_.WriteTo(ref output, _repeated_rewards_codec);
+      if (Source.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(Source);
+      }
+      if (ReferenceId.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(ReferenceId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (UserId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(UserId);
+      }
+      size += rewards_.CalculateSize(_repeated_rewards_codec);
+      if (Source.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Source);
+      }
+      if (ReferenceId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ReferenceId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GrantRewardRemoteRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.UserId.Length != 0) {
+        UserId = other.UserId;
+      }
+      rewards_.Add(other.rewards_);
+      if (other.Source.Length != 0) {
+        Source = other.Source;
+      }
+      if (other.ReferenceId.Length != 0) {
+        ReferenceId = other.ReferenceId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            UserId = input.ReadString();
+            break;
+          }
+          case 18: {
+            rewards_.AddEntriesFrom(input, _repeated_rewards_codec);
+            break;
+          }
+          case 26: {
+            Source = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReferenceId = input.ReadString();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            UserId = input.ReadString();
+            break;
+          }
+          case 18: {
+            rewards_.AddEntriesFrom(ref input, _repeated_rewards_codec);
+            break;
+          }
+          case 26: {
+            Source = input.ReadString();
+            break;
+          }
+          case 34: {
+            ReferenceId = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  /// <summary>
+  /// 发放奖励响应 - 服务内部 Remote RPC 专用
+  /// </summary>
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class GrantRewardRemoteResponse : pb::IMessage<GrantRewardRemoteResponse>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<GrantRewardRemoteResponse> _parser = new pb::MessageParser<GrantRewardRemoteResponse>(() => new GrantRewardRemoteResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<GrantRewardRemoteResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::PitayaGame.GameSvr.EconomyReflection.Descriptor.MessageTypes[17]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteResponse(GrantRewardRemoteResponse other) : this() {
+      resp_ = other.resp_ != null ? other.resp_.Clone() : null;
+      appliedRewards_ = other.appliedRewards_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public GrantRewardRemoteResponse Clone() {
+      return new GrantRewardRemoteResponse(this);
+    }
+
+    /// <summary>Field number for the "resp" field.</summary>
+    public const int RespFieldNumber = 1;
+    private global::PitayaGame.Types.CommonResp resp_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::PitayaGame.Types.CommonResp Resp {
+      get { return resp_; }
+      set {
+        resp_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "applied_rewards" field.</summary>
+    public const int AppliedRewardsFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::PitayaGame.GameSvr.RewardDelta> _repeated_appliedRewards_codec
+        = pb::FieldCodec.ForMessage(18, global::PitayaGame.GameSvr.RewardDelta.Parser);
+    private readonly pbc::RepeatedField<global::PitayaGame.GameSvr.RewardDelta> appliedRewards_ = new pbc::RepeatedField<global::PitayaGame.GameSvr.RewardDelta>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::PitayaGame.GameSvr.RewardDelta> AppliedRewards {
+      get { return appliedRewards_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as GrantRewardRemoteResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(GrantRewardRemoteResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Resp, other.Resp)) return false;
+      if(!appliedRewards_.Equals(other.appliedRewards_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (resp_ != null) hash ^= Resp.GetHashCode();
+      hash ^= appliedRewards_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (resp_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Resp);
+      }
+      appliedRewards_.WriteTo(output, _repeated_appliedRewards_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (resp_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Resp);
+      }
+      appliedRewards_.WriteTo(ref output, _repeated_appliedRewards_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (resp_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Resp);
+      }
+      size += appliedRewards_.CalculateSize(_repeated_appliedRewards_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(GrantRewardRemoteResponse other) {
       if (other == null) {
         return;
       }
