@@ -377,6 +377,7 @@ type MarchInfo struct {
 	HeroIds       []int64                `protobuf:"varint,11,rep,packed,name=hero_ids,json=heroIds,proto3" json:"hero_ids,omitempty"`                                                   // 出征英雄 ID 列表
 	Troops        map[int32]*TroopLevels `protobuf:"bytes,12,rep,name=troops,proto3" json:"troops,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"` // 兵种->等级数量，key 为 TroopType 的 int32 值
 	RallyId       int64                  `protobuf:"varint,13,opt,name=rally_id,json=rallyId,proto3" json:"rally_id,omitempty"`                                                          // 所属集结 ID，0 表示非集结行军
+	ExpeditionId  int64                  `protobuf:"varint,14,opt,name=expedition_id,json=expeditionId,proto3" json:"expedition_id,omitempty"`                                           // 行军流程标识，去程与回程共享同一值（等于首条出征行军的 MarchID）
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -498,6 +499,13 @@ func (x *MarchInfo) GetTroops() map[int32]*TroopLevels {
 func (x *MarchInfo) GetRallyId() int64 {
 	if x != nil {
 		return x.RallyId
+	}
+	return 0
+}
+
+func (x *MarchInfo) GetExpeditionId() int64 {
+	if x != nil {
+		return x.ExpeditionId
 	}
 	return 0
 }
@@ -1997,7 +2005,7 @@ const file_mapsvr_bigmapmarch_proto_rawDesc = "" +
 	"\flevel_counts\x18\x01 \x03(\v2$.mapsvr.TroopLevels.LevelCountsEntryR\vlevelCounts\x1a>\n" +
 	"\x10LevelCountsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\x05R\x03key\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x05R\x05value:\x028\x01\"\xbc\x04\n" +
+	"\x05value\x18\x02 \x01(\x05R\x05value:\x028\x01\"\xe1\x04\n" +
 	"\tMarchInfo\x12\x19\n" +
 	"\bmarch_id\x18\x01 \x01(\x03R\amarchId\x12\x1b\n" +
 	"\tplayer_id\x18\x02 \x01(\tR\bplayerId\x120\n" +
@@ -2014,7 +2022,8 @@ const file_mapsvr_bigmapmarch_proto_rawDesc = "" +
 	" \x01(\x03R\btargetId\x12\x19\n" +
 	"\bhero_ids\x18\v \x03(\x03R\aheroIds\x125\n" +
 	"\x06troops\x18\f \x03(\v2\x1d.mapsvr.MarchInfo.TroopsEntryR\x06troops\x12\x19\n" +
-	"\brally_id\x18\r \x01(\x03R\arallyId\x1aN\n" +
+	"\brally_id\x18\r \x01(\x03R\arallyId\x12#\n" +
+	"\rexpedition_id\x18\x0e \x01(\x03R\fexpeditionId\x1aN\n" +
 	"\vTroopsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\x05R\x03key\x12)\n" +
 	"\x05value\x18\x02 \x01(\v2\x13.mapsvr.TroopLevelsR\x05value:\x028\x01\"\xd6\x01\n" +

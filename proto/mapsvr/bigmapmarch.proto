@@ -86,6 +86,7 @@ message MarchInfo {
   map<int32, TroopLevels> troops = 12; // 兵种->等级数量，key 为 TroopType 的 int32 值
 
   int64       rally_id    = 13; // 所属集结 ID，0 表示非集结行军
+  int64       expedition_id = 14; // 行军流程标识，去程与回程共享同一值（等于首条出征行军的 MarchID）
 }
 
 // RallyMemberInfo 集结中某一成员的参与信息

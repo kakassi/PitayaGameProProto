@@ -58,15 +58,16 @@ func (*BattleRequest) Descriptor() ([]byte, []int) {
 	return file_mapsvr_bigmapbattle_proto_rawDescGZIP(), []int{0}
 }
 
+// FighterInfo 单个战斗方（攻方/守方）的战斗结果信息。
 type FighterInfo struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
-	PlayerId          string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`
-	X                 int32                  `protobuf:"varint,2,opt,name=x,proto3" json:"x,omitempty"`
-	Y                 int32                  `protobuf:"varint,3,opt,name=y,proto3" json:"y,omitempty"`
-	SoldierCount      int32                  `protobuf:"varint,4,opt,name=soldier_count,json=soldierCount,proto3" json:"soldier_count,omitempty"`
-	DeathCount        int32                  `protobuf:"varint,5,opt,name=death_count,json=deathCount,proto3" json:"death_count,omitempty"`
-	LiveCount         int32                  `protobuf:"varint,6,opt,name=live_count,json=liveCount,proto3" json:"live_count,omitempty"`
-	TroopKillCountMap map[int32]int32        `protobuf:"bytes,7,rep,name=troop_kill_count_map,json=troopKillCountMap,proto3" json:"troop_kill_count_map,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"`
+	PlayerId          string                 `protobuf:"bytes,1,opt,name=player_id,json=playerId,proto3" json:"player_id,omitempty"`                                                                                                            // 玩家 ID（怪物/NPC 可约定为系统标识）
+	X                 int32                  `protobuf:"varint,2,opt,name=x,proto3" json:"x,omitempty"`                                                                                                                                         // 战斗发生时该战斗方所在的地图 X 坐标
+	Y                 int32                  `protobuf:"varint,3,opt,name=y,proto3" json:"y,omitempty"`                                                                                                                                         // 战斗发生时该战斗方所在的地图 Y 坐标
+	SoldierCount      int32                  `protobuf:"varint,4,opt,name=soldier_count,json=soldierCount,proto3" json:"soldier_count,omitempty"`                                                                                               // 开战前总兵力（初始士兵总数）
+	DeathCount        int32                  `protobuf:"varint,5,opt,name=death_count,json=deathCount,proto3" json:"death_count,omitempty"`                                                                                                     // 本场战斗阵亡兵力
+	LiveCount         int32                  `protobuf:"varint,6,opt,name=live_count,json=liveCount,proto3" json:"live_count,omitempty"`                                                                                                        // 本场战斗结束后存活兵力
+	TroopKillCountMap map[int32]int32        `protobuf:"bytes,7,rep,name=troop_kill_count_map,json=troopKillCountMap,proto3" json:"troop_kill_count_map,omitempty" protobuf_key:"varint,1,opt,name=key" protobuf_val:"varint,2,opt,name=value"` // 击杀统计：key=兵种(或兵种+等级约定)，value=击杀数量
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
