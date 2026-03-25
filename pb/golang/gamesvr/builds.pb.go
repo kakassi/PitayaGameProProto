@@ -901,7 +901,52 @@ func (x *WorkBuildingTurboRequest) GetBuildId() int64 {
 	return 0
 }
 
-// 建筑加速响应
+// 建筑立即完成（创建、生产）请求
+type WorkBuildingKoRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BuildId       int64                  `protobuf:"varint,1,opt,name=build_id,json=buildId,proto3" json:"build_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *WorkBuildingKoRequest) Reset() {
+	*x = WorkBuildingKoRequest{}
+	mi := &file_gamesvr_builds_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *WorkBuildingKoRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*WorkBuildingKoRequest) ProtoMessage() {}
+
+func (x *WorkBuildingKoRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_gamesvr_builds_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use WorkBuildingKoRequest.ProtoReflect.Descriptor instead.
+func (*WorkBuildingKoRequest) Descriptor() ([]byte, []int) {
+	return file_gamesvr_builds_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *WorkBuildingKoRequest) GetBuildId() int64 {
+	if x != nil {
+		return x.BuildId
+	}
+	return 0
+}
+
+// 建筑加速、立即完成响应
 type WorkBuildingTurboResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
@@ -912,7 +957,7 @@ type WorkBuildingTurboResponse struct {
 
 func (x *WorkBuildingTurboResponse) Reset() {
 	*x = WorkBuildingTurboResponse{}
-	mi := &file_gamesvr_builds_proto_msgTypes[16]
+	mi := &file_gamesvr_builds_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -924,7 +969,7 @@ func (x *WorkBuildingTurboResponse) String() string {
 func (*WorkBuildingTurboResponse) ProtoMessage() {}
 
 func (x *WorkBuildingTurboResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_gamesvr_builds_proto_msgTypes[16]
+	mi := &file_gamesvr_builds_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -937,7 +982,7 @@ func (x *WorkBuildingTurboResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WorkBuildingTurboResponse.ProtoReflect.Descriptor instead.
 func (*WorkBuildingTurboResponse) Descriptor() ([]byte, []int) {
-	return file_gamesvr_builds_proto_rawDescGZIP(), []int{16}
+	return file_gamesvr_builds_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *WorkBuildingTurboResponse) GetResp() *types.CommonResp {
@@ -950,6 +995,96 @@ func (x *WorkBuildingTurboResponse) GetResp() *types.CommonResp {
 func (x *WorkBuildingTurboResponse) GetTimeWork() *TimeWork {
 	if x != nil {
 		return x.TimeWork
+	}
+	return nil
+}
+
+// 建筑删除请求 测试用
+type DestroyBuildingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	BuildId       int64                  `protobuf:"varint,1,opt,name=build_id,json=buildId,proto3" json:"build_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DestroyBuildingRequest) Reset() {
+	*x = DestroyBuildingRequest{}
+	mi := &file_gamesvr_builds_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DestroyBuildingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DestroyBuildingRequest) ProtoMessage() {}
+
+func (x *DestroyBuildingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_gamesvr_builds_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DestroyBuildingRequest.ProtoReflect.Descriptor instead.
+func (*DestroyBuildingRequest) Descriptor() ([]byte, []int) {
+	return file_gamesvr_builds_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *DestroyBuildingRequest) GetBuildId() int64 {
+	if x != nil {
+		return x.BuildId
+	}
+	return 0
+}
+
+// 建筑删除响应
+type DestroyBuildingResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Resp          *types.CommonResp      `protobuf:"bytes,1,opt,name=resp,proto3" json:"resp,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DestroyBuildingResponse) Reset() {
+	*x = DestroyBuildingResponse{}
+	mi := &file_gamesvr_builds_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DestroyBuildingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DestroyBuildingResponse) ProtoMessage() {}
+
+func (x *DestroyBuildingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_gamesvr_builds_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DestroyBuildingResponse.ProtoReflect.Descriptor instead.
+func (*DestroyBuildingResponse) Descriptor() ([]byte, []int) {
+	return file_gamesvr_builds_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *DestroyBuildingResponse) GetResp() *types.CommonResp {
+	if x != nil {
+		return x.Resp
 	}
 	return nil
 }
@@ -1013,10 +1148,16 @@ const file_gamesvr_builds_proto_rawDesc = "" +
 	"itemReward\x12.\n" +
 	"\ttime_work\x18\x05 \x01(\v2\x11.gamesvr.TimeWorkR\btimeWork\"5\n" +
 	"\x18WorkBuildingTurboRequest\x12\x19\n" +
+	"\bbuild_id\x18\x01 \x01(\x03R\abuildId\"2\n" +
+	"\x15WorkBuildingKoRequest\x12\x19\n" +
 	"\bbuild_id\x18\x01 \x01(\x03R\abuildId\"r\n" +
 	"\x19WorkBuildingTurboResponse\x12%\n" +
 	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04resp\x12.\n" +
-	"\ttime_work\x18\x05 \x01(\v2\x11.gamesvr.TimeWorkR\btimeWorkBNZ7pitaya-game/protos/protobuf/pb/golang/gamesvr;gamesvrpb\xaa\x02\x12PitayaGame.GameSvrb\x06proto3"
+	"\ttime_work\x18\x05 \x01(\v2\x11.gamesvr.TimeWorkR\btimeWork\"3\n" +
+	"\x16DestroyBuildingRequest\x12\x19\n" +
+	"\bbuild_id\x18\x01 \x01(\x03R\abuildId\"@\n" +
+	"\x17DestroyBuildingResponse\x12%\n" +
+	"\x04resp\x18\x01 \x01(\v2\x11.types.CommonRespR\x04respBNZ7pitaya-game/protos/protobuf/pb/golang/gamesvr;gamesvrpb\xaa\x02\x12PitayaGame.GameSvrb\x06proto3"
 
 var (
 	file_gamesvr_builds_proto_rawDescOnce sync.Once
@@ -1030,7 +1171,7 @@ func file_gamesvr_builds_proto_rawDescGZIP() []byte {
 	return file_gamesvr_builds_proto_rawDescData
 }
 
-var file_gamesvr_builds_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_gamesvr_builds_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_gamesvr_builds_proto_goTypes = []any{
 	(*TimeWork)(nil),                  // 0: gamesvr.TimeWork
 	(*BuildingData)(nil),              // 1: gamesvr.BuildingData
@@ -1048,38 +1189,42 @@ var file_gamesvr_builds_proto_goTypes = []any{
 	(*GatherBuildingRequest)(nil),     // 13: gamesvr.GatherBuildingRequest
 	(*GatherBuildingResponse)(nil),    // 14: gamesvr.GatherBuildingResponse
 	(*WorkBuildingTurboRequest)(nil),  // 15: gamesvr.WorkBuildingTurboRequest
-	(*WorkBuildingTurboResponse)(nil), // 16: gamesvr.WorkBuildingTurboResponse
-	(*types.Vector2)(nil),             // 17: types.Vector2
-	(*types.Quaternion)(nil),          // 18: types.Quaternion
-	(*types.CommonResp)(nil),          // 19: types.CommonResp
-	(*types.ItemReward)(nil),          // 20: types.ItemReward
+	(*WorkBuildingKoRequest)(nil),     // 16: gamesvr.WorkBuildingKoRequest
+	(*WorkBuildingTurboResponse)(nil), // 17: gamesvr.WorkBuildingTurboResponse
+	(*DestroyBuildingRequest)(nil),    // 18: gamesvr.DestroyBuildingRequest
+	(*DestroyBuildingResponse)(nil),   // 19: gamesvr.DestroyBuildingResponse
+	(*types.Vector2)(nil),             // 20: types.Vector2
+	(*types.Quaternion)(nil),          // 21: types.Quaternion
+	(*types.CommonResp)(nil),          // 22: types.CommonResp
+	(*types.ItemReward)(nil),          // 23: types.ItemReward
 }
 var file_gamesvr_builds_proto_depIdxs = []int32{
-	17, // 0: gamesvr.BuildingData.position:type_name -> types.Vector2
+	20, // 0: gamesvr.BuildingData.position:type_name -> types.Vector2
 	0,  // 1: gamesvr.BuildingData.time_work:type_name -> gamesvr.TimeWork
-	18, // 2: gamesvr.BuildingData.rotation:type_name -> types.Quaternion
-	19, // 3: gamesvr.GetBuildingInfoResponse.resp:type_name -> types.CommonResp
-	19, // 4: gamesvr.GetMyBuildingsResponse.resp:type_name -> types.CommonResp
+	21, // 2: gamesvr.BuildingData.rotation:type_name -> types.Quaternion
+	22, // 3: gamesvr.GetBuildingInfoResponse.resp:type_name -> types.CommonResp
+	22, // 4: gamesvr.GetMyBuildingsResponse.resp:type_name -> types.CommonResp
 	1,  // 5: gamesvr.GetMyBuildingsResponse.buildings:type_name -> gamesvr.BuildingData
-	17, // 6: gamesvr.ConstructBuildingRequest.position:type_name -> types.Vector2
-	18, // 7: gamesvr.ConstructBuildingRequest.rotation:type_name -> types.Quaternion
-	19, // 8: gamesvr.ConstructBuildingResponse.resp:type_name -> types.CommonResp
+	20, // 6: gamesvr.ConstructBuildingRequest.position:type_name -> types.Vector2
+	21, // 7: gamesvr.ConstructBuildingRequest.rotation:type_name -> types.Quaternion
+	22, // 8: gamesvr.ConstructBuildingResponse.resp:type_name -> types.CommonResp
 	1,  // 9: gamesvr.ConstructBuildingResponse.building_data:type_name -> gamesvr.BuildingData
-	19, // 10: gamesvr.UpgradeBuildingResponse.resp:type_name -> types.CommonResp
+	22, // 10: gamesvr.UpgradeBuildingResponse.resp:type_name -> types.CommonResp
 	0,  // 11: gamesvr.UpgradeBuildingResponse.time_work:type_name -> gamesvr.TimeWork
-	17, // 12: gamesvr.UpdateBuildingRequest.new_position:type_name -> types.Vector2
-	18, // 13: gamesvr.UpdateBuildingRequest.rotation:type_name -> types.Quaternion
-	19, // 14: gamesvr.UpdateBuildingResponse.resp:type_name -> types.CommonResp
-	19, // 15: gamesvr.GatherBuildingResponse.resp:type_name -> types.CommonResp
-	20, // 16: gamesvr.GatherBuildingResponse.item_reward:type_name -> types.ItemReward
+	20, // 12: gamesvr.UpdateBuildingRequest.new_position:type_name -> types.Vector2
+	21, // 13: gamesvr.UpdateBuildingRequest.rotation:type_name -> types.Quaternion
+	22, // 14: gamesvr.UpdateBuildingResponse.resp:type_name -> types.CommonResp
+	22, // 15: gamesvr.GatherBuildingResponse.resp:type_name -> types.CommonResp
+	23, // 16: gamesvr.GatherBuildingResponse.item_reward:type_name -> types.ItemReward
 	0,  // 17: gamesvr.GatherBuildingResponse.time_work:type_name -> gamesvr.TimeWork
-	19, // 18: gamesvr.WorkBuildingTurboResponse.resp:type_name -> types.CommonResp
+	22, // 18: gamesvr.WorkBuildingTurboResponse.resp:type_name -> types.CommonResp
 	0,  // 19: gamesvr.WorkBuildingTurboResponse.time_work:type_name -> gamesvr.TimeWork
-	20, // [20:20] is the sub-list for method output_type
-	20, // [20:20] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	22, // 20: gamesvr.DestroyBuildingResponse.resp:type_name -> types.CommonResp
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_gamesvr_builds_proto_init() }
@@ -1093,7 +1238,7 @@ func file_gamesvr_builds_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_gamesvr_builds_proto_rawDesc), len(file_gamesvr_builds_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

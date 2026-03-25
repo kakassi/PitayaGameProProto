@@ -30,7 +30,7 @@ message BuildingData {
   types.Vector2 position = 4;       // 建筑坐标位置
 
   TimeWork time_work = 5;           // 时间工作数据
-
+  int32 level=6;                    //等级
   types.Quaternion rotation = 10;   // 建筑旋转
   string ext_info=30;             // 建筑扩展信息 json格式
 }
@@ -117,19 +117,6 @@ message UpdateBuildingResponse {
   types.CommonResp resp = 1;
 }
 
-// ========== 建筑删除(测试用) ==========
-
-// 建筑更新请求 测试用
-message DestoryBuildingRequest {
-  int64 build_id = 1;
-}
-
-// 建筑删除响应
-message DestoryBuildingResponse {
-  types.CommonResp resp = 1;
-}
-
-
 // ========== 建筑资源收割 ==========
 
 // 建筑资源收割请求
@@ -145,7 +132,6 @@ message GatherBuildingResponse {
   TimeWork time_work = 5;           // 时间工作数据
 
 }
-
 
 // ========== 建筑加速 ==========
 
@@ -163,6 +149,18 @@ message WorkBuildingKoRequest {
 message WorkBuildingTurboResponse {
   types.CommonResp resp = 1;
   TimeWork time_work = 5;           // 时间工作数据
+}
+
+// ========== 建筑删除(测试用) ==========
+
+// 建筑删除请求 测试用
+message DestroyBuildingRequest {
+  int64 build_id = 1;
+}
+
+// 建筑删除响应
+message DestroyBuildingResponse {
+  types.CommonResp resp = 1;
 }
 
 
