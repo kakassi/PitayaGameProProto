@@ -142,7 +142,12 @@ message WorkBuildingTurboRequest {
   int64 build_id = 1;
 }
 
-// 建筑加速响应
+// 建筑立即完成（创建、生产）请求
+message WorkBuildingKoRequest {
+  int64 build_id = 1;
+}
+
+// 建筑加速、立即完成响应
 message WorkBuildingTurboResponse {
   types.CommonResp resp = 1;
   TimeWork time_work = 5;           // 时间工作数据
