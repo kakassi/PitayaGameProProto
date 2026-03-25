@@ -102,7 +102,7 @@ message UpgradeBuildingResponse {
 
 }
 
-// ========== 建筑移动 ==========
+// ========== 建筑更新 ==========
 
 // 建筑更新请求
 message UpdateBuildingRequest {
@@ -114,6 +114,18 @@ message UpdateBuildingRequest {
 
 // 建筑更新响应
 message UpdateBuildingResponse {
+  types.CommonResp resp = 1;
+}
+
+// ========== 建筑删除(测试用) ==========
+
+// 建筑更新请求 测试用
+message DestoryBuildingRequest {
+  int64 build_id = 1;
+}
+
+// 建筑删除响应
+message DestoryBuildingResponse {
   types.CommonResp resp = 1;
 }
 
