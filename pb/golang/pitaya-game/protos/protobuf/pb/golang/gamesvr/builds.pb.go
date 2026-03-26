@@ -89,7 +89,6 @@ type BuildingData struct {
 	BuildConfigId int32                  `protobuf:"varint,2,opt,name=build_config_id,json=buildConfigId,proto3" json:"build_config_id,omitempty"` // 建筑配置表ID（对应Builds表的ID）
 	Position      *types.Vector2         `protobuf:"bytes,4,opt,name=position,proto3" json:"position,omitempty"`                                   // 建筑坐标位置
 	TimeWork      *TimeWork              `protobuf:"bytes,5,opt,name=time_work,json=timeWork,proto3" json:"time_work,omitempty"`                   // 时间工作数据
-	Level         int32                  `protobuf:"varint,6,opt,name=level,proto3" json:"level,omitempty"`                                        //等级
 	Rotation      *types.Quaternion      `protobuf:"bytes,10,opt,name=rotation,proto3" json:"rotation,omitempty"`                                  // 建筑旋转
 	ExtInfo       string                 `protobuf:"bytes,30,opt,name=ext_info,json=extInfo,proto3" json:"ext_info,omitempty"`                     // 建筑扩展信息 json格式
 	unknownFields protoimpl.UnknownFields
@@ -152,13 +151,6 @@ func (x *BuildingData) GetTimeWork() *TimeWork {
 		return x.TimeWork
 	}
 	return nil
-}
-
-func (x *BuildingData) GetLevel() int32 {
-	if x != nil {
-		return x.Level
-	}
-	return 0
 }
 
 func (x *BuildingData) GetRotation() *types.Quaternion {
@@ -1105,13 +1097,12 @@ const file_gamesvr_builds_proto_rawDesc = "" +
 	"\bTimeWork\x12\x1b\n" +
 	"\twork_type\x182 \x01(\x05R\bworkType\x12&\n" +
 	"\x0fwork_begin_time\x183 \x01(\x03R\rworkBeginTime\x12\"\n" +
-	"\rwork_end_time\x184 \x01(\x03R\vworkEndTime\"\x8d\x02\n" +
+	"\rwork_end_time\x184 \x01(\x03R\vworkEndTime\"\xf7\x01\n" +
 	"\fBuildingData\x12\x19\n" +
 	"\bbuild_id\x18\x01 \x01(\x03R\abuildId\x12&\n" +
 	"\x0fbuild_config_id\x18\x02 \x01(\x05R\rbuildConfigId\x12*\n" +
 	"\bposition\x18\x04 \x01(\v2\x0e.types.Vector2R\bposition\x12.\n" +
-	"\ttime_work\x18\x05 \x01(\v2\x11.gamesvr.TimeWorkR\btimeWork\x12\x14\n" +
-	"\x05level\x18\x06 \x01(\x05R\x05level\x12-\n" +
+	"\ttime_work\x18\x05 \x01(\v2\x11.gamesvr.TimeWorkR\btimeWork\x12-\n" +
 	"\brotation\x18\n" +
 	" \x01(\v2\x11.types.QuaternionR\brotation\x12\x19\n" +
 	"\bext_info\x18\x1e \x01(\tR\aextInfo\"3\n" +
